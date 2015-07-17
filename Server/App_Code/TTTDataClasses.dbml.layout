@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TTTDataClasses">
+  <DataContextMoniker Name="/TTTDataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" absoluteBounds="1.75, 1, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/TTTDataClassesDataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="00be6203-b70c-424b-a5ee-6b63a1444fe8" absoluteBounds="1.7650000000000001, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.45923076923077 : 3.15549967447917); (2.45923076923077 : 3.40549967447917); (3.05461538461538 : 3.40549967447917); (3.05461538461538 : 3.15549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Player" />
+      <nodes>
+        <classShapeMoniker Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" />
+        <classShapeMoniker Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

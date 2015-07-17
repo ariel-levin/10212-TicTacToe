@@ -11,42 +11,43 @@ using System.Text;
 public interface ITTT
 {
 
-	[OperationContract]
-	string GetData(int value);
+    //[OperationContract]
+    //string GetData(int value);
 
-	[OperationContract]
-	CompositeType GetDataUsingDataContract(CompositeType composite);
+    //[OperationContract]
+    //CompositeType GetDataUsingDataContract(CompositeType composite);
+
 
 	// TODO: Add your service operations here
 
     [OperationContract(IsOneWay = true)] // void is not enough
-    void Add(string str);
+    void getAllPlayers();
 }
 
 public interface ICallBack
 {
     [OperationContract(IsOneWay = true)] // void is not enough
-    void Result(string res);
+    void returnPlayersList(PlayerData[] players);
 }
 
-// Use a data contract as illustrated in the sample below to add composite types to service operations.
+
+
 [DataContract]
-public class CompositeType
+public class PlayerData
 {
-	bool boolValue = true;
-	string stringValue = "Hello ";
+    [DataMember]
+    public int Id { get; set; }
+    [DataMember]
+    public string FirstName { get; set; }
+    [DataMember]
+    public string LastName { get; set; }
+    [DataMember]
+    public string City { get; set; }
+    [DataMember]
+    public string Country { get; set; }
+    [DataMember]
+    public int Phone { get; set; }
+    [DataMember]
+    public int AdviseTo { get; set; }
 
-	[DataMember]
-	public bool BoolValue
-	{
-		get { return boolValue; }
-		set { boolValue = value; }
-	}
-
-	[DataMember]
-	public string StringValue
-	{
-		get { return stringValue; }
-		set { stringValue = value; }
-	}
 }

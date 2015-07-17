@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Tic Tac Toe Client")]
+[assembly: AssemblyDescription("Ariel Levin\r\nariel.lvn89@gmail.com\r\nhttp://about.me/ariel.levin")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Client")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("Tic Tac Toe")]
+[assembly: AssemblyCopyright("Copyright ©Ariel Levin  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

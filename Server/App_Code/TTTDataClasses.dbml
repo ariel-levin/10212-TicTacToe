@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TicTacToeDB" Class="TTTDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\TicTacToeDB.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="TicTacToeDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Players" Member="Players">
+    <Type Name="Player">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdviseTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Player_Player" Member="Players" ThisKey="Id" OtherKey="AdviseTo" Type="Player" />
+      <Association Name="Player_Player" Member="Player1" ThisKey="AdviseTo" OtherKey="Id" Type="Player" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

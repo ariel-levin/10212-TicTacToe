@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Client
 {
     public partial class MainForm : Form
@@ -32,12 +33,18 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            client.Add(textBox1.Text);
+            //client.Add(textBox1.Text);
+            (new BoardForm(4)).Show();
         }
 
         public void setLabelText(string str)
         {
             label1.Text = str;
+        }
+
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            (new AboutBox()).Show();
         }
 
     }
