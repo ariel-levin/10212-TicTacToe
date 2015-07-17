@@ -15,7 +15,7 @@ namespace Client
 {
     public partial class MainForm : Form
     {
-        private TTTClient client;
+        public TTTClient client { get; set; }
 
         public MainForm()
         {
@@ -31,7 +31,7 @@ namespace Client
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBoard4_Click(object sender, EventArgs e)
         {
             //client.Add(textBox1.Text);
             (new BoardForm(4)).Show();
@@ -45,6 +45,16 @@ namespace Client
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             (new AboutBox()).Show();
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            (new RegisterForm()).Show();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            client.Close();
         }
 
     }

@@ -10,24 +10,14 @@ using System.Text;
 [ServiceContract(CallbackContract = typeof(ICallBack), SessionMode = SessionMode.Required)]
 public interface ITTT
 {
-
-    //[OperationContract]
-    //string GetData(int value);
-
-    //[OperationContract]
-    //CompositeType GetDataUsingDataContract(CompositeType composite);
-
-
-	// TODO: Add your service operations here
-
-    [OperationContract(IsOneWay = true)] // void is not enough
+    [OperationContract(IsOneWay = true)]
     void getAllPlayers();
 }
 
 public interface ICallBack
 {
-    [OperationContract(IsOneWay = true)] // void is not enough
-    void returnPlayersList(PlayerData[] players);
+    [OperationContract(IsOneWay = true)]
+    void returnPlayersList(List<PlayerData> players);
 }
 
 
@@ -46,8 +36,8 @@ public class PlayerData
     [DataMember]
     public string Country { get; set; }
     [DataMember]
-    public int Phone { get; set; }
+    public System.Nullable<int> Phone { get; set; }
     [DataMember]
-    public int AdviseTo { get; set; }
+    public System.Nullable<int> AdviseTo { get; set; }
 
 }

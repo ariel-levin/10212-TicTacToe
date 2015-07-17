@@ -6,31 +6,36 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
-// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in code, svc and config file together.
 public class TTT : ITTT
 {
-	public string GetData(int value)
-	{
-		return string.Format("You entered: {0}", value);
-	}
 
-	public CompositeType GetDataUsingDataContract(CompositeType composite)
-	{
-		if (composite == null)
-		{
-			throw new ArgumentNullException("composite");
-		}
-		if (composite.BoolValue)
-		{
-			composite.StringValue += "Suffix";
-		}
-		return composite;
-	}
-
-    public void Add(string str)
+    public void getAllPlayers()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.Result("Server got message: " + str);
+        TTTDataClassesDataContext db = new TTTDataClassesDataContext();
+        var x =
+            from p in db.Players
+            select p;
+        List<PlayerData> players = new List<PlayerData>();
+        foreach (var p in x)
+        {
+            players.Add(getPlayerData(p));
+        }
+
+        channel.returnPlayersList(players);
+    }
+
+    public PlayerData getPlayerData(Player p)
+    {
+        PlayerData player = new PlayerData();
+        player.Id = p.Id;
+        player.FirstName = p.FirstName;
+        player.LastName = p.LastName;
+        player.City = p.City;
+        player.Country = p.Country;
+        player.Phone = p.Phone.Value;
+        player.AdviseTo = p.AdviseTo.Value;
+        return player;
     }
 
 }
