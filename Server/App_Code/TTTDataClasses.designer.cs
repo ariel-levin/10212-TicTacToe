@@ -91,6 +91,8 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _Phone;
 	
+	private byte _IsAdvisor;
+	
 	private System.Nullable<int> _AdviseTo;
 	
 	private EntitySet<Player> _Players;
@@ -113,6 +115,8 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnCountryChanged();
     partial void OnPhoneChanging(System.Nullable<int> value);
     partial void OnPhoneChanged();
+    partial void OnIsAdvisorChanging(byte value);
+    partial void OnIsAdvisorChanged();
     partial void OnAdviseToChanging(System.Nullable<int> value);
     partial void OnAdviseToChanged();
     #endregion
@@ -240,6 +244,26 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Phone = value;
 				this.SendPropertyChanged("Phone");
 				this.OnPhoneChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAdvisor", DbType="TinyInt NOT NULL")]
+	public byte IsAdvisor
+	{
+		get
+		{
+			return this._IsAdvisor;
+		}
+		set
+		{
+			if ((this._IsAdvisor != value))
+			{
+				this.OnIsAdvisorChanging(value);
+				this.SendPropertyChanging();
+				this._IsAdvisor = value;
+				this.SendPropertyChanged("IsAdvisor");
+				this.OnIsAdvisorChanged();
 			}
 		}
 	}

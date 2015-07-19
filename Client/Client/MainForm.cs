@@ -17,6 +17,9 @@ namespace Client
     {
         public TTTClient client { get; set; }
 
+        public RegisterForm registerForm { get; set; }
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,11 +40,6 @@ namespace Client
             (new BoardForm(4)).Show();
         }
 
-        public void setLabelText(string str)
-        {
-            label1.Text = str;
-        }
-
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             (new AboutBox()).Show();
@@ -49,13 +47,21 @@ namespace Client
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            (new RegisterForm()).Show();
+            registerForm = new RegisterForm(this);
+            registerForm.Show();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Close();
         }
+
+
+        /////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////
+
+
+
 
     }
 
@@ -64,15 +70,17 @@ namespace Client
     {
         private MainForm mainForm;
 
+
         public MyCallBack(MainForm mainForm)
         {
             this.mainForm = mainForm;
         }
 
-        public void Result(string res)
+
+        public void sendRegisterFormAdvisorList(PlayerData[] players)
         {
-            mainForm.setLabelText(res);
-            //MessageBox.Show("test");
+            if (mainForm.registerForm != null)
+                mainForm.registerForm.setAdvisorList(players);
         }
     }
 

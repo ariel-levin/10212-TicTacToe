@@ -38,6 +38,9 @@ namespace Client.TTTService {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte IsAdvisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -119,6 +122,19 @@ namespace Client.TTTService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte IsAdvisor {
+            get {
+                return this.IsAdvisorField;
+            }
+            set {
+                if ((this.IsAdvisorField.Equals(value) != true)) {
+                    this.IsAdvisorField = value;
+                    this.RaisePropertyChanged("IsAdvisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string LastName {
             get {
                 return this.LastNameField;
@@ -158,18 +174,18 @@ namespace Client.TTTService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TTTService.ITTT", CallbackContract=typeof(Client.TTTService.ITTTCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface ITTT {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllPlayers")]
-        void getAllPlayers();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList")]
+        void getRegisterFormAdvisorList();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllPlayers")]
-        System.Threading.Tasks.Task getAllPlayersAsync();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList")]
+        System.Threading.Tasks.Task getRegisterFormAdvisorListAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ITTTCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/returnPlayersList")]
-        void returnPlayersList(Client.TTTService.PlayerData[] players);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendRegisterFormAdvisorList")]
+        void sendRegisterFormAdvisorList(Client.TTTService.PlayerData[] players);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -200,12 +216,12 @@ namespace Client.TTTService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void getAllPlayers() {
-            base.Channel.getAllPlayers();
+        public void getRegisterFormAdvisorList() {
+            base.Channel.getRegisterFormAdvisorList();
         }
         
-        public System.Threading.Tasks.Task getAllPlayersAsync() {
-            return base.Channel.getAllPlayersAsync();
+        public System.Threading.Tasks.Task getRegisterFormAdvisorListAsync() {
+            return base.Channel.getRegisterFormAdvisorListAsync();
         }
     }
 }

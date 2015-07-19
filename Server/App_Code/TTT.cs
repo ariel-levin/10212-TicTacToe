@@ -6,26 +6,39 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
+
 public class TTT : ITTT
 {
 
-    public void getAllPlayers()
+    public void getRegisterFormAdvisorList()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        TTTDataClassesDataContext db = new TTTDataClassesDataContext();
-        var x =
-            from p in db.Players
-            select p;
-        List<PlayerData> players = new List<PlayerData>();
-        foreach (var p in x)
-        {
-            players.Add(getPlayerData(p));
-        }
-
-        channel.returnPlayersList(players);
+        channel.sendRegisterFormAdvisorList(getAllAdvisors());
     }
 
-    public PlayerData getPlayerData(Player p)
+
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+
+
+    private PlayerData[] getAllAdvisors()
+    {
+        using (var db = new TTTDataClassesDataContext())
+        {
+            var x =
+                from p in db.Players
+                select p;
+            PlayerData[] players = new PlayerData[x.Count()];
+            int i = 0;
+            foreach (var p in x)
+            {
+                players[i++] = getPlayerData(p);
+            }
+            return players;
+        }
+    }
+
+    private PlayerData getPlayerData(Player p)
     {
         PlayerData player = new PlayerData();
         player.Id = p.Id;
@@ -33,8 +46,11 @@ public class TTT : ITTT
         player.LastName = p.LastName;
         player.City = p.City;
         player.Country = p.Country;
-        player.Phone = p.Phone.Value;
-        player.AdviseTo = p.AdviseTo.Value;
+        if (p.Phone.HasValue)
+            player.Phone = p.Phone.Value;
+        player.IsAdvisor = p.IsAdvisor;
+        if (p.AdviseTo.HasValue)
+            player.AdviseTo = p.AdviseTo.Value;
         return player;
     }
 

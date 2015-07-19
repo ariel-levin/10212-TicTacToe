@@ -8,6 +8,7 @@
       <Column Name="City" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
       <Column Name="Country" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
       <Column Name="Phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsAdvisor" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="AdviseTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Player_Player" Member="Players" ThisKey="Id" OtherKey="AdviseTo" Type="Player" />
       <Association Name="Player_Player" Member="Player1" ThisKey="AdviseTo" OtherKey="Id" Type="Player" IsForeignKey="true" />

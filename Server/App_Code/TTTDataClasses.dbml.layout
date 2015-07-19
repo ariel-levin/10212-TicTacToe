@@ -2,17 +2,17 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TTTDataClasses">
   <DataContextMoniker Name="/TTTDataClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" absoluteBounds="1.75, 1, 2, 2.1554996744791666">
+    <classShape Id="a1867860-36e0-44bb-8acc-d4c971bc79f5" absoluteBounds="2, 1.25, 2, 2.3478011067708335">
       <DataClassMoniker Name="/TTTDataClassesDataContext/Player" />
       <nestedChildShapes>
-        <elementListCompartment Id="00be6203-b70c-424b-a5ee-6b63a1444fe8" absoluteBounds="1.7650000000000001, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0f12afa1-aa4e-46fb-8bbf-ec11a80e0472" absoluteBounds="2.015, 1.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.45923076923077 : 3.15549967447917); (2.45923076923077 : 3.40549967447917); (3.05461538461538 : 3.40549967447917); (3.05461538461538 : 3.15549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.70923076923077 : 3.59780110677083); (2.70923076923077 : 3.84780110677083); (3.30461538461538 : 3.84780110677083); (3.30461538461538 : 3.59780110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Player" />
       <nodes>
-        <classShapeMoniker Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" />
-        <classShapeMoniker Id="2d3ea370-b01b-4518-b52b-50a0cb0ca98b" />
+        <classShapeMoniker Id="a1867860-36e0-44bb-8acc-d4c971bc79f5" />
+        <classShapeMoniker Id="a1867860-36e0-44bb-8acc-d4c971bc79f5" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
