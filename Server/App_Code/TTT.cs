@@ -27,6 +27,7 @@ public class TTT : ITTT
         {
             var x =
                 from p in db.Players
+                where p.IsAdvisor == 1
                 select p;
             PlayerData[] players = new PlayerData[x.Count()];
             int i = 0;
