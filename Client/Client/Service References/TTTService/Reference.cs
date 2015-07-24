@@ -179,6 +179,12 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList")]
         System.Threading.Tasks.Task getRegisterFormAdvisorListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
+        void registerNewPlayer(Client.TTTService.PlayerData player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
+        System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -186,6 +192,12 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendRegisterFormAdvisorList")]
         void sendRegisterFormAdvisorList(Client.TTTService.PlayerData[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showException")]
+        void showException(System.Exception e);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showPlayerRegisterSuccess")]
+        void showPlayerRegisterSuccess();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -222,6 +234,14 @@ namespace Client.TTTService {
         
         public System.Threading.Tasks.Task getRegisterFormAdvisorListAsync() {
             return base.Channel.getRegisterFormAdvisorListAsync();
+        }
+        
+        public void registerNewPlayer(Client.TTTService.PlayerData player) {
+            base.Channel.registerNewPlayer(player);
+        }
+        
+        public System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player) {
+            return base.Channel.registerNewPlayerAsync(player);
         }
     }
 }

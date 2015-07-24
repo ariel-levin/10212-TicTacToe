@@ -61,7 +61,10 @@ namespace Client
         /////////////////////////////////////////////////////////////////
 
 
-
+        public void showException(Exception e)
+        {
+            MessageBox.Show(e.ToString());
+        }
 
     }
 
@@ -76,12 +79,23 @@ namespace Client
             this.mainForm = mainForm;
         }
 
+        public void showException(Exception e)
+        {
+            mainForm.showException(e);
+        }
 
         public void sendRegisterFormAdvisorList(PlayerData[] players)
         {
             if (mainForm.registerForm != null)
                 mainForm.registerForm.setAdvisorList(players);
         }
+
+        public void showPlayerRegisterSuccess()
+        {
+            if (mainForm.registerForm != null)
+                mainForm.registerForm.showPlayerRegisterSuccess();
+        }
+
     }
 
 }

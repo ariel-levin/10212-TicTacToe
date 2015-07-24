@@ -10,15 +10,28 @@ using System.Text;
 [ServiceContract(CallbackContract = typeof(ICallBack), SessionMode = SessionMode.Required)]
 public interface ITTT
 {
+
     [OperationContract(IsOneWay = true)]
     void getRegisterFormAdvisorList();
+
+    [OperationContract(IsOneWay = true)]
+    void registerNewPlayer(PlayerData player);
+
 }
 
 
 public interface ICallBack
 {
+
     [OperationContract(IsOneWay = true)]
     void sendRegisterFormAdvisorList(PlayerData[] players);
+
+    [OperationContract(IsOneWay = true)]
+    void showException(Exception e);
+
+    [OperationContract(IsOneWay = true)]
+    void showPlayerRegisterSuccess();
+
 }
 
 

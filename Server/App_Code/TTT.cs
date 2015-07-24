@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -16,6 +17,34 @@ public class TTT : ITTT
         channel.sendRegisterFormAdvisorList(getAllAdvisors());
     }
 
+    public void registerNewPlayer(PlayerData player)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                string sql = string.Format("Insert into Players(FirstName, LastName, City, Country, Phone, IsAdvisor) "
+                    + "values('{0}', {1}, {2}, {3}, {4})", player.FirstName, player.LastName, player.City, 
+                    player.Country, player.Phone, player.IsAdvisor);
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    channel.showPlayerRegisterSuccess();
+                }
+                catch (Exception e)
+                {
+                    channel.showException(e);
+                }
+            }
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
@@ -27,7 +56,7 @@ public class TTT : ITTT
         {
             var x =
                 from p in db.Players
-                where p.IsAdvisor == 1
+                where p.IsAdvisor == 1 && !p.AdviseTo.HasValue
                 select p;
             PlayerData[] players = new PlayerData[x.Count()];
             int i = 0;
@@ -54,5 +83,8 @@ public class TTT : ITTT
             player.AdviseTo = p.AdviseTo.Value;
         return player;
     }
+
+
+
 
 }
