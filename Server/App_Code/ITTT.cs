@@ -15,7 +15,7 @@ public interface ITTT
     void getRegisterFormAdvisorList();
 
     [OperationContract(IsOneWay = true)]
-    void registerNewPlayer(PlayerData player);
+    void registerNewPlayer(PlayerData player, int[] advisors);
 
 }
 
@@ -50,7 +50,7 @@ public class PlayerData
     [DataMember]
     public string Country { get; set; }
     [DataMember]
-    public System.Nullable<int> Phone { get; set; }
+    public string Phone { get; set; }
     [DataMember]
     public byte IsAdvisor { get; set; }
     [DataMember]

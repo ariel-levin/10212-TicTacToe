@@ -44,7 +44,7 @@ namespace Client.TTTService {
         private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> PhoneField;
+        private string PhoneField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -148,12 +148,12 @@ namespace Client.TTTService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> Phone {
+        public string Phone {
             get {
                 return this.PhoneField;
             }
             set {
-                if ((this.PhoneField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
                     this.PhoneField = value;
                     this.RaisePropertyChanged("Phone");
                 }
@@ -181,10 +181,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task getRegisterFormAdvisorListAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
-        void registerNewPlayer(Client.TTTService.PlayerData player);
+        void registerNewPlayer(Client.TTTService.PlayerData player, int[] advisors);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
-        System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player);
+        System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player, int[] advisors);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -236,12 +236,12 @@ namespace Client.TTTService {
             return base.Channel.getRegisterFormAdvisorListAsync();
         }
         
-        public void registerNewPlayer(Client.TTTService.PlayerData player) {
-            base.Channel.registerNewPlayer(player);
+        public void registerNewPlayer(Client.TTTService.PlayerData player, int[] advisors) {
+            base.Channel.registerNewPlayer(player, advisors);
         }
         
-        public System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player) {
-            return base.Channel.registerNewPlayerAsync(player);
+        public System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player, int[] advisors) {
+            return base.Channel.registerNewPlayerAsync(player, advisors);
         }
     }
 }

@@ -17,7 +17,7 @@ public class TTT : ITTT
         channel.sendRegisterFormAdvisorList(getAllAdvisors());
     }
 
-    public void registerNewPlayer(PlayerData player)
+    public void registerNewPlayer(PlayerData player, int[] advisors)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
@@ -26,7 +26,7 @@ public class TTT : ITTT
             using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
             {
                 string sql = string.Format("Insert into Players(FirstName, LastName, City, Country, Phone, IsAdvisor) "
-                    + "values('{0}', {1}, {2}, {3}, {4})", player.FirstName, player.LastName, player.City, 
+                    + "values('{0}', '{1}', '{2}', '{3}', '{4}', {5})", player.FirstName, player.LastName, player.City,
                     player.Country, player.Phone, player.IsAdvisor);
 
                 SqlCommand cmd = new SqlCommand(sql, con);
@@ -34,6 +34,19 @@ public class TTT : ITTT
                 {
                     con.Open();
                     cmd.ExecuteNonQuery();
+
+                    player.Id = (from p in db.Players
+                                 select p.Id).Max();
+
+                    if (advisors != null)
+                    {
+                        for (var i = 0; i < advisors.Length; i++)
+                        {
+                            cmd.CommandText = string.Format("update Players set AdviseTo = {0} where Id = {1}", player.Id, advisors[i]);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
                     con.Close();
                     channel.showPlayerRegisterSuccess();
                 }
@@ -42,6 +55,7 @@ public class TTT : ITTT
                     channel.showException(e);
                 }
             }
+
         }
     }
 
@@ -76,15 +90,12 @@ public class TTT : ITTT
         player.LastName = p.LastName;
         player.City = p.City;
         player.Country = p.Country;
-        if (p.Phone.HasValue)
-            player.Phone = p.Phone.Value;
+        player.Phone = p.Phone;
         player.IsAdvisor = p.IsAdvisor;
         if (p.AdviseTo.HasValue)
             player.AdviseTo = p.AdviseTo.Value;
         return player;
     }
-
-
 
 
 }

@@ -119,6 +119,9 @@
     <None Include="Service References\TTTService\Service.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\TTTService\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\TTTService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>

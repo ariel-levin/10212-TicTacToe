@@ -89,7 +89,7 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _Country;
 	
-	private System.Nullable<int> _Phone;
+	private string _Phone;
 	
 	private byte _IsAdvisor;
 	
@@ -113,7 +113,7 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnCityChanged();
     partial void OnCountryChanging(string value);
     partial void OnCountryChanged();
-    partial void OnPhoneChanging(System.Nullable<int> value);
+    partial void OnPhoneChanging(string value);
     partial void OnPhoneChanged();
     partial void OnIsAdvisorChanging(byte value);
     partial void OnIsAdvisorChanged();
@@ -228,8 +228,8 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="Int")]
-	public System.Nullable<int> Phone
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NChar(20)")]
+	public string Phone
 	{
 		get
 		{

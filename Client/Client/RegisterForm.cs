@@ -15,6 +15,7 @@ namespace Client
     public partial class RegisterForm : Form
     {
         private MainForm mainForm;
+        private PlayerData[] players;
 
 
         public RegisterForm(MainForm mainForm)
@@ -32,7 +33,8 @@ namespace Client
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             PlayerData player = getPlayerFromFields();
-            mainForm.client.registerNewPlayer(player);
+            int[] advisors = getSelectedAdvisors();
+            mainForm.client.registerNewPlayer(player, advisors);
             btnSubmit.Enabled = false;
             btnCancel.Enabled = false;
         }
@@ -50,11 +52,23 @@ namespace Client
             player.LastName = (tbLastName.Text.Length > 0) ? tbLastName.Text : null;
             player.City = (tbCity.Text.Length > 0) ? tbCity.Text : null;
             player.Country = (tbCountry.Text.Length > 0) ? tbCountry.Text : null;
-            if (tbPhone.Text.Length > 0)
-                player.Phone = int.Parse(tbPhone.Text);
+            player.Phone = (tbPhone.Text.Length > 0) ? tbPhone.Text : null;
             player.IsAdvisor = (cbAdvisor.Checked) ? (byte)1 : (byte)0;
-
             return player;
+        }
+
+        private int[] getSelectedAdvisors()
+        {
+            if (clbAdvisors.CheckedIndices.Count < 1)
+                return null;
+
+            int[] advisors = new int[clbAdvisors.CheckedIndices.Count];
+            int i = 0;
+            foreach (var j in clbAdvisors.CheckedIndices.Cast<int>().ToArray())
+            {
+                advisors[i++] = players[j].Id;
+            }
+            return advisors;
         }
 
 
@@ -64,9 +78,10 @@ namespace Client
 
         public void setAdvisorList(PlayerData[] players)
         {
-            foreach (var p in players)
+            this.players = players;
+            for (var i = 0; i < players.Length; i++)
             {
-                clbAdvisors.Items.Add(p.Id + " : " + p.FirstName);
+                clbAdvisors.Items.Add(players[i].Id + " : " + players[i].FirstName);
             }
         }
 
