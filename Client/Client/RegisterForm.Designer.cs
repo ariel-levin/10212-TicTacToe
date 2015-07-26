@@ -48,6 +48,7 @@
             // 
             // clbAdvisors
             // 
+            this.clbAdvisors.CheckOnClick = true;
             this.clbAdvisors.FormattingEnabled = true;
             this.clbAdvisors.Location = new System.Drawing.Point(26, 287);
             this.clbAdvisors.Name = "clbAdvisors";
