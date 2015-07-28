@@ -13,10 +13,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayerData" nillable="true" type="tns:PlayerData" />
+  <xs:complexType name="ChampionshipData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Picture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChampionshipData" nillable="true" type="tns:ChampionshipData" />
   <xs:complexType name="ArrayOfPlayerData">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerData" nillable="true" type="tns:PlayerData" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPlayerData" nillable="true" type="tns:ArrayOfPlayerData" />
+  <xs:complexType name="ArrayOfChampionshipData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChampionshipData" nillable="true" type="tns:ChampionshipData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChampionshipData" nillable="true" type="tns:ArrayOfChampionshipData" />
 </xs:schema>

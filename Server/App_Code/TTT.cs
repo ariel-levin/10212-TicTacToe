@@ -10,11 +10,13 @@ using System.Text;
 
 public class TTT : ITTT
 {
+    private Dictionary<ICallBack, PlayerData> channels = new Dictionary<ICallBack, PlayerData>();
+
 
     public void getRegisterFormAdvisorList()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendRegisterFormAdvisorList(getAllAdvisors());
+        channel.sendRegisterFormAdvisorList(getAllFreeAdvisors());
     }
 
     public void registerNewPlayer(PlayerData player, int[] advisors)
@@ -59,12 +61,73 @@ public class TTT : ITTT
         }
     }
 
+    public void getChampionships()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        channel.sendChampionships(getAllChampionships());
+    }
+
+    public void registerNewChampionship(ChampionshipData champ)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                string sql;
+                
+                if (champ.EndDate == null)
+                {
+                    sql = string.Format("Insert into Championships(City, StartDate, Picture) "
+                     + "values('{0}', '{1}', '{2}')", champ.City, champ.StartDate, champ.Picture);
+                }
+                else
+                {
+                    sql = string.Format("Insert into Championships(City, StartDate, EndDate, Picture) "
+                     + "values('{0}', '{1}', '{2}', '{3}')", champ.City, champ.StartDate, champ.EndDate, champ.Picture);
+                }
+                
+                SqlCommand cmd = new SqlCommand(sql, con);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    channel.showNewChampSuccess();
+                }
+                catch (Exception e)
+                {
+                    channel.showException(e);
+                }
+            }
+
+        }
+    }
+
+    public void getAllUsers()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        channel.sendAllUsers(getAllPlayersFromDB());
+    }
+
+    public void login(PlayerData user)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        //channels.ContainsKey
+    }
+
+    public void logoff(PlayerData user)
+    {
+        throw new NotImplementedException();
+    }
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
 
 
-    private PlayerData[] getAllAdvisors()
+    private PlayerData[] getAllFreeAdvisors()
     {
         using (var db = new TTTDataClassesDataContext())
         {
@@ -97,5 +160,61 @@ public class TTT : ITTT
         return player;
     }
 
+    private ChampionshipData[] getAllChampionships()
+    {
+        using (var db = new TTTDataClassesDataContext())
+        {
+            var x =
+                from c in db.Championships
+                select c;
+            ChampionshipData[] chmps = new ChampionshipData[x.Count()];
+            int i = 0;
+            foreach (var c in x)
+            {
+                chmps[i++] = getChampionshipData(c);
+            }
+            return chmps;
+        }
+    }
+
+    private ChampionshipData getChampionshipData(Championship c)
+    {
+        ChampionshipData champ = new ChampionshipData();
+        champ.Id = c.Id;
+        champ.City = c.City;
+        champ.StartDate = c.StartDate;
+        if (c.EndDate.HasValue)
+            champ.EndDate = c.EndDate;
+        champ.Picture = c.Picture;
+        return champ;
+    }
+
+    private PlayerData[] getAllPlayersFromDB()
+    {
+        using (var db = new TTTDataClassesDataContext())
+        {
+            var x =
+                from p in db.Players
+                select p;
+            PlayerData[] players = new PlayerData[x.Count()];
+            int i = 0;
+            foreach (var p in x)
+            {
+                players[i++] = getPlayerData(p);
+            }
+            return players;
+        }
+    }
+
+    private bool isUserAlreadyLogged(PlayerData user) 
+    {
+        foreach (var c in channels)
+        {
+            if (c.Value.Id == user.Id)
+            {
+                
+            }
+        }
+    }
 
 }

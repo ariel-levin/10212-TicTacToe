@@ -14,4 +14,13 @@
       <Association Name="Player_Player" Member="Player1" ThisKey="AdviseTo" OtherKey="Id" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Championships" Member="Championships">
+    <Type Name="Championship">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Picture" Type="System.String" DbType="NChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

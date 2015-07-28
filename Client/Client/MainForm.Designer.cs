@@ -34,7 +34,9 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRegister = new System.Windows.Forms.Button();
+            this.btnRegisterUser = new System.Windows.Forms.Button();
+            this.btnNewChamp = new System.Windows.Forms.Button();
+            this.btnSelectUser = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,22 +93,44 @@
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
-            // btnRegister
+            // btnRegisterUser
             // 
-            this.btnRegister.Location = new System.Drawing.Point(236, 125);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(75, 23);
-            this.btnRegister.TabIndex = 4;
-            this.btnRegister.Text = "Register";
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            this.btnRegisterUser.Location = new System.Drawing.Point(236, 125);
+            this.btnRegisterUser.Name = "btnRegisterUser";
+            this.btnRegisterUser.Size = new System.Drawing.Size(90, 23);
+            this.btnRegisterUser.TabIndex = 4;
+            this.btnRegisterUser.Text = "Register User";
+            this.btnRegisterUser.UseVisualStyleBackColor = true;
+            this.btnRegisterUser.Click += new System.EventHandler(this.btnRegisterUser_Click);
+            // 
+            // btnNewChamp
+            // 
+            this.btnNewChamp.Location = new System.Drawing.Point(236, 186);
+            this.btnNewChamp.Name = "btnNewChamp";
+            this.btnNewChamp.Size = new System.Drawing.Size(90, 49);
+            this.btnNewChamp.TabIndex = 5;
+            this.btnNewChamp.Text = "New Championship";
+            this.btnNewChamp.UseVisualStyleBackColor = true;
+            this.btnNewChamp.Click += new System.EventHandler(this.btnNewChamp_Click);
+            // 
+            // btnSelectUser
+            // 
+            this.btnSelectUser.Location = new System.Drawing.Point(236, 87);
+            this.btnSelectUser.Name = "btnSelectUser";
+            this.btnSelectUser.Size = new System.Drawing.Size(90, 23);
+            this.btnSelectUser.TabIndex = 6;
+            this.btnSelectUser.Text = "Select User";
+            this.btnSelectUser.UseVisualStyleBackColor = true;
+            this.btnSelectUser.Click += new System.EventHandler(this.btnSelectUser_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
-            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.btnSelectUser);
+            this.Controls.Add(this.btnNewChamp);
+            this.Controls.Add(this.btnRegisterUser);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBoard4);
@@ -131,7 +155,9 @@
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
-        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Button btnRegisterUser;
+        private System.Windows.Forms.Button btnNewChamp;
+        private System.Windows.Forms.Button btnSelectUser;
     }
 }
 

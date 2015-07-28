@@ -16,23 +16,59 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="getChampionships">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="registerNewChampionship">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="champ" nillable="true" type="q3:ChampionshipData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAllUsers">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="sendRegisterFormAdvisorList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q3:ArrayOfPlayerData" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q4:ArrayOfPlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="showException">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q4:Exception" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q5:Exception" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="showPlayerRegisterSuccess">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendChampionships">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q6:ArrayOfChampionshipData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="showNewChampSuccess">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendAllUsers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="users" nillable="true" type="q7:ArrayOfPlayerData" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

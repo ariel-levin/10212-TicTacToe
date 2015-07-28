@@ -16,6 +16,7 @@ namespace Client
     {
         private MainForm mainForm;
         private PlayerData[] players;
+        private PlayerData currentPlayer;
 
 
         public RegisterForm(MainForm mainForm)
@@ -32,11 +33,11 @@ namespace Client
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            PlayerData player = getPlayerFromFields();
-            int[] advisors = getSelectedAdvisors();
-            mainForm.client.registerNewPlayer(player, advisors);
             btnSubmit.Enabled = false;
             btnCancel.Enabled = false;
+            currentPlayer = getPlayerFromFields();
+            int[] advisors = getSelectedAdvisors();
+            mainForm.client.registerNewPlayer(currentPlayer, advisors);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -71,6 +72,12 @@ namespace Client
             return advisors;
         }
 
+        private void RegisterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mainForm.registerForm = null;
+        }
+
+
 
         /////////////////////////////////////////////////////
         /////////////////////////////////////////////////////
@@ -88,6 +95,7 @@ namespace Client
         public void showPlayerRegisterSuccess()
         {
             MessageBox.Show("Player was added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            mainForm.currentPlayer = currentPlayer;
             mainForm.registerForm = null;
             Dispose();
         }

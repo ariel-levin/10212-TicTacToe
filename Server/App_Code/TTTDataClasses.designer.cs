@@ -32,6 +32,9 @@ public partial class TTTDataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertPlayer(Player instance);
   partial void UpdatePlayer(Player instance);
   partial void DeletePlayer(Player instance);
+  partial void InsertChampionship(Championship instance);
+  partial void UpdateChampionship(Championship instance);
+  partial void DeleteChampionship(Championship instance);
   #endregion
 	
 	public TTTDataClassesDataContext() : 
@@ -69,6 +72,14 @@ public partial class TTTDataClassesDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Player>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Championship> Championships
+	{
+		get
+		{
+			return this.GetTable<Championship>();
 		}
 	}
 }
@@ -369,6 +380,164 @@ public partial class Player : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this.SendPropertyChanging();
 		entity.Player1 = null;
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Championships")]
+public partial class Championship : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private string _City;
+	
+	private System.DateTime _StartDate;
+	
+	private System.Nullable<System.DateTime> _EndDate;
+	
+	private string _Picture;
+	
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCityChanging(string value);
+    partial void OnCityChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnPictureChanging(string value);
+    partial void OnPictureChanged();
+    #endregion
+	
+	public Championship()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="NChar(20) NOT NULL", CanBeNull=false)]
+	public string City
+	{
+		get
+		{
+			return this._City;
+		}
+		set
+		{
+			if ((this._City != value))
+			{
+				this.OnCityChanging(value);
+				this.SendPropertyChanging();
+				this._City = value;
+				this.SendPropertyChanged("City");
+				this.OnCityChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="Date NOT NULL")]
+	public System.DateTime StartDate
+	{
+		get
+		{
+			return this._StartDate;
+		}
+		set
+		{
+			if ((this._StartDate != value))
+			{
+				this.OnStartDateChanging(value);
+				this.SendPropertyChanging();
+				this._StartDate = value;
+				this.SendPropertyChanged("StartDate");
+				this.OnStartDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="Date")]
+	public System.Nullable<System.DateTime> EndDate
+	{
+		get
+		{
+			return this._EndDate;
+		}
+		set
+		{
+			if ((this._EndDate != value))
+			{
+				this.OnEndDateChanging(value);
+				this.SendPropertyChanging();
+				this._EndDate = value;
+				this.SendPropertyChanged("EndDate");
+				this.OnEndDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="NChar(500)")]
+	public string Picture
+	{
+		get
+		{
+			return this._Picture;
+		}
+		set
+		{
+			if ((this._Picture != value))
+			{
+				this.OnPictureChanging(value);
+				this.SendPropertyChanging();
+				this._Picture = value;
+				this.SendPropertyChanged("Picture");
+				this.OnPictureChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }
 #pragma warning restore 1591

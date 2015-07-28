@@ -16,8 +16,10 @@ namespace Client
     public partial class MainForm : Form
     {
         public TTTClient client { get; set; }
-
+        public PlayerData currentPlayer { get; set; }
         public RegisterForm registerForm { get; set; }
+        public NewChampForm newChampForm { get; set; }
+        public SelectUserForm selectUserForm { get; set; }
 
 
         public MainForm()
@@ -36,7 +38,6 @@ namespace Client
 
         private void btnBoard4_Click(object sender, EventArgs e)
         {
-            //client.Add(textBox1.Text);
             (new BoardForm(4)).Show();
         }
 
@@ -45,15 +46,37 @@ namespace Client
             (new AboutBox()).Show();
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private void btnRegisterUser_Click(object sender, EventArgs e)
         {
             registerForm = new RegisterForm(this);
             registerForm.Show();
         }
 
+        private void btnNewChamp_Click(object sender, EventArgs e)
+        {
+            if (currentPlayer != null)
+            {
+                newChampForm = new NewChampForm(this);
+                newChampForm.Show();
+            }
+            else
+                errorPlayerNotConnected();
+        }
+
+        private void btnSelectUser_Click(object sender, EventArgs e)
+        {
+            selectUserForm = new SelectUserForm(this);
+            selectUserForm.Show();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             client.Close();
+        }
+
+        private void errorPlayerNotConnected()
+        {
+            MessageBox.Show("Error: Please connect / register as a player first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -96,6 +119,22 @@ namespace Client
                 mainForm.registerForm.showPlayerRegisterSuccess();
         }
 
+        public void sendChampionships(ChampionshipData[] chmps)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void showNewChampSuccess()
+        {
+            if (mainForm.newChampForm != null)
+                mainForm.newChampForm.showNewChampSuccess();
+        }
+
+        public void sendAllUsers(PlayerData[] users)
+        {
+            if (mainForm.selectUserForm != null)
+                mainForm.selectUserForm.setUsersList(users);
+        }
     }
 
 }

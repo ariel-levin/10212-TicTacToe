@@ -2,18 +2,24 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TTTDataClasses">
   <DataContextMoniker Name="/TTTDataClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" absoluteBounds="2.875, 1.75, 2, 2.3478011067708335">
+    <classShape Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" absoluteBounds="1.875, 2.125, 2, 2.3478011067708335">
       <DataClassMoniker Name="/TTTDataClassesDataContext/Player" />
       <nestedChildShapes>
-        <elementListCompartment Id="dc233e20-dc22-43ed-9bc1-135b1df78ce0" absoluteBounds="2.89, 2.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dc233e20-dc22-43ed-9bc1-135b1df78ce0" absoluteBounds="1.8900000000000001, 2.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.58423076923077 : 4.09780110677083); (3.58423076923077 : 4.34780110677083); (4.17961538461539 : 4.34780110677083); (4.17961538461539 : 4.09780110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.58423076923077 : 4.47280110677083); (2.58423076923077 : 4.72280110677083); (3.17961538461538 : 4.72280110677083); (3.17961538461538 : 4.47280110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Player" />
       <nodes>
         <classShapeMoniker Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" />
         <classShapeMoniker Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" />
       </nodes>
     </associationConnector>
+    <classShape Id="ec33ed16-d398-4554-913e-c3aaea290a6f" absoluteBounds="5, 1.5, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/TTTDataClassesDataContext/Championship" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ecd6efd-26a5-417b-ba37-d9983f959613" absoluteBounds="5.015, 1.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
