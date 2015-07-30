@@ -40,7 +40,10 @@ namespace Client
                 MessageBox.Show("Error: No user is selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-
+                btnSubmit.Enabled = false;
+                btnCancel.Enabled = false;
+                PlayerData user = players[listPlayers.CheckedIndices.Cast<int>().First()];
+                mainForm.client.login(user);
             }
         }
 
@@ -61,6 +64,22 @@ namespace Client
             {
                 listPlayers.Items.Add(players[i].Id + " : " + players[i].FirstName);
             }
+        }
+
+        public void showPlayerLoginSuccess(PlayerData user)
+        {
+            MessageBox.Show("Player login successfully:\n" + user.Id + " : " + user.FirstName, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            mainForm.selectUserForm = null;
+            mainForm.currentPlayer = user;
+            Dispose();
+        }
+
+        public void showLoginError(PlayerData user, string error)
+        {
+            MessageBox.Show(error + "\n" + user.Id + " : " + user.FirstName, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            mainForm.currentPlayer = null;
+            btnSubmit.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
     }

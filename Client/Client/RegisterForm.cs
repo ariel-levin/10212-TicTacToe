@@ -95,7 +95,6 @@ namespace Client
         public void showPlayerRegisterSuccess()
         {
             MessageBox.Show("Player was added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            mainForm.currentPlayer = currentPlayer;
             mainForm.registerForm = null;
             Dispose();
         }

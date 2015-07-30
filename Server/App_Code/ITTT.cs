@@ -30,7 +30,7 @@ public interface ITTT
     void login(PlayerData user);
 
     [OperationContract(IsOneWay = true)]
-    void logoff(PlayerData user);
+    void logout();
 
 }
 
@@ -58,6 +58,15 @@ public interface ICallBack
 
     [OperationContract(IsOneWay = true)]
     void loginSuccess(PlayerData user);
+
+    [OperationContract(IsOneWay = true)]
+    void logoutSuccess();
+
+    [OperationContract(IsOneWay = true)]
+    void userAlreadyConnected(PlayerData user);
+
+    [OperationContract(IsOneWay = true)]
+    void logoutFail();
 
 }
 

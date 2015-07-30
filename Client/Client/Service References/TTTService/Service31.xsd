@@ -33,17 +33,31 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="login">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q4:PlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="logout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q5:PlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="sendRegisterFormAdvisorList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q4:ArrayOfPlayerData" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q6:ArrayOfPlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="showException">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q5:Exception" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q7:Exception" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -55,7 +69,7 @@
   <xs:element name="sendChampionships">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q6:ArrayOfChampionshipData" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q8:ArrayOfChampionshipData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -67,7 +81,35 @@
   <xs:element name="sendAllUsers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="users" nillable="true" type="q7:ArrayOfPlayerData" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="users" nillable="true" type="q9:ArrayOfPlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="loginSuccess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q10:PlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="logoutSuccess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q11:PlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="userAlreadyConnected">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q12:PlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="logoutFail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q13:PlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

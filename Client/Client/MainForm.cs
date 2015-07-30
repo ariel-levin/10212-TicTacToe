@@ -76,7 +76,7 @@ namespace Client
 
         private void errorPlayerNotConnected()
         {
-            MessageBox.Show("Error: Please connect / register as a player first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Error: Please login first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -134,6 +134,28 @@ namespace Client
         {
             if (mainForm.selectUserForm != null)
                 mainForm.selectUserForm.setUsersList(users);
+        }
+
+        public void loginSuccess(PlayerData user)
+        {
+            if (mainForm.selectUserForm != null)
+                mainForm.selectUserForm.showPlayerLoginSuccess(user);
+        }
+
+        public void userAlreadyConnected(PlayerData user)
+        {
+            if (mainForm.selectUserForm != null)
+                mainForm.selectUserForm.showLoginError(user, "The following user is already connected, please select another:");
+        }
+
+        public void logoutSuccess(PlayerData user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void logoutFail(PlayerData user)
+        {
+            throw new NotImplementedException();
         }
     }
 

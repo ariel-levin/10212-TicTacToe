@@ -114,12 +114,31 @@ public class TTT : ITTT
     public void login(PlayerData user)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        //channels.ContainsKey
+
+        if (isUserAlreadyLogged(user))
+        {
+            channel.userAlreadyConnected(user);
+        }
+        else
+        {
+            channels.Add(channel, user);
+            channel.loginSuccess(user);
+        }
     }
 
-    public void logoff(PlayerData user)
+    public void logout()
     {
-        throw new NotImplementedException();
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (channels.ContainsKey(channel) )
+        {
+            channels.Remove(channel);
+            channel.logoutSuccess();
+        }
+        else
+        {
+            channel.logoutFail();
+        }
     }
 
 
@@ -208,13 +227,7 @@ public class TTT : ITTT
 
     private bool isUserAlreadyLogged(PlayerData user) 
     {
-        foreach (var c in channels)
-        {
-            if (c.Value.Id == user.Id)
-            {
-                
-            }
-        }
+        return channels.Values.Any(p => p.Id == user.Id);
     }
 
 }
