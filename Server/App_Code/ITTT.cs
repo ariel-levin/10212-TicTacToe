@@ -18,9 +18,6 @@ public interface ITTT
     void registerNewPlayer(PlayerData player, int[] advisors);
 
     [OperationContract(IsOneWay = true)]
-    void getChampionships();
-
-    [OperationContract(IsOneWay = true)]
     void registerNewChampionship(ChampionshipData champ);
 
     [OperationContract(IsOneWay = true)]
@@ -30,7 +27,16 @@ public interface ITTT
     void login(PlayerData user);
 
     [OperationContract(IsOneWay = true)]
-    void logout();
+    void logout(bool waitingForResponse);
+
+    [OperationContract(IsOneWay = true)]
+    void wake();
+
+    [OperationContract(IsOneWay = true)]
+    void getRegToChampList();
+
+    [OperationContract(IsOneWay = true)]
+    void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps);
 
 }
 
@@ -48,7 +54,7 @@ public interface ICallBack
     void showPlayerRegisterSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void sendChampionships(ChampionshipData[] chmps);
+    void sendRegToChampList(ChampionshipData[] chmps);
 
     [OperationContract(IsOneWay = true)]
     void showNewChampSuccess();
@@ -63,10 +69,19 @@ public interface ICallBack
     void logoutSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void userAlreadyConnected(PlayerData user);
+    void loginError(string error, PlayerData user);
 
     [OperationContract(IsOneWay = true)]
-    void logoutFail();
+    void logoutError(string error);
+
+    [OperationContract(IsOneWay = true)]
+    void response();
+
+    [OperationContract(IsOneWay = true)]
+    void registerPlayerToChampSuccess();
+
+    [OperationContract(IsOneWay = true)]
+    void registerPlayerToChampError(string error);
 
 }
 

@@ -295,12 +295,6 @@ namespace Client.TTTService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
         System.Threading.Tasks.Task registerNewPlayerAsync(Client.TTTService.PlayerData player, int[] advisors);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getChampionships")]
-        void getChampionships();
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getChampionships")]
-        System.Threading.Tasks.Task getChampionshipsAsync();
-        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewChampionship")]
         void registerNewChampionship(Client.TTTService.ChampionshipData champ);
         
@@ -320,10 +314,28 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task loginAsync(Client.TTTService.PlayerData user);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/logout")]
-        void logout(Client.TTTService.PlayerData user);
+        void logout(bool waitingForResponse);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/logout")]
-        System.Threading.Tasks.Task logoutAsync(Client.TTTService.PlayerData user);
+        System.Threading.Tasks.Task logoutAsync(bool waitingForResponse);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/wake")]
+        void wake();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/wake")]
+        System.Threading.Tasks.Task wakeAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegToChampList")]
+        void getRegToChampList();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegToChampList")]
+        System.Threading.Tasks.Task getRegToChampListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChamp")]
+        void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChamp")]
+        System.Threading.Tasks.Task registerPlayerToChampAsync(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -338,8 +350,8 @@ namespace Client.TTTService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showPlayerRegisterSuccess")]
         void showPlayerRegisterSuccess();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendChampionships")]
-        void sendChampionships(Client.TTTService.ChampionshipData[] chmps);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendRegToChampList")]
+        void sendRegToChampList(Client.TTTService.ChampionshipData[] chmps);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showNewChampSuccess")]
         void showNewChampSuccess();
@@ -351,13 +363,22 @@ namespace Client.TTTService {
         void loginSuccess(Client.TTTService.PlayerData user);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/logoutSuccess")]
-        void logoutSuccess(Client.TTTService.PlayerData user);
+        void logoutSuccess();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/userAlreadyConnected")]
-        void userAlreadyConnected(Client.TTTService.PlayerData user);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/loginError")]
+        void loginError(string error, Client.TTTService.PlayerData user);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/logoutFail")]
-        void logoutFail(Client.TTTService.PlayerData user);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/logoutError")]
+        void logoutError(string error);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/response")]
+        void response();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChampSuccess")]
+        void registerPlayerToChampSuccess();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChampError")]
+        void registerPlayerToChampError(string error);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -404,14 +425,6 @@ namespace Client.TTTService {
             return base.Channel.registerNewPlayerAsync(player, advisors);
         }
         
-        public void getChampionships() {
-            base.Channel.getChampionships();
-        }
-        
-        public System.Threading.Tasks.Task getChampionshipsAsync() {
-            return base.Channel.getChampionshipsAsync();
-        }
-        
         public void registerNewChampionship(Client.TTTService.ChampionshipData champ) {
             base.Channel.registerNewChampionship(champ);
         }
@@ -436,12 +449,36 @@ namespace Client.TTTService {
             return base.Channel.loginAsync(user);
         }
         
-        public void logout(Client.TTTService.PlayerData user) {
-            base.Channel.logout(user);
+        public void logout(bool waitingForResponse) {
+            base.Channel.logout(waitingForResponse);
         }
         
-        public System.Threading.Tasks.Task logoutAsync(Client.TTTService.PlayerData user) {
-            return base.Channel.logoutAsync(user);
+        public System.Threading.Tasks.Task logoutAsync(bool waitingForResponse) {
+            return base.Channel.logoutAsync(waitingForResponse);
+        }
+        
+        public void wake() {
+            base.Channel.wake();
+        }
+        
+        public System.Threading.Tasks.Task wakeAsync() {
+            return base.Channel.wakeAsync();
+        }
+        
+        public void getRegToChampList() {
+            base.Channel.getRegToChampList();
+        }
+        
+        public System.Threading.Tasks.Task getRegToChampListAsync() {
+            return base.Channel.getRegToChampListAsync();
+        }
+        
+        public void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps) {
+            base.Channel.registerPlayerToChamp(player, chmps);
+        }
+        
+        public System.Threading.Tasks.Task registerPlayerToChampAsync(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps) {
+            return base.Channel.registerPlayerToChampAsync(player, chmps);
         }
     }
 }

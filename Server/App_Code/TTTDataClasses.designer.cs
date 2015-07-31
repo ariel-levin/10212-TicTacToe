@@ -82,6 +82,14 @@ public partial class TTTDataClassesDataContext : System.Data.Linq.DataContext
 			return this.GetTable<Championship>();
 		}
 	}
+	
+	public System.Data.Linq.Table<PlayerChampionship> PlayerChampionships
+	{
+		get
+		{
+			return this.GetTable<PlayerChampionship>();
+		}
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Players")]
@@ -537,6 +545,51 @@ public partial class Championship : INotifyPropertyChanging, INotifyPropertyChan
 		if ((this.PropertyChanged != null))
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PlayerChampionships")]
+public partial class PlayerChampionship
+{
+	
+	private int _PlayerId;
+	
+	private int _ChampionshipId;
+	
+	public PlayerChampionship()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayerId", DbType="Int NOT NULL")]
+	public int PlayerId
+	{
+		get
+		{
+			return this._PlayerId;
+		}
+		set
+		{
+			if ((this._PlayerId != value))
+			{
+				this._PlayerId = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChampionshipId", DbType="Int NOT NULL")]
+	public int ChampionshipId
+	{
+		get
+		{
+			return this._ChampionshipId;
+		}
+		set
+		{
+			if ((this._ChampionshipId != value))
+			{
+				this._ChampionshipId = value;
+			}
 		}
 	}
 }

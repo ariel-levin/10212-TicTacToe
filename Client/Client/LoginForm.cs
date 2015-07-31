@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class SelectUserForm : Form
+    public partial class LoginForm : Form
     {
         private MainForm mainForm;
         private PlayerData[] players;
 
 
-        public SelectUserForm(MainForm mainForm)
+        public LoginForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
@@ -30,7 +30,7 @@ namespace Client
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            mainForm.selectUserForm = null;
+            mainForm.loginForm = null;
             Dispose();
         }
 
@@ -42,14 +42,14 @@ namespace Client
             {
                 btnSubmit.Enabled = false;
                 btnCancel.Enabled = false;
-                PlayerData user = players[listPlayers.CheckedIndices.Cast<int>().First()];
+                PlayerData user = players[listPlayers.SelectedIndices.Cast<int>().First()];
                 mainForm.client.login(user);
             }
         }
 
         private void SelectUserForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mainForm.selectUserForm = null;
+            mainForm.loginForm = null;
         }
 
 
@@ -62,22 +62,24 @@ namespace Client
             this.players = players;
             for (var i = 0; i < players.Length; i++)
             {
-                listPlayers.Items.Add(players[i].Id + " : " + players[i].FirstName);
+                listPlayers.Items.Add(mainForm.playerString(players[i]));
             }
         }
 
         public void showPlayerLoginSuccess(PlayerData user)
         {
-            MessageBox.Show("Player login successfully:\n" + user.Id + " : " + user.FirstName, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            mainForm.selectUserForm = null;
-            mainForm.currentPlayer = user;
+            MessageBox.Show("Player login successfully:\n"
+                + mainForm.playerString(user), "Success", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            mainForm.playerLogin(user);
+            mainForm.loginForm = null;
             Dispose();
         }
 
-        public void showLoginError(PlayerData user, string error)
+        public void showLoginError(string error, PlayerData user)
         {
-            MessageBox.Show(error + "\n" + user.Id + " : " + user.FirstName, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            mainForm.currentPlayer = null;
+            MessageBox.Show(error + "\n" + mainForm.playerString(user), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             btnSubmit.Enabled = true;
             btnCancel.Enabled = true;
         }

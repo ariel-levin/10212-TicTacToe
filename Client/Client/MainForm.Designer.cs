@@ -29,42 +29,27 @@
         private void InitializeComponent()
         {
             this.btnBoard4 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRegisterUser = new System.Windows.Forms.Button();
             this.btnNewChamp = new System.Windows.Forms.Button();
-            this.btnSelectUser = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.lblCurrentPlayer = new System.Windows.Forms.Label();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnRegToChamp = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnBoard4
             // 
-            this.btnBoard4.Location = new System.Drawing.Point(79, 125);
+            this.btnBoard4.Location = new System.Drawing.Point(121, 161);
             this.btnBoard4.Name = "btnBoard4";
             this.btnBoard4.Size = new System.Drawing.Size(75, 23);
             this.btnBoard4.TabIndex = 0;
             this.btnBoard4.Text = "Board 4x4";
             this.btnBoard4.UseVisualStyleBackColor = true;
             this.btnBoard4.Click += new System.EventHandler(this.btnBoard4_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(76, 197);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(79, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
             // 
             // menuStrip
             // 
@@ -95,7 +80,7 @@
             // 
             // btnRegisterUser
             // 
-            this.btnRegisterUser.Location = new System.Drawing.Point(236, 125);
+            this.btnRegisterUser.Location = new System.Drawing.Point(275, 120);
             this.btnRegisterUser.Name = "btnRegisterUser";
             this.btnRegisterUser.Size = new System.Drawing.Size(90, 23);
             this.btnRegisterUser.TabIndex = 4;
@@ -105,7 +90,7 @@
             // 
             // btnNewChamp
             // 
-            this.btnNewChamp.Location = new System.Drawing.Point(236, 186);
+            this.btnNewChamp.Location = new System.Drawing.Point(275, 181);
             this.btnNewChamp.Name = "btnNewChamp";
             this.btnNewChamp.Size = new System.Drawing.Size(90, 49);
             this.btnNewChamp.TabIndex = 5;
@@ -113,26 +98,57 @@
             this.btnNewChamp.UseVisualStyleBackColor = true;
             this.btnNewChamp.Click += new System.EventHandler(this.btnNewChamp_Click);
             // 
-            // btnSelectUser
+            // btnLogin
             // 
-            this.btnSelectUser.Location = new System.Drawing.Point(236, 87);
-            this.btnSelectUser.Name = "btnSelectUser";
-            this.btnSelectUser.Size = new System.Drawing.Size(90, 23);
-            this.btnSelectUser.TabIndex = 6;
-            this.btnSelectUser.Text = "Select User";
-            this.btnSelectUser.UseVisualStyleBackColor = true;
-            this.btnSelectUser.Click += new System.EventHandler(this.btnSelectUser_Click);
+            this.btnLogin.Location = new System.Drawing.Point(426, 206);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 6;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // lblCurrentPlayer
+            // 
+            this.lblCurrentPlayer.Location = new System.Drawing.Point(399, 35);
+            this.lblCurrentPlayer.Name = "lblCurrentPlayer";
+            this.lblCurrentPlayer.Size = new System.Drawing.Size(145, 16);
+            this.lblCurrentPlayer.TabIndex = 7;
+            this.lblCurrentPlayer.Text = "logged out";
+            this.lblCurrentPlayer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.Enabled = false;
+            this.btnLogout.Location = new System.Drawing.Point(426, 247);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(75, 23);
+            this.btnLogout.TabIndex = 8;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // btnRegToChamp
+            // 
+            this.btnRegToChamp.Location = new System.Drawing.Point(275, 247);
+            this.btnRegToChamp.Name = "btnRegToChamp";
+            this.btnRegToChamp.Size = new System.Drawing.Size(90, 46);
+            this.btnRegToChamp.TabIndex = 9;
+            this.btnRegToChamp.Text = "Register to Championship";
+            this.btnRegToChamp.UseVisualStyleBackColor = true;
+            this.btnRegToChamp.Click += new System.EventHandler(this.btnRegToChamp_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
-            this.Controls.Add(this.btnSelectUser);
+            this.Controls.Add(this.btnRegToChamp);
+            this.Controls.Add(this.btnLogout);
+            this.Controls.Add(this.lblCurrentPlayer);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnNewChamp);
             this.Controls.Add(this.btnRegisterUser);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBoard4);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -150,14 +166,15 @@
         #endregion
 
         private System.Windows.Forms.Button btnBoard4;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Button btnRegisterUser;
         private System.Windows.Forms.Button btnNewChamp;
-        private System.Windows.Forms.Button btnSelectUser;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Label lblCurrentPlayer;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnRegToChamp;
     }
 }
 

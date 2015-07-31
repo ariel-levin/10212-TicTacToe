@@ -61,12 +61,6 @@ public class TTT : ITTT
         }
     }
 
-    public void getChampionships()
-    {
-        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendChampionships(getAllChampionships());
-    }
-
     public void registerNewChampionship(ChampionshipData champ)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -115,29 +109,91 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (isUserAlreadyLogged(user))
+        if (channels.ContainsKey(channel))
         {
-            channel.userAlreadyConnected(user);
+            channel.loginError("You are already connected, please logout first", user);
         }
         else
         {
-            channels.Add(channel, user);
-            channel.loginSuccess(user);
+            if (isUserAlreadyLogged(user))
+            {
+                channel.loginError("The following user is already connected, please select another", user);
+            }
+            else
+            {
+                channels.Add(channel, user);
+                channel.loginSuccess(user);
+            }
         }
     }
 
-    public void logout()
+    public void logout(bool waitingForResponse)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
         if (channels.ContainsKey(channel) )
         {
             channels.Remove(channel);
-            channel.logoutSuccess();
+            if (waitingForResponse)
+                channel.logoutSuccess();
         }
         else
         {
-            channel.logoutFail();
+            if (waitingForResponse)
+                channel.logoutError("User is not logged in");
+        }
+    }
+
+    public void wake()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        channel.response();
+    }
+
+    public void getRegToChampList()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        channel.sendRegToChampList(getAllChampionships());
+    }
+
+    public void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (player == null || chmps == null)
+        {
+            channel.registerPlayerToChampError("Error: data is corrupted");
+            return;
+        }
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("", con);
+                try
+                {
+                    con.Open();
+
+                    for (var i = 0; i < chmps.Length; i++)
+                    {
+                        if (!isPlayerRegisteredToChamp(player, chmps[i], db))
+                        {
+                            cmd.CommandText = string.Format("Insert into PlayerChampionships(PlayerId, ChampionshipId) "
+                                + "values({0}, {1})", player.Id, chmps[i].Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    con.Close();
+                    channel.registerPlayerToChampSuccess();
+                }
+                catch (Exception e)
+                {
+                    channel.showException(e);
+                }
+            }
+
         }
     }
 
@@ -228,6 +284,16 @@ public class TTT : ITTT
     private bool isUserAlreadyLogged(PlayerData user) 
     {
         return channels.Values.Any(p => p.Id == user.Id);
+    }
+
+    private bool isPlayerRegisteredToChamp(PlayerData player, ChampionshipData champ, TTTDataClassesDataContext db)
+    {
+        var x =
+            from pc in db.PlayerChampionships
+            where pc.PlayerId == player.Id && pc.ChampionshipId == champ.Id
+            select pc;
+
+        return x.Count() > 0;
     }
 
 }

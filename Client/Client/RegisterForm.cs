@@ -16,7 +16,6 @@ namespace Client
     {
         private MainForm mainForm;
         private PlayerData[] players;
-        private PlayerData currentPlayer;
 
 
         public RegisterForm(MainForm mainForm)
@@ -35,9 +34,8 @@ namespace Client
         {
             btnSubmit.Enabled = false;
             btnCancel.Enabled = false;
-            currentPlayer = getPlayerFromFields();
             int[] advisors = getSelectedAdvisors();
-            mainForm.client.registerNewPlayer(currentPlayer, advisors);
+            mainForm.client.registerNewPlayer(getPlayerFromFields(), advisors);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -88,7 +86,7 @@ namespace Client
             this.players = players;
             for (var i = 0; i < players.Length; i++)
             {
-                clbAdvisors.Items.Add(players[i].Id + " : " + players[i].FirstName);
+                clbAdvisors.Items.Add(mainForm.playerString(players[i]));
             }
         }
 

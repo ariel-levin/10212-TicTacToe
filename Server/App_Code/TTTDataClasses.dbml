@@ -11,6 +11,7 @@
       <Column Name="IsAdvisor" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="AdviseTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Player_Player" Member="Players" ThisKey="Id" OtherKey="AdviseTo" Type="Player" />
+      <Association Name="Player_PlayerChampionship" Member="PlayerChampionships" ThisKey="Id" OtherKey="PlayerId" Type="PlayerChampionship" />
       <Association Name="Player_Player" Member="Player1" ThisKey="AdviseTo" OtherKey="Id" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
@@ -21,6 +22,15 @@
       <Column Name="StartDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Picture" Type="System.String" DbType="NChar(500)" CanBeNull="true" />
+      <Association Name="Championship_PlayerChampionship" Member="PlayerChampionships" ThisKey="Id" OtherKey="ChampionshipId" Type="PlayerChampionship" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlayerChampionships" Member="PlayerChampionships">
+    <Type Name="PlayerChampionship">
+      <Column Name="PlayerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChampionshipId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Championship_PlayerChampionship" Member="Championship" ThisKey="ChampionshipId" OtherKey="Id" Type="Championship" IsForeignKey="true" />
+      <Association Name="Player_PlayerChampionship" Member="Player" ThisKey="PlayerId" OtherKey="Id" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

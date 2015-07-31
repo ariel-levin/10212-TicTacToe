@@ -1,6 +1,6 @@
 ﻿namespace Client
 {
-    partial class SelectUserForm
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -49,7 +49,7 @@
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(95, 39);
             this.btnSubmit.TabIndex = 1;
-            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.Text = "Login";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
@@ -63,7 +63,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // SelectUserForm
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -71,9 +71,9 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.listPlayers);
-            this.Name = "SelectUserForm";
+            this.Name = "LoginForm";
             this.ShowIcon = false;
-            this.Text = "Select User";
+            this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectUserForm_FormClosing);
             this.Load += new System.EventHandler(this.SelectUserForm_Load);
             this.ResumeLayout(false);

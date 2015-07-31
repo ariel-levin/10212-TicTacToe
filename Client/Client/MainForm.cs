@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,7 +21,8 @@ namespace Client
         public PlayerData currentPlayer { get; set; }
         public RegisterForm registerForm { get; set; }
         public NewChampForm newChampForm { get; set; }
-        public SelectUserForm selectUserForm { get; set; }
+        public LoginForm loginForm { get; set; }
+        public RegisterToChampForm regToChampForm { get; set; }
 
 
         public MainForm()
@@ -29,6 +32,7 @@ namespace Client
             MyCallBack callback = new MyCallBack(this);
             InstanceContext context = new InstanceContext(callback);
             client = new TTTClient(context);
+            client.wake();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -48,35 +52,85 @@ namespace Client
 
         private void btnRegisterUser_Click(object sender, EventArgs e)
         {
-            registerForm = new RegisterForm(this);
-            registerForm.Show();
+            if (registerForm != null)
+                showError("Register Form is already open");
+            else
+            {
+                registerForm = new RegisterForm(this);
+                registerForm.Show();
+            }
         }
 
         private void btnNewChamp_Click(object sender, EventArgs e)
         {
-            if (currentPlayer != null)
-            {
-                newChampForm = new NewChampForm(this);
-                newChampForm.Show();
-            }
+            if (newChampForm != null)
+                showError("New Championship Form is already open");
             else
-                errorPlayerNotConnected();
+            {
+                if (currentPlayer != null)
+                {
+                    newChampForm = new NewChampForm(this);
+                    newChampForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
         }
 
-        private void btnSelectUser_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-            selectUserForm = new SelectUserForm(this);
-            selectUserForm.Show();
+            if (loginForm != null)
+                showError("Login Form is already open");
+            else
+            {
+                loginForm = new LoginForm(this);
+                loginForm.Show();
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (currentPlayer != null)
+            {
+                client.logout(false);
+                Thread.Sleep(1000);
+            }
             client.Close();
         }
 
-        private void errorPlayerNotConnected()
+        private void btnLogout_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Error: Please login first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?",
+                "Confirmation", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                btnLogout.Enabled = false;
+                btnLogin.Enabled = false;
+                client.logout(true);
+            }
+        }
+
+        private void btnRegToChamp_Click(object sender, EventArgs e)
+        {
+            if (regToChampForm != null)
+                showError("Register to Championship Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    regToChampForm = new RegisterToChampForm(this);
+                    regToChampForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void showError(string error)
+        {
+            MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -87,6 +141,47 @@ namespace Client
         public void showException(Exception e)
         {
             MessageBox.Show(e.ToString());
+        }
+
+        public void playerLogin(PlayerData player)
+        {
+            currentPlayer = player;
+            lblCurrentPlayer.Text = playerString(player);
+            btnLogin.Enabled = false;
+            btnLogout.Enabled = true;
+        }
+
+        public void playerLogout()
+        {
+            MessageBox.Show("Player logout successfully:\n", "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            currentPlayer = null;
+            lblCurrentPlayer.Text = "logged out";
+            btnLogout.Enabled = false;
+            btnLogin.Enabled = true;
+        }
+
+        public void playerLogoutError(string error)
+        {
+            MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            btnLogout.Enabled = true;
+            btnLogin.Enabled = false;
+        }
+
+
+        /////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////
+
+
+        public string playerString(PlayerData player) {
+            return player.Id + " : " + player.FirstName;
+        }
+
+        public string championshipString(ChampionshipData champ)
+        {
+            return champ.Id + " : " + Regex.Replace(champ.City, @"\s+", " ")
+                + ": " + champ.StartDate.ToShortDateString();
         }
 
     }
@@ -119,11 +214,6 @@ namespace Client
                 mainForm.registerForm.showPlayerRegisterSuccess();
         }
 
-        public void sendChampionships(ChampionshipData[] chmps)
-        {
-            throw new NotImplementedException();
-        }
-
         public void showNewChampSuccess()
         {
             if (mainForm.newChampForm != null)
@@ -132,30 +222,53 @@ namespace Client
 
         public void sendAllUsers(PlayerData[] users)
         {
-            if (mainForm.selectUserForm != null)
-                mainForm.selectUserForm.setUsersList(users);
+            if (mainForm.loginForm != null)
+                mainForm.loginForm.setUsersList(users);
         }
 
         public void loginSuccess(PlayerData user)
         {
-            if (mainForm.selectUserForm != null)
-                mainForm.selectUserForm.showPlayerLoginSuccess(user);
+            if (mainForm.loginForm != null)
+                mainForm.loginForm.showPlayerLoginSuccess(user);
         }
 
-        public void userAlreadyConnected(PlayerData user)
+        public void loginError(string error, PlayerData user)
         {
-            if (mainForm.selectUserForm != null)
-                mainForm.selectUserForm.showLoginError(user, "The following user is already connected, please select another:");
+            if (mainForm.loginForm != null)
+                mainForm.loginForm.showLoginError(error, user);
         }
 
-        public void logoutSuccess(PlayerData user)
+        public void logoutSuccess()
         {
-            throw new NotImplementedException();
+            mainForm.playerLogout();
         }
 
-        public void logoutFail(PlayerData user)
+        public void logoutError(string error)
         {
-            throw new NotImplementedException();
+            mainForm.playerLogoutError(error);
+        }
+
+        public void response()
+        {
+            
+        }
+
+        public void sendRegToChampList(ChampionshipData[] chmps)
+        {
+            if (mainForm.regToChampForm != null)
+                mainForm.regToChampForm.setChampionshipsList(chmps);
+        }
+
+        public void registerPlayerToChampSuccess()
+        {
+            if (mainForm.regToChampForm != null)
+                mainForm.regToChampForm.showRegToChampSuccess();
+        }
+
+        public void registerPlayerToChampError(string error)
+        {
+            if (mainForm.regToChampForm != null)
+                mainForm.regToChampForm.showRegToChampError(error);
         }
     }
 
