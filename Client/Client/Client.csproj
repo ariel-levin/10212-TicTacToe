@@ -58,14 +58,14 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="BoardControl.xaml.cs">
-      <DependentUpon>BoardControl.xaml</DependentUpon>
+    <Compile Include="Board4Control.xaml.cs">
+      <DependentUpon>Board4Control.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoardForm.cs">
+    <Compile Include="Board4Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BoardForm.Designer.cs">
-      <DependentUpon>BoardForm.cs</DependentUpon>
+    <Compile Include="Board4Form.Designer.cs">
+      <DependentUpon>Board4Form.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -107,8 +107,8 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BoardForm.resx">
-      <DependentUpon>BoardForm.cs</DependentUpon>
+    <EmbeddedResource Include="Board4Form.resx">
+      <DependentUpon>Board4Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -182,7 +182,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BoardControl.xaml">
+    <Page Include="Board4Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

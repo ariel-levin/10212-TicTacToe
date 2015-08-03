@@ -17,22 +17,33 @@ namespace Client
 {
     public partial class MainForm : Form
     {
-        public TTTClient client { get; set; }
-        public PlayerData currentPlayer { get; set; }
         public RegisterForm registerForm { get; set; }
         public NewChampForm newChampForm { get; set; }
         public LoginForm loginForm { get; set; }
         public RegisterToChampForm regToChampForm { get; set; }
+        public Board4Form board4Form { get; set; }
+
+        private TTTClient client;
+        private PlayerData currentPlayer;
 
 
         public MainForm()
         {
             InitializeComponent();
-
+            
             MyCallBack callback = new MyCallBack(this);
             InstanceContext context = new InstanceContext(callback);
             client = new TTTClient(context);
-            client.wake();
+            try
+            {
+                client.wake();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Service offline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Dispose();
+                Application.Exit();
+            }            
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -40,9 +51,26 @@ namespace Client
 
         }
 
-        private void btnBoard4_Click(object sender, EventArgs e)
+        private void btnOnline4_Click(object sender, EventArgs e)
         {
-            (new BoardForm(4)).Show();
+            if (currentPlayer != null)
+            {
+                board4Form = new Board4Form(this, false);
+                board4Form.Show();
+            }
+            else
+                showError("Error: Please login first");
+        }
+
+        private void btnOffline4_Click(object sender, EventArgs e)
+        {
+            if (currentPlayer != null)
+            {
+                board4Form = new Board4Form(this, true);
+                board4Form.Show();
+            }
+            else
+                showError("Error: Please login first");
         }
 
         private void aboutMenuItem_Click(object sender, EventArgs e)
@@ -98,6 +126,11 @@ namespace Client
             client.Close();
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to logout?",
@@ -137,6 +170,16 @@ namespace Client
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
 
+
+        public TTTClient getClient()
+        {
+            return client;
+        }
+
+        public PlayerData getCurrentPlayer()
+        {
+            return currentPlayer;
+        }
 
         public void showException(Exception e)
         {
@@ -183,6 +226,8 @@ namespace Client
             return champ.Id + " : " + Regex.Replace(champ.City, @"\s+", " ")
                 + ": " + champ.StartDate.ToShortDateString();
         }
+
+
 
     }
 
@@ -269,6 +314,105 @@ namespace Client
         {
             if (mainForm.regToChampForm != null)
                 mainForm.regToChampForm.showRegToChampError(error);
+        }
+
+        public void startGame(int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.startGame();
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        public void gameError(string error, int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.showError(error);
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        public void gameMessage(string msg, int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.showMessage(msg);
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+ 
+        public void opponentPressed(int row, int col, int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.opponentPressed(row, col);
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        public void addedSuccessfully(bool firstPlayer, int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.addedSuccessfully(firstPlayer);
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        public void gameEnded(string msg, int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.endGame(msg);
+                    break;
+                case 5:
+
+                    break;
+            }
+        }
+
+        public void playerTurn(int dim)
+        {
+            switch (dim)
+            {
+                case 4:
+                    if (mainForm.board4Form != null)
+                        mainForm.board4Form.playerTurn();
+                    break;
+                case 5:
+
+                    break;
+            }
         }
     }
 

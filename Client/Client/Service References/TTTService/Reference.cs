@@ -336,6 +336,24 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChamp")]
         System.Threading.Tasks.Task registerPlayerToChampAsync(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/startGameRequest")]
+        void startGameRequest(int dim, bool singlePlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/startGameRequest")]
+        System.Threading.Tasks.Task startGameRequestAsync(int dim, bool singlePlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerPressed")]
+        void playerPressed(int row, int col, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerPressed")]
+        System.Threading.Tasks.Task playerPressedAsync(int row, int col, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerExitGame")]
+        void playerExitGame();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerExitGame")]
+        System.Threading.Tasks.Task playerExitGameAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -379,6 +397,27 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChampError")]
         void registerPlayerToChampError(string error);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/startGame")]
+        void startGame(int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameError")]
+        void gameError(string error, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameMessage")]
+        void gameMessage(string msg, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameEnded")]
+        void gameEnded(string msg, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/opponentPressed")]
+        void opponentPressed(int row, int col, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/addedSuccessfully")]
+        void addedSuccessfully(bool firstPlayer, int dim);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerTurn")]
+        void playerTurn(int dim);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -479,6 +518,30 @@ namespace Client.TTTService {
         
         public System.Threading.Tasks.Task registerPlayerToChampAsync(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps) {
             return base.Channel.registerPlayerToChampAsync(player, chmps);
+        }
+        
+        public void startGameRequest(int dim, bool singlePlayer) {
+            base.Channel.startGameRequest(dim, singlePlayer);
+        }
+        
+        public System.Threading.Tasks.Task startGameRequestAsync(int dim, bool singlePlayer) {
+            return base.Channel.startGameRequestAsync(dim, singlePlayer);
+        }
+        
+        public void playerPressed(int row, int col, int dim) {
+            base.Channel.playerPressed(row, col, dim);
+        }
+        
+        public System.Threading.Tasks.Task playerPressedAsync(int row, int col, int dim) {
+            return base.Channel.playerPressedAsync(row, col, dim);
+        }
+        
+        public void playerExitGame() {
+            base.Channel.playerExitGame();
+        }
+        
+        public System.Threading.Tasks.Task playerExitGameAsync() {
+            return base.Channel.playerExitGameAsync();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Client
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            mainForm.client.getRegisterFormAdvisorList();
+            mainForm.getClient().getRegisterFormAdvisorList();
         }
         
 
@@ -35,7 +35,7 @@ namespace Client
             btnSubmit.Enabled = false;
             btnCancel.Enabled = false;
             int[] advisors = getSelectedAdvisors();
-            mainForm.client.registerNewPlayer(getPlayerFromFields(), advisors);
+            mainForm.getClient().registerNewPlayer(getPlayerFromFields(), advisors);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

@@ -25,7 +25,7 @@ namespace Client
 
         private void SelectUserForm_Load(object sender, EventArgs e)
         {
-            mainForm.client.getAllUsers();
+            mainForm.getClient().getAllUsers();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -43,7 +43,7 @@ namespace Client
                 btnSubmit.Enabled = false;
                 btnCancel.Enabled = false;
                 PlayerData user = players[listPlayers.SelectedIndices.Cast<int>().First()];
-                mainForm.client.login(user);
+                mainForm.getClient().login(user);
             }
         }
 

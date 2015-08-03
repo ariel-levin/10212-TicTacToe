@@ -29,7 +29,7 @@ namespace Client
             btnSubmit.Enabled = false;
             btnCancel.Enabled = false;
             ChampionshipData champ = getChampionshipFromFields();
-            mainForm.client.registerNewChampionship(champ);
+            mainForm.getClient().registerNewChampionship(champ);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

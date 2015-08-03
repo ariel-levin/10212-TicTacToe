@@ -38,6 +38,15 @@ public interface ITTT
     [OperationContract(IsOneWay = true)]
     void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps);
 
+    [OperationContract(IsOneWay = true)]
+    void startGameRequest(int dim, bool singlePlayer);
+
+    [OperationContract(IsOneWay = true)]
+    void playerPressed(int row, int col, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void playerExitGame();
+
 }
 
 
@@ -83,9 +92,28 @@ public interface ICallBack
     [OperationContract(IsOneWay = true)]
     void registerPlayerToChampError(string error);
 
+    [OperationContract(IsOneWay = true)]
+    void startGame(int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void gameError(string error, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void gameMessage(string msg, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void gameEnded(string msg, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void opponentPressed(int row, int col, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void addedSuccessfully(bool firstPlayer, int dim);
+
+    [OperationContract(IsOneWay = true)]
+    void playerTurn(int dim);
+
 }
-
-
 
 [DataContract]
 public class PlayerData

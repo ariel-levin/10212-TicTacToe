@@ -11,6 +11,8 @@ using System.Text;
 public class TTT : ITTT
 {
     private Dictionary<ICallBack, PlayerData> channels = new Dictionary<ICallBack, PlayerData>();
+    private Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
+    private Board[] boards = new Board[5];
 
 
     public void getRegisterFormAdvisorList()
@@ -197,6 +199,69 @@ public class TTT : ITTT
         }
     }
 
+    public void startGameRequest(int dim, bool singlePlayer)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (!channels.ContainsKey(channel))
+        {
+            channel.gameError("Something went wrong...\nYou are not logged in on the server\n"
+                + "Please try to logout and login again", dim);
+            return;
+        }
+
+        if (!singlePlayer)
+        {
+            Board b = tryFindOpponent(dim);
+            if (b != null)
+            {
+                b.addPlayer(channel, dim);
+                players_boards.Add(channel, b);
+                channel.addedSuccessfully(false, dim);
+                b.startMultiplayerGame();
+                return;
+            }
+        }
+
+        int index = findAvailableBoard();
+        if (index == -1)
+        {
+            channel.gameEnded("Sorry, all boards are taken at the moment..", dim);
+        }
+        else
+        {
+            boards[index] = new Board(dim, singlePlayer, channel);
+            players_boards.Add(channel, boards[index]);
+            channel.addedSuccessfully(true, dim);
+            if (singlePlayer)
+                channel.startGame(dim);
+        }
+    }
+
+    public void playerPressed(int row, int col, int dim)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (!players_boards.ContainsKey(channel))
+        {
+            channel.gameError("Something went wrong...\nCouldn't find player's board", dim);
+            return;
+        }
+
+        players_boards[channel].playerPressed(channel, row, col);
+    }
+
+    public void playerExitGame()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (players_boards.ContainsKey(channel))
+        {
+            players_boards[channel].playerExit(channel);
+            players_boards.Remove(channel);
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
@@ -294,6 +359,27 @@ public class TTT : ITTT
             select pc;
 
         return x.Count() > 0;
+    }
+
+    private Board tryFindOpponent(int dim)
+    {
+        foreach (var b in boards)
+        {
+            if (b != null && b.isWaitingForPlayer2() && dim == b.getDimension())
+                return b;
+        }
+        return null;
+    }
+
+    private int findAvailableBoard()
+    {
+        for (var i = 0; i < boards.Length; i++)
+        {
+            if (boards[i] == null || boards[i].isGameEnded())
+                return i;
+        }
+
+        return -1;
     }
 
 }

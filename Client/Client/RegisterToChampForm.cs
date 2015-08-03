@@ -25,7 +25,7 @@ namespace Client
 
         private void RegisterToChampForm_Load(object sender, EventArgs e)
         {
-            mainForm.client.getRegToChampList();
+            mainForm.getClient().getRegToChampList();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace Client
             {
                 btnSubmit.Enabled = false;
                 btnCancel.Enabled = false;
-                mainForm.client.registerPlayerToChamp(mainForm.currentPlayer, chmps);
+                mainForm.getClient().registerPlayerToChamp(mainForm.getCurrentPlayer(), chmps);
             }
         }
 

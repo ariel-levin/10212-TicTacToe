@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBoard4 = new System.Windows.Forms.Button();
+            this.btnOnline4 = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,18 +38,19 @@
             this.lblCurrentPlayer = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnRegToChamp = new System.Windows.Forms.Button();
+            this.btnOffline4 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnBoard4
+            // btnOnline4
             // 
-            this.btnBoard4.Location = new System.Drawing.Point(121, 161);
-            this.btnBoard4.Name = "btnBoard4";
-            this.btnBoard4.Size = new System.Drawing.Size(75, 23);
-            this.btnBoard4.TabIndex = 0;
-            this.btnBoard4.Text = "Board 4x4";
-            this.btnBoard4.UseVisualStyleBackColor = true;
-            this.btnBoard4.Click += new System.EventHandler(this.btnBoard4_Click);
+            this.btnOnline4.Location = new System.Drawing.Point(41, 120);
+            this.btnOnline4.Name = "btnOnline4";
+            this.btnOnline4.Size = new System.Drawing.Size(102, 23);
+            this.btnOnline4.TabIndex = 0;
+            this.btnOnline4.Text = "Online 4x4";
+            this.btnOnline4.UseVisualStyleBackColor = true;
+            this.btnOnline4.Click += new System.EventHandler(this.btnOnline4_Click);
             // 
             // menuStrip
             // 
@@ -138,23 +139,35 @@
             this.btnRegToChamp.UseVisualStyleBackColor = true;
             this.btnRegToChamp.Click += new System.EventHandler(this.btnRegToChamp_Click);
             // 
+            // btnOffline4
+            // 
+            this.btnOffline4.Location = new System.Drawing.Point(41, 169);
+            this.btnOffline4.Name = "btnOffline4";
+            this.btnOffline4.Size = new System.Drawing.Size(102, 23);
+            this.btnOffline4.TabIndex = 10;
+            this.btnOffline4.Text = "Offline 4x4";
+            this.btnOffline4.UseVisualStyleBackColor = true;
+            this.btnOffline4.Click += new System.EventHandler(this.btnOffline4_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
+            this.Controls.Add(this.btnOffline4);
             this.Controls.Add(this.btnRegToChamp);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.lblCurrentPlayer);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnNewChamp);
             this.Controls.Add(this.btnRegisterUser);
-            this.Controls.Add(this.btnBoard4);
+            this.Controls.Add(this.btnOnline4);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "Tic Tac Toe";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -165,7 +178,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnBoard4;
+        private System.Windows.Forms.Button btnOnline4;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
@@ -175,6 +188,7 @@
         private System.Windows.Forms.Label lblCurrentPlayer;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnRegToChamp;
+        private System.Windows.Forms.Button btnOffline4;
     }
 }
 
