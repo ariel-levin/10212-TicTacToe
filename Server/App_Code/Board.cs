@@ -171,8 +171,8 @@ public class Board
 
     public void startMultiplayerGame()
     {
-        player1.startGame(dim);
-        player2.startGame(dim);
+        player1.startGame(true, dim);
+        player2.startGame(false, dim);
     }
 
     public void addPlayer(ICallBack player, int dim)

@@ -399,7 +399,7 @@ namespace Client.TTTService {
         void registerPlayerToChampError(string error);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/startGame")]
-        void startGame(int dim);
+        void startGame(bool yourTurn, int dim);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameError")]
         void gameError(string error, int dim);

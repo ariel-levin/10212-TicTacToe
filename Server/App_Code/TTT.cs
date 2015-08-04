@@ -10,9 +10,9 @@ using System.Text;
 
 public class TTT : ITTT
 {
-    private Dictionary<ICallBack, PlayerData> channels = new Dictionary<ICallBack, PlayerData>();
-    private Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
-    private Board[] boards = new Board[5];
+    private static Dictionary<ICallBack, PlayerData> channels = new Dictionary<ICallBack, PlayerData>();
+    private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
+    private static Board[] boards = new Board[5];
 
 
     public void getRegisterFormAdvisorList()
@@ -234,7 +234,7 @@ public class TTT : ITTT
             players_boards.Add(channel, boards[index]);
             channel.addedSuccessfully(true, dim);
             if (singlePlayer)
-                channel.startGame(dim);
+                channel.startGame(true, dim);
         }
     }
 

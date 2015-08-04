@@ -16,6 +16,7 @@ namespace Client
     {
         private MainForm mainForm;
         private Board4Control ctrl;
+        private bool ended;
 
 
         public Board4Form(MainForm mainForm, bool singlePlayer)
@@ -24,6 +25,7 @@ namespace Client
             ctrl = new Board4Control(this);
             boardElementHost.Child = ctrl;
             this.mainForm = mainForm;
+            ended = false;
             mainForm.getClient().startGameRequest(4, singlePlayer);
         }
 
@@ -51,9 +53,15 @@ namespace Client
             ctrl.opponentPressed(row, col);
         }
 
-        public void startGame()
+        public void startGame(bool yourTurn)
         {
-            ctrl.yourTurn();
+            if (yourTurn)
+            {
+                showMessage("Game on!\nYour turn");
+                playerTurn();
+            }
+            else
+                showMessage("Game on!\nOpponent's turn");
         }
 
         public void showError(string error)
@@ -82,9 +90,13 @@ namespace Client
 
         public void endGame(string msg)
         {
-            ctrl.stopGame();
-            ctrl.disableAll();
-            showMessage(msg);
+            if (!ended)
+            {
+                ended = true;
+                ctrl.stopGame();
+                ctrl.disableBoard();
+                showMessage(msg);
+            }
         }
 
     }

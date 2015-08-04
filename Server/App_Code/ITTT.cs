@@ -93,7 +93,7 @@ public interface ICallBack
     void registerPlayerToChampError(string error);
 
     [OperationContract(IsOneWay = true)]
-    void startGame(int dim);
+    void startGame(bool yourTurn, int dim);
 
     [OperationContract(IsOneWay = true)]
     void gameError(string error, int dim);

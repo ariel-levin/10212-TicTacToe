@@ -167,6 +167,7 @@
   <xs:element name="startGame">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="yourTurn" type="xs:boolean" />
         <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>

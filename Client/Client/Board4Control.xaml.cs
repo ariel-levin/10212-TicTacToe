@@ -82,7 +82,7 @@ namespace Client
             btn.Content = (isOpponent) ? opponentToken : playerToken;
         }
         
-        public void disableAll()
+        public void disableBoard()
         {
             for (var i = 0; i < btnMatrix.GetLength(0); i++)
                 for (var j = 0; j < btnMatrix.GetLength(1); j++)

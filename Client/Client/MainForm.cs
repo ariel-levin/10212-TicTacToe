@@ -316,13 +316,13 @@ namespace Client
                 mainForm.regToChampForm.showRegToChampError(error);
         }
 
-        public void startGame(int dim)
+        public void startGame(bool yourTurn, int dim)
         {
             switch (dim)
             {
                 case 4:
                     if (mainForm.board4Form != null)
-                        mainForm.board4Form.startGame();
+                        mainForm.board4Form.startGame(yourTurn);
                     break;
                 case 5:
 
