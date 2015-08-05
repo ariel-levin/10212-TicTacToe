@@ -1,6 +1,6 @@
 ﻿namespace Client
 {
-    partial class Board4Form
+    partial class BoardForm
     {
         /// <summary>
         /// Required designer variable.

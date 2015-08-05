@@ -12,18 +12,35 @@ using System.Windows.Forms;
                       
 namespace Client
 {
-    public partial class Board4Form : Form
+    public partial class BoardForm : Form
     {
+        private int dim;
+
         private MainForm mainForm;
-        private Board4Control ctrl;
         private bool ended;
 
+        private Board4Control ctrl4;
 
-        public Board4Form(MainForm mainForm, bool singlePlayer)
+
+        public BoardForm(int dim, MainForm mainForm, bool singlePlayer)
         {
             InitializeComponent();
-            ctrl = new Board4Control(this);
-            boardElementHost.Child = ctrl;
+
+            switch (dim)
+            {
+                case 3:
+
+                    break;
+                case 4:
+                    ctrl4 = new Board4Control(this);
+                    boardElementHost.Child = ctrl4;
+                    break;
+                case 5:
+
+                    break;
+            }
+
+            this.dim = dim;
             this.mainForm = mainForm;
             ended = false;
             mainForm.getClient().startGameRequest(4, singlePlayer);
@@ -32,13 +49,13 @@ namespace Client
         private void Board4Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainForm.getClient().playerExitGame();
-            mainForm.board4Form = null;
+            mainForm.boardForm = null;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             mainForm.getClient().playerExitGame();
-            mainForm.board4Form = null;
+            mainForm.boardForm = null;
             Dispose();
         }
 
@@ -50,7 +67,18 @@ namespace Client
 
         public void opponentPressed(int row, int col)
         {
-            ctrl.opponentPressed(row, col);
+            switch (dim)
+            {
+                case 3:
+
+                    break;
+                case 4:
+                    ctrl4.opponentPressed(row, col);
+                    break;
+                case 5:
+
+                    break;
+            }
         }
 
         public void startGame(bool yourTurn)
@@ -77,15 +105,34 @@ namespace Client
         public void addedSuccessfully(bool firstPlayer)
         {
             showMessage("You joined a new board successfully!");
-            if (firstPlayer)
-                ctrl.setTokens('X');
-            else
-                ctrl.setTokens('O');
+            switch (dim)
+            {
+                case 3:
+
+                    break;
+                case 4:
+                    ctrl4.setTokens((firstPlayer) ? 'X' : 'O');
+                    break;
+                case 5:
+
+                    break;
+            }
         }
 
         public void playerTurn()
         {
-            ctrl.yourTurn();
+            switch (dim)
+            {
+                case 3:
+
+                    break;
+                case 4:
+                    ctrl4.yourTurn();
+                    break;
+                case 5:
+
+                    break;
+            }
         }
 
         public void endGame(string msg)
@@ -93,8 +140,21 @@ namespace Client
             if (!ended)
             {
                 ended = true;
-                ctrl.stopGame();
-                ctrl.disableBoard();
+
+                switch (dim)
+                {
+                    case 3:
+
+                        break;
+                    case 4:
+                        ctrl4.stopGame();
+                        ctrl4.disableBoard();
+                        break;
+                    case 5:
+
+                        break;
+                }
+
                 showMessage(msg);
             }
         }

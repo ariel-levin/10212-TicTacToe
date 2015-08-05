@@ -206,7 +206,7 @@ public class TTT : ITTT
         if (!channels.ContainsKey(channel))
         {
             channel.gameError("Something went wrong...\nYou are not logged in on the server\n"
-                + "Please try to logout and login again", dim);
+                + "Please try to logout and login again");
             return;
         }
 
@@ -217,7 +217,7 @@ public class TTT : ITTT
             {
                 b.addPlayer(channel, dim);
                 players_boards.Add(channel, b);
-                channel.addedSuccessfully(false, dim);
+                channel.addedSuccessfully(false);
                 b.startMultiplayerGame();
                 return;
             }
@@ -226,25 +226,25 @@ public class TTT : ITTT
         int index = findAvailableBoard();
         if (index == -1)
         {
-            channel.gameEnded("Sorry, all boards are taken at the moment..", dim);
+            channel.gameEnded("Sorry, all boards are taken at the moment..");
         }
         else
         {
             boards[index] = new Board(dim, singlePlayer, channel);
             players_boards.Add(channel, boards[index]);
-            channel.addedSuccessfully(true, dim);
+            channel.addedSuccessfully(true);
             if (singlePlayer)
-                channel.startGame(true, dim);
+                channel.startGame(true);
         }
     }
 
-    public void playerPressed(int row, int col, int dim)
+    public void playerPressed(int row, int col)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
         if (!players_boards.ContainsKey(channel))
         {
-            channel.gameError("Something went wrong...\nCouldn't find player's board", dim);
+            channel.gameError("Something went wrong...\nCouldn't find player's board");
             return;
         }
 

@@ -42,7 +42,7 @@ public interface ITTT
     void startGameRequest(int dim, bool singlePlayer);
 
     [OperationContract(IsOneWay = true)]
-    void playerPressed(int row, int col, int dim);
+    void playerPressed(int row, int col);
 
     [OperationContract(IsOneWay = true)]
     void playerExitGame();
@@ -93,25 +93,25 @@ public interface ICallBack
     void registerPlayerToChampError(string error);
 
     [OperationContract(IsOneWay = true)]
-    void startGame(bool yourTurn, int dim);
+    void startGame(bool yourTurn);
 
     [OperationContract(IsOneWay = true)]
-    void gameError(string error, int dim);
+    void gameError(string error);
 
     [OperationContract(IsOneWay = true)]
-    void gameMessage(string msg, int dim);
+    void gameMessage(string msg);
 
     [OperationContract(IsOneWay = true)]
-    void gameEnded(string msg, int dim);
+    void gameEnded(string msg);
 
     [OperationContract(IsOneWay = true)]
-    void opponentPressed(int row, int col, int dim);
+    void opponentPressed(int row, int col);
 
     [OperationContract(IsOneWay = true)]
-    void addedSuccessfully(bool firstPlayer, int dim);
+    void addedSuccessfully(bool firstPlayer);
 
     [OperationContract(IsOneWay = true)]
-    void playerTurn(int dim);
+    void playerTurn();
 
 }
 

@@ -138,20 +138,20 @@ public class Board
 
         board[row, col] = 'O';
         moveCount++;
-        player.opponentPressed(row, col, dim);
+        player.opponentPressed(row, col);
 
         if (checkWinning('O'))
         {
-            player.gameEnded("You lose..", dim);
+            player.gameEnded("You lose..");
             gameEnded = true;
         }
         else if (isBoardFull())
         {
-            player.gameEnded("It's a tie..", dim);
+            player.gameEnded("It's a tie..");
             gameEnded = true;
         }
         else
-            player.playerTurn(dim);
+            player.playerTurn();
     }
 
     public bool isWaitingForPlayer2()
@@ -171,33 +171,33 @@ public class Board
 
     public void startMultiplayerGame()
     {
-        player1.startGame(true, dim);
-        player2.startGame(false, dim);
+        player1.startGame(true);
+        player2.startGame(false);
     }
 
     public void addPlayer(ICallBack player, int dim)
     {
         if (this.dim != dim)
         {
-            player.gameError("Something went wrong...\nDifferenet dimensions of board", dim);
+            player.gameError("Something went wrong...\nDifferenet dimensions of board");
             return;
         }
 
         if (player1 == null)
         {
-            player.gameError("Something went wrong...\nPlayer1 is not found", dim);
+            player.gameError("Something went wrong...\nPlayer1 is not found");
             return;
         }
 
         if (player == player1)
         {
-            player.gameError("Something went wrong...\nTrying to add the same player", dim);
+            player.gameError("Something went wrong...\nTrying to add the same player");
             return;
         }
 
         if (player1 != null && singlePlayer)
         {
-            player.gameError("Something went wrong...\nThe game is already occupied by single player game", dim);
+            player.gameError("Something went wrong...\nThe game is already occupied by single player game");
             return;
         }
 
@@ -210,13 +210,13 @@ public class Board
         char token = getToken(player);
         if (token == 'E')
         {
-            player.gameError("Something went wrong...\nPlayer is not found", dim);
+            player.gameError("Something went wrong...\nPlayer is not found");
             return;
         }
 
         if (isPressed(row, col))
         {
-            player.gameError("Something went wrong...\nCell already pressed", dim);
+            player.gameError("Something went wrong...\nCell already pressed");
             return;
         }
 
@@ -228,31 +228,31 @@ public class Board
         if (!singlePlayer)
         {
             if (opponent != null)
-                opponent.opponentPressed(row, col, dim);
+                opponent.opponentPressed(row, col);
             else
             {
-                player.gameError("Something went wrong...\nOpponent is not found", dim);
+                player.gameError("Something went wrong...\nOpponent is not found");
                 return;
             }
         }
 
         if (checkWinning(token))
         {
-            player.gameEnded("You won!", dim);
+            player.gameEnded("You won!");
             if (!singlePlayer)
             {
                 if (opponent != null)
-                    opponent.gameEnded("You lose..", dim);
+                    opponent.gameEnded("You lose..");
             }
             gameEnded = true;
         }
         else if (isBoardFull())
         {
-            player.gameEnded("It's a tie..", dim);
+            player.gameEnded("It's a tie..");
             if (!singlePlayer)
             {
                 if (opponent != null)
-                    opponent.gameEnded("It's a tie..", dim);
+                    opponent.gameEnded("It's a tie..");
             }
             gameEnded = true;
         }
@@ -265,7 +265,7 @@ public class Board
             else
             {
                 if (opponent != null)
-                    opponent.playerTurn(dim);
+                    opponent.playerTurn();
             }
         }
 
@@ -277,7 +277,7 @@ public class Board
         {
             ICallBack op = getOpponent(player);
             if (op != null)
-                op.gameEnded("Opponent left the game..", dim);
+                op.gameEnded("Opponent left the game..");
         }
         gameEnded = true;
     }

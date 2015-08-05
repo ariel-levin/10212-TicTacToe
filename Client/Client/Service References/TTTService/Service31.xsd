@@ -73,7 +73,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -168,7 +167,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="yourTurn" type="xs:boolean" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -176,7 +174,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -184,7 +181,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="msg" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -192,7 +188,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="msg" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -201,7 +196,6 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="row" type="xs:int" />
         <xs:element minOccurs="0" name="col" type="xs:int" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -209,15 +203,12 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="firstPlayer" type="xs:boolean" />
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="playerTurn">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="dim" type="xs:int" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

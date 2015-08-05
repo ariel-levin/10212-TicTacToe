@@ -21,7 +21,7 @@ namespace Client
         public NewChampForm newChampForm { get; set; }
         public LoginForm loginForm { get; set; }
         public RegisterToChampForm regToChampForm { get; set; }
-        public Board4Form board4Form { get; set; }
+        public BoardForm boardForm { get; set; }
 
         private TTTClient client;
         private PlayerData currentPlayer;
@@ -55,8 +55,8 @@ namespace Client
         {
             if (currentPlayer != null)
             {
-                board4Form = new Board4Form(this, false);
-                board4Form.Show();
+                boardForm = new BoardForm(4, this, false);
+                boardForm.Show();
             }
             else
                 showError("Error: Please login first");
@@ -66,8 +66,8 @@ namespace Client
         {
             if (currentPlayer != null)
             {
-                board4Form = new Board4Form(this, true);
-                board4Form.Show();
+                boardForm = new BoardForm(4, this, true);
+                boardForm.Show();
             }
             else
                 showError("Error: Please login first");
@@ -232,6 +232,10 @@ namespace Client
     }
 
 
+    /////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////
+
+
     public class MyCallBack : ITTTCallback
     {
         private MainForm mainForm;
@@ -316,103 +320,47 @@ namespace Client
                 mainForm.regToChampForm.showRegToChampError(error);
         }
 
-        public void startGame(bool yourTurn, int dim)
+        public void startGame(bool yourTurn)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.startGame(yourTurn);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.startGame(yourTurn);
         }
 
-        public void gameError(string error, int dim)
+        public void gameError(string error)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.showError(error);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.showError(error);
         }
 
-        public void gameMessage(string msg, int dim)
+        public void gameMessage(string msg)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.showMessage(msg);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.showMessage(msg);
         }
 
  
-        public void opponentPressed(int row, int col, int dim)
+        public void opponentPressed(int row, int col)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.opponentPressed(row, col);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.opponentPressed(row, col);
         }
 
-        public void addedSuccessfully(bool firstPlayer, int dim)
+        public void addedSuccessfully(bool firstPlayer)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.addedSuccessfully(firstPlayer);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.addedSuccessfully(firstPlayer);
         }
 
-        public void gameEnded(string msg, int dim)
+        public void gameEnded(string msg)
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.endGame(msg);
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.endGame(msg);
         }
 
-        public void playerTurn(int dim)
+        public void playerTurn()
         {
-            switch (dim)
-            {
-                case 4:
-                    if (mainForm.board4Form != null)
-                        mainForm.board4Form.playerTurn();
-                    break;
-                case 5:
-
-                    break;
-            }
+            if (mainForm.boardForm != null)
+                mainForm.boardForm.playerTurn();
         }
     }
 

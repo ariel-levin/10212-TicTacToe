@@ -30,22 +30,22 @@
 
         <Button x:Name="button1" Grid.Row="3" Grid.ColumnSpan="2" Content="Submit:" Margin="15" FontSize="15" IsDefault="True"/>-->
 
-        <Button x:Name="A1" Grid.Row="0" Grid.Column="0" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="A2" Grid.Row="0" Grid.Column="1" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="A3" Grid.Row="0" Grid.Column="2" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="A4" Grid.Row="0" Grid.Column="3" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="B1" Grid.Row="1" Grid.Column="0" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="B2" Grid.Row="1" Grid.Column="1" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="B3" Grid.Row="1" Grid.Column="2" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="B4" Grid.Row="1" Grid.Column="3" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="C1" Grid.Row="2" Grid.Column="0" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="C2" Grid.Row="2" Grid.Column="1" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="C3" Grid.Row="2" Grid.Column="2" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="C4" Grid.Row="2" Grid.Column="3" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="D1" Grid.Row="3" Grid.Column="0" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="D2" Grid.Row="3" Grid.Column="1" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="D3" Grid.Row="3" Grid.Column="2" Click="button_Click" HorizontalAlignment="Stretch" />
-        <Button x:Name="D4" Grid.Row="3" Grid.Column="3" Click="button_Click" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="A1" Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="A2" Grid.Row="0" Grid.Column="1" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="A3" Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="A4" Grid.Row="0" Grid.Column="3" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="B1" Grid.Row="1" Grid.Column="0" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="B2" Grid.Row="1" Grid.Column="1" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="B3" Grid.Row="1" Grid.Column="2" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="B4" Grid.Row="1" Grid.Column="3" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="C1" Grid.Row="2" Grid.Column="0" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="C2" Grid.Row="2" Grid.Column="1" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="C3" Grid.Row="2" Grid.Column="2" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="C4" Grid.Row="2" Grid.Column="3" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="D1" Grid.Row="3" Grid.Column="0" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="D2" Grid.Row="3" Grid.Column="1" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="D3" Grid.Row="3" Grid.Column="2" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
+        <StackPanel x:Name="D4" Grid.Row="3" Grid.Column="3" Margin="1,1,1,1" Background="#d5d5d5" MouseLeftButtonDown="mouseLeftButtonDown" HorizontalAlignment="Stretch" />
 
     </Grid>
 </UserControl>

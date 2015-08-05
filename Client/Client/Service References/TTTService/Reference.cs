@@ -344,10 +344,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task startGameRequestAsync(int dim, bool singlePlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerPressed")]
-        void playerPressed(int row, int col, int dim);
+        void playerPressed(int row, int col);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerPressed")]
-        System.Threading.Tasks.Task playerPressedAsync(int row, int col, int dim);
+        System.Threading.Tasks.Task playerPressedAsync(int row, int col);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerExitGame")]
         void playerExitGame();
@@ -399,25 +399,25 @@ namespace Client.TTTService {
         void registerPlayerToChampError(string error);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/startGame")]
-        void startGame(bool yourTurn, int dim);
+        void startGame(bool yourTurn);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameError")]
-        void gameError(string error, int dim);
+        void gameError(string error);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameMessage")]
-        void gameMessage(string msg, int dim);
+        void gameMessage(string msg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/gameEnded")]
-        void gameEnded(string msg, int dim);
+        void gameEnded(string msg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/opponentPressed")]
-        void opponentPressed(int row, int col, int dim);
+        void opponentPressed(int row, int col);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/addedSuccessfully")]
-        void addedSuccessfully(bool firstPlayer, int dim);
+        void addedSuccessfully(bool firstPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerTurn")]
-        void playerTurn(int dim);
+        void playerTurn();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -528,12 +528,12 @@ namespace Client.TTTService {
             return base.Channel.startGameRequestAsync(dim, singlePlayer);
         }
         
-        public void playerPressed(int row, int col, int dim) {
-            base.Channel.playerPressed(row, col, dim);
+        public void playerPressed(int row, int col) {
+            base.Channel.playerPressed(row, col);
         }
         
-        public System.Threading.Tasks.Task playerPressedAsync(int row, int col, int dim) {
-            return base.Channel.playerPressedAsync(row, col, dim);
+        public System.Threading.Tasks.Task playerPressedAsync(int row, int col) {
+            return base.Channel.playerPressedAsync(row, col);
         }
         
         public void playerExitGame() {
