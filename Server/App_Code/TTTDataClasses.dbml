@@ -12,6 +12,9 @@
       <Column Name="AdviseTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Player_Player" Member="Players" ThisKey="Id" OtherKey="AdviseTo" Type="Player" />
       <Association Name="Player_PlayerChampionship" Member="PlayerChampionships" ThisKey="Id" OtherKey="PlayerId" Type="PlayerChampionship" />
+      <Association Name="Player_Game" Member="Games" ThisKey="Id" OtherKey="Player1" Type="Game" />
+      <Association Name="Player_Game1" Member="Games1" ThisKey="Id" OtherKey="Player2" Type="Game" />
+      <Association Name="Player_Game2" Member="Games2" ThisKey="Id" OtherKey="Winner" Type="Game" />
       <Association Name="Player_Player" Member="Player1" ThisKey="AdviseTo" OtherKey="Id" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
@@ -31,6 +34,20 @@
       <Column Name="ChampionshipId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Championship_PlayerChampionship" Member="Championship" ThisKey="ChampionshipId" OtherKey="Id" Type="Championship" IsForeignKey="true" />
       <Association Name="Player_PlayerChampionship" Member="Player" ThisKey="PlayerId" OtherKey="Id" Type="Player" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Games" Member="Games">
+    <Type Name="Game">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Player1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Player2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Winner" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Moves" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Player_Game" Member="Player" ThisKey="Player1" OtherKey="Id" Type="Player" IsForeignKey="true" />
+      <Association Name="Player_Game1" Member="Player3" ThisKey="Player2" OtherKey="Id" Type="Player" IsForeignKey="true" />
+      <Association Name="Player_Game2" Member="Player4" ThisKey="Winner" OtherKey="Id" Type="Player" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -10,7 +10,7 @@ using System.Text;
 
 public class TTT : ITTT
 {
-    private static Dictionary<ICallBack, PlayerData> channels = new Dictionary<ICallBack, PlayerData>();
+    private static Dictionary<ICallBack, PlayerData> players = new Dictionary<ICallBack, PlayerData>();
     private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
     private static Board[] boards = new Board[5];
 
@@ -39,11 +39,11 @@ public class TTT : ITTT
                     con.Open();
                     cmd.ExecuteNonQuery();
 
-                    player.Id = (from p in db.Players
-                                 select p.Id).Max();
-
                     if (advisors != null)
                     {
+                        player.Id = (from p in db.Players
+                                     select p.Id).Max();
+
                         for (var i = 0; i < advisors.Length; i++)
                         {
                             cmd.CommandText = string.Format("update Players set AdviseTo = {0} where Id = {1}", player.Id, advisors[i]);
@@ -111,7 +111,7 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (channels.ContainsKey(channel))
+        if (players.ContainsKey(channel))
         {
             channel.loginError("You are already connected, please logout first", user);
         }
@@ -123,7 +123,7 @@ public class TTT : ITTT
             }
             else
             {
-                channels.Add(channel, user);
+                players.Add(channel, user);
                 channel.loginSuccess(user);
             }
         }
@@ -133,9 +133,9 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (channels.ContainsKey(channel) )
+        if (players.ContainsKey(channel) )
         {
-            channels.Remove(channel);
+            players.Remove(channel);
             if (waitingForResponse)
                 channel.logoutSuccess();
         }
@@ -203,7 +203,7 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (!channels.ContainsKey(channel))
+        if (!players.ContainsKey(channel))
         {
             channel.gameError("Something went wrong...\nYou are not logged in on the server\n"
                 + "Please try to logout and login again");
@@ -230,7 +230,7 @@ public class TTT : ITTT
         }
         else
         {
-            boards[index] = new Board(dim, singlePlayer, channel);
+            boards[index] = new Board(dim, singlePlayer, channel, this);
             players_boards.Add(channel, boards[index]);
             channel.addedSuccessfully(true);
             if (singlePlayer)
@@ -259,6 +259,42 @@ public class TTT : ITTT
         {
             players_boards[channel].playerExit(channel);
             players_boards.Remove(channel);
+        }
+    }
+
+    public PlayerData getPlayerData(ICallBack channel)
+    {
+        if (players.ContainsKey(channel))
+            return players[channel];
+        else
+            return null;
+    }
+
+    public void insertGameToDB(Game game)
+    {
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                string sql = "";
+                if (game.Winner.HasValue)
+                    sql = string.Format("Insert into Games(Player1, Player2, Winner, Moves, StartTime, EndTime) "
+                         + "values({0}, {1}, {2}, '{3}', '{4}', '{5}')", game.Player1, game.Player2, game.Winner,
+                         game.Moves, game.StartTime, game.EndTime);
+                else
+                    sql = string.Format("Insert into Games(Player1, Player2, Moves, StartTime, EndTime) "
+                         + "values({0}, {1}, '{2}', '{3}', '{4}')", game.Player1, game.Player2, game.Moves, 
+                         game.StartTime, game.EndTime);
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                catch (Exception) { }
+            }
         }
     }
 
@@ -335,6 +371,7 @@ public class TTT : ITTT
         {
             var x =
                 from p in db.Players
+                where p.Id != 1
                 select p;
             PlayerData[] players = new PlayerData[x.Count()];
             int i = 0;
@@ -348,7 +385,7 @@ public class TTT : ITTT
 
     private bool isUserAlreadyLogged(PlayerData user) 
     {
-        return channels.Values.Any(p => p.Id == user.Id);
+        return players.Values.Any(p => p.Id == user.Id);
     }
 
     private bool isPlayerRegisteredToChamp(PlayerData player, ChampionshipData champ, TTTDataClassesDataContext db)

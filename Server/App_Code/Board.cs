@@ -9,24 +9,34 @@ using System.Web;
 public class Board
 {
     private ICallBack player1, player2;
+    private TTT server;
+    private Game game;
     private bool singlePlayer;
     private char[,] board;
-    private bool waitingForPlayer2;
-    private bool gameEnded;
-    private int dim;
-    private int moveCount;
+    private bool waitingForPlayer2, gameEnded;
+    private int dim, moveCount;
     private Random rand;
 
 
-	public Board(int dim, bool singlePlayer, ICallBack player)
+	public Board(int dim, bool singlePlayer, ICallBack player, TTT server)
 	{
         this.dim = dim;
         this.singlePlayer = singlePlayer;
+        this.server = server;
         initBoard();
         moveCount = 0;
         gameEnded = false;
         rand = new Random();
         player1 = player;
+
+        game = new Game();
+        game.Player1 = server.getPlayerData(player).Id;
+        game.StartTime = DateTime.Now;
+        game.Moves = "{ \"moves\": [";
+
+        if (singlePlayer)
+            game.Player2 = 1;
+        
         waitingForPlayer2 = !singlePlayer;
 	}
 
@@ -137,21 +147,33 @@ public class Board
         } while (isPressed(row, col));
 
         board[row, col] = 'O';
+        if (moveCount > 0)
+            game.Moves += ",";
+        game.Moves += " [" + row + "," + col + "]";
         moveCount++;
         player.opponentPressed(row, col);
 
         if (checkWinning('O'))
         {
             player.gameEnded("You lose..");
-            gameEnded = true;
+            game.Winner = 1;
+            endGame(player);
         }
         else if (isBoardFull())
         {
             player.gameEnded("It's a tie..");
-            gameEnded = true;
+            endGame(player);
         }
         else
             player.playerTurn();
+    }
+
+    private void endGame(ICallBack player)
+    {
+        gameEnded = true;
+        game.Moves += " ] }";
+        game.EndTime = DateTime.Now;
+        server.insertGameToDB(game);
     }
 
     public bool isWaitingForPlayer2()
@@ -203,6 +225,7 @@ public class Board
 
         waitingForPlayer2 = false;
         player2 = player;
+        game.Player2 = server.getPlayerData(player).Id;
     }
 
     public void playerPressed(ICallBack player, int row, int col)
@@ -221,6 +244,9 @@ public class Board
         }
 
         board[row, col] = token;
+        if (moveCount > 0)
+            game.Moves += ",";
+        game.Moves += " [" + row + "," + col + "]";
         moveCount++;
 
         ICallBack opponent = getOpponent(player);   // if singleplayer it will be null
@@ -239,22 +265,17 @@ public class Board
         if (checkWinning(token))
         {
             player.gameEnded("You won!");
-            if (!singlePlayer)
-            {
-                if (opponent != null)
-                    opponent.gameEnded("You lose..");
-            }
-            gameEnded = true;
+            if (!singlePlayer && opponent != null)
+                opponent.gameEnded("You lose..");
+            game.Winner = server.getPlayerData(player).Id;
+            endGame(player);
         }
         else if (isBoardFull())
         {
             player.gameEnded("It's a tie..");
-            if (!singlePlayer)
-            {
-                if (opponent != null)
-                    opponent.gameEnded("It's a tie..");
-            }
-            gameEnded = true;
+            if (!singlePlayer && opponent != null)
+                opponent.gameEnded("It's a tie..");
+            endGame(player);
         }
         else
         {
@@ -273,13 +294,16 @@ public class Board
 
     public void playerExit(ICallBack player)
     {
-        if (!singlePlayer)
+        if (!gameEnded)
         {
-            ICallBack op = getOpponent(player);
-            if (op != null)
-                op.gameEnded("Opponent left the game..");
+            if (!singlePlayer)
+            {
+                ICallBack op = getOpponent(player);
+                if (op != null)
+                    op.gameEnded("Opponent left the game..");
+            }
+            endGame(player);
         }
-        gameEnded = true;
     }
 
 }
