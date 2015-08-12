@@ -22,6 +22,7 @@ namespace Client
         public LoginForm loginForm { get; set; }
         public RegisterToChampForm regToChampForm { get; set; }
         public BoardForm boardForm { get; set; }
+        public QueriesForm queriesForm { get; set; }
 
         private TTTClient client;
         private PlayerData currentPlayer;
@@ -31,9 +32,9 @@ namespace Client
         {
             InitializeComponent();
             
-            MyCallBack callback = new MyCallBack(this);
-            InstanceContext context = new InstanceContext(callback);
+            InstanceContext context = new InstanceContext(new MyCallBack(this));
             client = new TTTClient(context);
+
             try
             {
                 client.wake();
@@ -161,6 +162,22 @@ namespace Client
             }
         }
 
+        private void btnQueries_Click(object sender, EventArgs e)
+        {
+            if (queriesForm != null)
+                showError("Queries Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    queriesForm = new QueriesForm(this);
+                    queriesForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
         private void showError(string error)
         {
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -227,141 +244,7 @@ namespace Client
                 + ": " + champ.StartDate.ToShortDateString();
         }
 
-
-
     }
 
-
-    /////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////
-
-
-    public class MyCallBack : ITTTCallback
-    {
-        private MainForm mainForm;
-
-
-        public MyCallBack(MainForm mainForm)
-        {
-            this.mainForm = mainForm;
-        }
-
-        public void showException(Exception e)
-        {
-            mainForm.showException(e);
-        }
-
-        public void sendRegisterFormAdvisorList(PlayerData[] players)
-        {
-            if (mainForm.registerForm != null)
-                mainForm.registerForm.setAdvisorList(players);
-        }
-
-        public void showPlayerRegisterSuccess()
-        {
-            if (mainForm.registerForm != null)
-                mainForm.registerForm.showPlayerRegisterSuccess();
-        }
-
-        public void showNewChampSuccess()
-        {
-            if (mainForm.newChampForm != null)
-                mainForm.newChampForm.showNewChampSuccess();
-        }
-
-        public void sendAllUsers(PlayerData[] users)
-        {
-            if (mainForm.loginForm != null)
-                mainForm.loginForm.setUsersList(users);
-        }
-
-        public void loginSuccess(PlayerData user)
-        {
-            if (mainForm.loginForm != null)
-                mainForm.loginForm.showPlayerLoginSuccess(user);
-        }
-
-        public void loginError(string error, PlayerData user)
-        {
-            if (mainForm.loginForm != null)
-                mainForm.loginForm.showLoginError(error, user);
-        }
-
-        public void logoutSuccess()
-        {
-            mainForm.playerLogout();
-        }
-
-        public void logoutError(string error)
-        {
-            mainForm.playerLogoutError(error);
-        }
-
-        public void response()
-        {
-            
-        }
-
-        public void sendRegToChampList(ChampionshipData[] chmps)
-        {
-            if (mainForm.regToChampForm != null)
-                mainForm.regToChampForm.setChampionshipsList(chmps);
-        }
-
-        public void registerPlayerToChampSuccess()
-        {
-            if (mainForm.regToChampForm != null)
-                mainForm.regToChampForm.showRegToChampSuccess();
-        }
-
-        public void registerPlayerToChampError(string error)
-        {
-            if (mainForm.regToChampForm != null)
-                mainForm.regToChampForm.showRegToChampError(error);
-        }
-
-        public void startGame(bool yourTurn)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.startGame(yourTurn);
-        }
-
-        public void gameError(string error)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.showError(error);
-        }
-
-        public void gameMessage(string msg)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.showMessage(msg);
-        }
-
- 
-        public void opponentPressed(int row, int col)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.opponentPressed(row, col);
-        }
-
-        public void addedSuccessfully(bool firstPlayer)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.addedSuccessfully(firstPlayer);
-        }
-
-        public void gameEnded(string msg)
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.endGame(msg);
-        }
-
-        public void playerTurn()
-        {
-            if (mainForm.boardForm != null)
-                mainForm.boardForm.playerTurn();
-        }
-    }
 
 }

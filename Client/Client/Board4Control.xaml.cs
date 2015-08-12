@@ -88,11 +88,6 @@ namespace Client
 
             sb.Begin(this);
         }
-
-        private void animationComplete(object sender, EventArgs e)
-        {
-            MessageBox.Show("animation complete");
-        }
         
         public void disableBoard()
         {

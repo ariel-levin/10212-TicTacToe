@@ -101,10 +101,10 @@ public class TTT : ITTT
         }
     }
 
-    public void getAllUsers()
+    public void getAllUsers(char caller)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendAllUsers(getAllPlayersFromDB());
+        channel.sendAllUsers(getAllPlayersFromDB(), caller);
     }
 
     public void login(PlayerData user)

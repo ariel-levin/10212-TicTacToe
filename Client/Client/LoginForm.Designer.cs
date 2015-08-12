@@ -41,7 +41,7 @@
             this.listPlayers.Size = new System.Drawing.Size(205, 170);
             this.listPlayers.TabIndex = 0;
             this.listPlayers.UseCompatibleStateImageBehavior = false;
-            this.listPlayers.View = System.Windows.Forms.View.List;
+            this.listPlayers.View = System.Windows.Forms.View.Tile;
             // 
             // btnSubmit
             // 

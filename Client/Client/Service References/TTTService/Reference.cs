@@ -302,10 +302,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task registerNewChampionshipAsync(Client.TTTService.ChampionshipData champ);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllUsers")]
-        void getAllUsers();
+        void getAllUsers(char caller);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllUsers")]
-        System.Threading.Tasks.Task getAllUsersAsync();
+        System.Threading.Tasks.Task getAllUsersAsync(char caller);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/login")]
         void login(Client.TTTService.PlayerData user);
@@ -375,7 +375,7 @@ namespace Client.TTTService {
         void showNewChampSuccess();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendAllUsers")]
-        void sendAllUsers(Client.TTTService.PlayerData[] users);
+        void sendAllUsers(Client.TTTService.PlayerData[] users, char caller);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/loginSuccess")]
         void loginSuccess(Client.TTTService.PlayerData user);
@@ -472,12 +472,12 @@ namespace Client.TTTService {
             return base.Channel.registerNewChampionshipAsync(champ);
         }
         
-        public void getAllUsers() {
-            base.Channel.getAllUsers();
+        public void getAllUsers(char caller) {
+            base.Channel.getAllUsers(caller);
         }
         
-        public System.Threading.Tasks.Task getAllUsersAsync() {
-            return base.Channel.getAllUsersAsync();
+        public System.Threading.Tasks.Task getAllUsersAsync(char caller) {
+            return base.Channel.getAllUsersAsync(caller);
         }
         
         public void login(Client.TTTService.PlayerData user) {

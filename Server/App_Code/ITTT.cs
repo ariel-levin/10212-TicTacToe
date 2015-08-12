@@ -21,7 +21,7 @@ public interface ITTT
     void registerNewChampionship(ChampionshipData champ);
 
     [OperationContract(IsOneWay = true)]
-    void getAllUsers();
+    void getAllUsers(char caller);
 
     [OperationContract(IsOneWay = true)]
     void login(PlayerData user);
@@ -69,7 +69,7 @@ public interface ICallBack
     void showNewChampSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void sendAllUsers(PlayerData[] users);
+    void sendAllUsers(PlayerData[] users, char caller);
 
     [OperationContract(IsOneWay = true)]
     void loginSuccess(PlayerData user);

@@ -39,6 +39,9 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnRegToChamp = new System.Windows.Forms.Button();
             this.btnOffline4 = new System.Windows.Forms.Button();
+            this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnQueries = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +59,7 @@
             // 
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileMenuItem,
             this.helpMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -75,7 +79,7 @@
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
@@ -149,11 +153,36 @@
             this.btnOffline4.UseVisualStyleBackColor = true;
             this.btnOffline4.Click += new System.EventHandler(this.btnOffline4_Click);
             // 
+            // fileMenuItem
+            // 
+            this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitMenuItem});
+            this.fileMenuItem.Name = "fileMenuItem";
+            this.fileMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileMenuItem.Text = "File";
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitMenuItem.Text = "Exit";
+            // 
+            // btnQueries
+            // 
+            this.btnQueries.Location = new System.Drawing.Point(41, 224);
+            this.btnQueries.Name = "btnQueries";
+            this.btnQueries.Size = new System.Drawing.Size(102, 23);
+            this.btnQueries.TabIndex = 11;
+            this.btnQueries.Text = "Queries";
+            this.btnQueries.UseVisualStyleBackColor = true;
+            this.btnQueries.Click += new System.EventHandler(this.btnQueries_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
+            this.Controls.Add(this.btnQueries);
             this.Controls.Add(this.btnOffline4);
             this.Controls.Add(this.btnRegToChamp);
             this.Controls.Add(this.btnLogout);
@@ -189,6 +218,9 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnRegToChamp;
         private System.Windows.Forms.Button btnOffline4;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
+        private System.Windows.Forms.Button btnQueries;
     }
 }
 
