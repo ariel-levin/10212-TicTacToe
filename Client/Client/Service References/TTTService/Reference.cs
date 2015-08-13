@@ -279,6 +279,211 @@ namespace Client.TTTService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GameData", Namespace="http://schemas.datacontract.org/2004/07/")]
+    [System.SerializableAttribute()]
+    public partial class GameData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int BoardSizeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MovesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Player1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player1_NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Player2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Player2_NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime StartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> WinnerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Winner_NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BoardSize {
+            get {
+                return this.BoardSizeField;
+            }
+            set {
+                if ((this.BoardSizeField.Equals(value) != true)) {
+                    this.BoardSizeField = value;
+                    this.RaisePropertyChanged("BoardSize");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((this.EndTimeField.Equals(value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Moves {
+            get {
+                return this.MovesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MovesField, value) != true)) {
+                    this.MovesField = value;
+                    this.RaisePropertyChanged("Moves");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Player1 {
+            get {
+                return this.Player1Field;
+            }
+            set {
+                if ((this.Player1Field.Equals(value) != true)) {
+                    this.Player1Field = value;
+                    this.RaisePropertyChanged("Player1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player1_Name {
+            get {
+                return this.Player1_NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player1_NameField, value) != true)) {
+                    this.Player1_NameField = value;
+                    this.RaisePropertyChanged("Player1_Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Player2 {
+            get {
+                return this.Player2Field;
+            }
+            set {
+                if ((this.Player2Field.Equals(value) != true)) {
+                    this.Player2Field = value;
+                    this.RaisePropertyChanged("Player2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Player2_Name {
+            get {
+                return this.Player2_NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Player2_NameField, value) != true)) {
+                    this.Player2_NameField = value;
+                    this.RaisePropertyChanged("Player2_Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((this.StartTimeField.Equals(value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Winner {
+            get {
+                return this.WinnerField;
+            }
+            set {
+                if ((this.WinnerField.Equals(value) != true)) {
+                    this.WinnerField = value;
+                    this.RaisePropertyChanged("Winner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Winner_Name {
+            get {
+                return this.Winner_NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Winner_NameField, value) != true)) {
+                    this.Winner_NameField = value;
+                    this.RaisePropertyChanged("Winner_Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TTTService.ITTT", CallbackContract=typeof(Client.TTTService.ITTTCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface ITTT {
@@ -325,11 +530,11 @@ namespace Client.TTTService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/wake")]
         System.Threading.Tasks.Task wakeAsync();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegToChampList")]
-        void getRegToChampList();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllChampionships")]
+        void getAllChampionships(char caller);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegToChampList")]
-        System.Threading.Tasks.Task getRegToChampListAsync();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllChampionships")]
+        System.Threading.Tasks.Task getAllChampionshipsAsync(char caller);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChamp")]
         void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps);
@@ -354,6 +559,12 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerExitGame")]
         System.Threading.Tasks.Task playerExitGameAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllGames")]
+        void getAllGames(bool withPlayersNames);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllGames")]
+        System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -368,8 +579,8 @@ namespace Client.TTTService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showPlayerRegisterSuccess")]
         void showPlayerRegisterSuccess();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendRegToChampList")]
-        void sendRegToChampList(Client.TTTService.ChampionshipData[] chmps);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendAllChampionships")]
+        void sendAllChampionships(Client.TTTService.ChampionshipData[] chmps, char caller);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/showNewChampSuccess")]
         void showNewChampSuccess();
@@ -418,6 +629,9 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/playerTurn")]
         void playerTurn();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendAllGames")]
+        void sendAllGames(Client.TTTService.GameData[] games);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -504,12 +718,12 @@ namespace Client.TTTService {
             return base.Channel.wakeAsync();
         }
         
-        public void getRegToChampList() {
-            base.Channel.getRegToChampList();
+        public void getAllChampionships(char caller) {
+            base.Channel.getAllChampionships(caller);
         }
         
-        public System.Threading.Tasks.Task getRegToChampListAsync() {
-            return base.Channel.getRegToChampListAsync();
+        public System.Threading.Tasks.Task getAllChampionshipsAsync(char caller) {
+            return base.Channel.getAllChampionshipsAsync(caller);
         }
         
         public void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps) {
@@ -542,6 +756,14 @@ namespace Client.TTTService {
         
         public System.Threading.Tasks.Task playerExitGameAsync() {
             return base.Channel.playerExitGameAsync();
+        }
+        
+        public void getAllGames(bool withPlayersNames) {
+            base.Channel.getAllGames(withPlayersNames);
+        }
+        
+        public System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames) {
+            return base.Channel.getAllGamesAsync(withPlayersNames);
         }
     }
 }

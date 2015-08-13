@@ -35,4 +35,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPlayerData" nillable="true" type="tns:ArrayOfPlayerData" />
+  <xs:complexType name="ArrayOfGameData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameData" nillable="true" type="tns:GameData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGameData" nillable="true" type="tns:ArrayOfGameData" />
+  <xs:complexType name="GameData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoardSize" type="xs:int" />
+      <xs:element minOccurs="0" name="EndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Moves" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Player1" type="xs:int" />
+      <xs:element minOccurs="0" name="Player1_Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Player2" type="xs:int" />
+      <xs:element minOccurs="0" name="Player2_Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Winner" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Winner_Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameData" nillable="true" type="tns:GameData" />
 </xs:schema>

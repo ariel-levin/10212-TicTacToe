@@ -703,6 +703,8 @@ public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _Winner;
 	
+	private int _BoardSize;
+	
 	private string _Moves;
 	
 	private System.DateTime _StartTime;
@@ -727,6 +729,8 @@ public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnPlayer2Changed();
     partial void OnWinnerChanging(System.Nullable<int> value);
     partial void OnWinnerChanged();
+    partial void OnBoardSizeChanging(int value);
+    partial void OnBoardSizeChanged();
     partial void OnMovesChanging(string value);
     partial void OnMovesChanged();
     partial void OnStartTimeChanging(System.DateTime value);
@@ -831,6 +835,26 @@ public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Winner = value;
 				this.SendPropertyChanged("Winner");
 				this.OnWinnerChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoardSize", DbType="Int NOT NULL")]
+	public int BoardSize
+	{
+		get
+		{
+			return this._BoardSize;
+		}
+		set
+		{
+			if ((this._BoardSize != value))
+			{
+				this.OnBoardSizeChanging(value);
+				this.SendPropertyChanging();
+				this._BoardSize = value;
+				this.SendPropertyChanged("BoardSize");
+				this.OnBoardSizeChanged();
 			}
 		}
 	}

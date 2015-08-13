@@ -83,10 +83,19 @@ namespace Client
 
         }
 
-        public void sendRegToChampList(ChampionshipData[] chmps)
+        public void sendAllChampionships(ChampionshipData[] chmps, char caller)
         {
-            if (mainForm.regToChampForm != null)
-                mainForm.regToChampForm.setChampionshipsList(chmps);
+            switch (caller)
+            {
+                case 'R':   // register
+                    if (mainForm.regToChampForm != null)
+                        mainForm.regToChampForm.setChampionshipsList(chmps);
+                    break;
+                case 'Q':   // query
+                    if (mainForm.queriesForm != null)
+                        mainForm.queriesForm.setAllChampionships(chmps);
+                    break;
+            }
         }
 
         public void registerPlayerToChampSuccess()
@@ -143,6 +152,12 @@ namespace Client
             if (mainForm.boardForm != null)
                 mainForm.boardForm.playerTurn();
         }
-    }
 
+        public void sendAllGames(GameData[] games)
+        {
+            if (mainForm.queriesForm != null)
+                mainForm.queriesForm.setAllGames(games);
+        }
+
+    }
 }

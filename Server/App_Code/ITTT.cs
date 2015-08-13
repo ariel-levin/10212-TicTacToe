@@ -33,7 +33,7 @@ public interface ITTT
     void wake();
 
     [OperationContract(IsOneWay = true)]
-    void getRegToChampList();
+    void getAllChampionships(char caller);
 
     [OperationContract(IsOneWay = true)]
     void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps);
@@ -46,6 +46,9 @@ public interface ITTT
 
     [OperationContract(IsOneWay = true)]
     void playerExitGame();
+
+    [OperationContract(IsOneWay = true)]
+    void getAllGames(bool withPlayersNames);
 
 }
 
@@ -63,7 +66,7 @@ public interface ICallBack
     void showPlayerRegisterSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void sendRegToChampList(ChampionshipData[] chmps);
+    void sendAllChampionships(ChampionshipData[] chmps, char caller);
 
     [OperationContract(IsOneWay = true)]
     void showNewChampSuccess();
@@ -113,6 +116,9 @@ public interface ICallBack
     [OperationContract(IsOneWay = true)]
     void playerTurn();
 
+    [OperationContract(IsOneWay = true)]
+    void sendAllGames(GameData[] games);
+
 }
 
 [DataContract]
@@ -149,4 +155,32 @@ public class ChampionshipData
     public System.Nullable<System.DateTime> EndDate { get; set; }
     [DataMember]
     public string Picture { get; set; }
+}
+
+[DataContract]
+public class GameData
+{
+    [DataMember]
+    public int Id { get; set; }
+    [DataMember]
+    public int Player1 { get; set; }
+    [DataMember]
+    public string Player1_Name { get; set; }
+    [DataMember]
+    public int Player2 { get; set; }
+    [DataMember]
+    public string Player2_Name { get; set; }
+    [DataMember]
+    public System.Nullable<int> Winner { get; set; }
+    [DataMember]
+    public string Winner_Name { get; set; }
+    [DataMember]
+    public int BoardSize { get; set; }
+    [DataMember]
+    public string Moves { get; set; }
+    [DataMember]
+    public System.DateTime StartTime { get; set; }
+    [DataMember]
+    public System.DateTime EndTime { get; set; }
+
 }

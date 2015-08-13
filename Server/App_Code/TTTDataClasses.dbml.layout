@@ -41,31 +41,31 @@
         <classShapeMoniker Id="5ac1d0d6-ab1e-4758-86a7-ec41be9ab7d1" />
       </nodes>
     </associationConnector>
-    <classShape Id="d19d5bfc-c83d-4b34-9137-1f476b2b2614" absoluteBounds="0.875, 3, 2, 2.1554996744791666">
+    <classShape Id="08d3d37e-d9d5-49b9-8d6a-128dc82dfd07" absoluteBounds="0.75, 3, 2, 2.3478011067708335">
       <DataClassMoniker Name="/TTTDataClassesDataContext/Game" />
       <nestedChildShapes>
-        <elementListCompartment Id="f0193deb-837a-4d09-ad9d-b70d364c1687" absoluteBounds="0.89000000000000012, 3.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d930652e-f35c-45ed-8970-6e40f0cb6a26" absoluteBounds="0.76500000000000012, 3.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.875 : 4.07774983723958); (2.875 : 4.07774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.875 : 4.17390055338542); (2.75 : 4.17390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Game" />
       <nodes>
         <classShapeMoniker Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" />
-        <classShapeMoniker Id="d19d5bfc-c83d-4b34-9137-1f476b2b2614" />
+        <classShapeMoniker Id="08d3d37e-d9d5-49b9-8d6a-128dc82dfd07" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.875 : 3.47637491861979); (2.875 : 3.47637491861979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.875 : 3.52445027669271); (2.75 : 3.52445027669271)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Game1" />
       <nodes>
         <classShapeMoniker Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" />
-        <classShapeMoniker Id="d19d5bfc-c83d-4b34-9137-1f476b2b2614" />
+        <classShapeMoniker Id="08d3d37e-d9d5-49b9-8d6a-128dc82dfd07" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.875 : 4.67912475585937); (2.875 : 4.67912475585937)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.875 : 4.82335083007813); (2.75 : 4.82335083007813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/TTTDataClassesDataContext/Player/Player_Game2" />
       <nodes>
         <classShapeMoniker Id="a898289c-e768-4cf1-807a-c9aab8ce1eed" />
-        <classShapeMoniker Id="d19d5bfc-c83d-4b34-9137-1f476b2b2614" />
+        <classShapeMoniker Id="08d3d37e-d9d5-49b9-8d6a-128dc82dfd07" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

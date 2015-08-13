@@ -42,6 +42,7 @@
       <Column Name="Player1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Player2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Winner" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BoardSize" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Moves" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
       <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />

@@ -152,10 +152,10 @@ public class TTT : ITTT
         channel.response();
     }
 
-    public void getRegToChampList()
+    public void getAllChampionships(char caller)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendRegToChampList(getAllChampionships());
+        channel.sendAllChampionships(getAllChampionships(), caller);
     }
 
     public void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps)
@@ -298,6 +298,12 @@ public class TTT : ITTT
         }
     }
 
+    public void getAllGames(bool withPlayersNames)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+        channel.sendAllGames(getAllGamesFromDB(withPlayersNames));
+    }
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
@@ -336,16 +342,28 @@ public class TTT : ITTT
         return player;
     }
 
+    private GameData getGameData(Game g)
+    {
+        GameData game = new GameData();
+        game.Id = g.Id;
+        game.Player1 = g.Player1;
+        game.Player2 = g.Player2;
+        if (g.Winner.HasValue)
+            game.Winner = g.Winner;
+        game.BoardSize = g.BoardSize;
+        game.Moves = g.Moves;
+        game.StartTime = g.StartTime;
+        game.EndTime = g.EndTime;
+        return game;
+    }
+
     private ChampionshipData[] getAllChampionships()
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            var x =
-                from c in db.Championships
-                select c;
-            ChampionshipData[] chmps = new ChampionshipData[x.Count()];
+            ChampionshipData[] chmps = new ChampionshipData[db.Championships.Count()];
             int i = 0;
-            foreach (var c in x)
+            foreach (var c in db.Championships)
             {
                 chmps[i++] = getChampionshipData(c);
             }
@@ -383,6 +401,34 @@ public class TTT : ITTT
         }
     }
 
+    private GameData[] getAllGamesFromDB(bool withPlayersNames)
+    {
+        using (var db = new TTTDataClassesDataContext())
+        {
+            GameData[] games = new GameData[db.Games.Count()];
+            int i = 0;
+            foreach (var g in db.Games)
+            {
+                games[i] = getGameData(g);
+
+                if (withPlayersNames)
+                {
+                    PlayerData p = getPlayerDataById(games[i].Player1, db);
+                    games[i].Player1_Name = p.Id + " : " + p.FirstName;
+                    p = getPlayerDataById(games[i].Player2, db);
+                    games[i].Player2_Name = p.Id + " : " + p.FirstName;
+                    if (g.Winner.HasValue)
+                    {
+                        p = getPlayerDataById((int)games[i].Winner, db);
+                        games[i].Winner_Name = p.Id + " : " + p.FirstName;
+                    }
+                }
+                i++;
+            }
+            return games;
+        }
+    }
+
     private bool isUserAlreadyLogged(PlayerData user) 
     {
         return players.Values.Any(p => p.Id == user.Id);
@@ -417,6 +463,12 @@ public class TTT : ITTT
         }
 
         return -1;
+    }
+
+    private PlayerData getPlayerDataById(int id, TTTDataClassesDataContext db)
+    {
+        Player player = db.Players.Where(p => p.Id == id).First();
+        return getPlayerData(player);
     }
 
 }

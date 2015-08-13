@@ -91,11 +91,11 @@ namespace Client
                     break;
                 case 1:
                     cbSubQuery.Enabled = false;
-
+                    mainForm.getClient().getAllGames(true);
                     break;
                 case 2:
                     cbSubQuery.Enabled = false;
-
+                    mainForm.getClient().getAllChampionships('Q');
                     break;
                 case 3:
                     cbSubQuery.Enabled = true;
@@ -163,8 +163,6 @@ namespace Client
             btnDelete.Enabled = change;
         }
 
-
-
         public void setAllPlayers(PlayerData[] players)
         {
             this.objects = players;
@@ -172,6 +170,28 @@ namespace Client
             string[] types = { "int", "char", "char", "char", "char", "char", "int" };
             bool[] readOnly = { true, false, false, false, false, false, false };
             bool[] allowNull = { false, false, true, true, true, true, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            tableElementHost.Child = ctrl;
+        }
+
+        public void setAllGames(GameData[] games)
+        {
+            this.objects = games;
+            string[] titles = { "Id", "Player1_Name", "Player2_Name", "Winner_Name", "BoardSize", "StartTime", "EndTime" };
+            string[] types = { "int", "char", "char", "char", "int", "datetime", "datetime" };
+            bool[] readOnly = { true, false, false, false, true, false, false };
+            bool[] allowNull = { false, false, false, true, false, false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            tableElementHost.Child = ctrl;
+        }
+
+        public void setAllChampionships(ChampionshipData[] chmps)
+        {
+            this.objects = chmps;
+            string[] titles = { "Id", "City", "StartDate", "EndDate", "Picture" };
+            string[] types = { "int", "char", "datetime", "datetime", "image" };
+            bool[] readOnly = { true, false, false, false, false };
+            bool[] allowNull = { false, false, false, true, true };
             ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
             tableElementHost.Child = ctrl;
         }
