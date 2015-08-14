@@ -3,6 +3,7 @@
   <xs:complexType name="PlayerData">
     <xs:sequence>
       <xs:element minOccurs="0" name="AdviseTo" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AdviseToName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
@@ -29,18 +30,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfChampionshipData" nillable="true" type="tns:ArrayOfChampionshipData" />
-  <xs:complexType name="ArrayOfPlayerData">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerData" nillable="true" type="tns:PlayerData" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPlayerData" nillable="true" type="tns:ArrayOfPlayerData" />
-  <xs:complexType name="ArrayOfGameData">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameData" nillable="true" type="tns:GameData" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfGameData" nillable="true" type="tns:ArrayOfGameData" />
   <xs:complexType name="GameData">
     <xs:sequence>
       <xs:element minOccurs="0" name="BoardSize" type="xs:int" />
@@ -57,4 +46,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameData" nillable="true" type="tns:GameData" />
+  <xs:complexType name="ArrayOfPlayerData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerData" nillable="true" type="tns:PlayerData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerData" nillable="true" type="tns:ArrayOfPlayerData" />
+  <xs:complexType name="ArrayOfGameData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameData" nillable="true" type="tns:GameData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGameData" nillable="true" type="tns:ArrayOfGameData" />
+  <xs:complexType name="ArrayOfPlayerGames">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerGames" nillable="true" type="tns:PlayerGames" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerGames" nillable="true" type="tns:ArrayOfPlayerGames" />
+  <xs:complexType name="PlayerGames">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumberOfGames" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerGames" nillable="true" type="tns:PlayerGames" />
+  <xs:complexType name="ArrayOfCityChampionships">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CityChampionships" nillable="true" type="tns:CityChampionships" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCityChampionships" nillable="true" type="tns:ArrayOfCityChampionships" />
+  <xs:complexType name="CityChampionships">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumberOfChampionships" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CityChampionships" nillable="true" type="tns:CityChampionships" />
 </xs:schema>

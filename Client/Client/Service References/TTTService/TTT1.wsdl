@@ -402,6 +402,121 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getGamePlayers_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getGameAdvisors_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getChampionshipPlayers_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getPlayersGamesNum_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getCitiesChampionshipsNum_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendRegisterFormAdvisorList_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -471,7 +586,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendAllChampionships_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendChampionships_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -517,7 +632,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendAllUsers_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendPlayers_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -862,7 +977,76 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendAllGames_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendGames_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendGameAdvisors_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendPlayersGamesNum_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_sendCitiesChampionshipsNum_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -933,6 +1117,21 @@
   <wsdl:message name="ITTT_getAllGames_InputMessage">
     <wsdl:part name="parameters" element="tns:getAllGames" />
   </wsdl:message>
+  <wsdl:message name="ITTT_getGamePlayers_InputMessage">
+    <wsdl:part name="parameters" element="tns:getGamePlayers" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_getGameAdvisors_InputMessage">
+    <wsdl:part name="parameters" element="tns:getGameAdvisors" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_getChampionshipPlayers_InputMessage">
+    <wsdl:part name="parameters" element="tns:getChampionshipPlayers" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_getPlayersGamesNum_InputMessage">
+    <wsdl:part name="parameters" element="tns:getPlayersGamesNum" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_getCitiesChampionshipsNum_InputMessage">
+    <wsdl:part name="parameters" element="tns:getCitiesChampionshipsNum" />
+  </wsdl:message>
   <wsdl:message name="ITTT_sendRegisterFormAdvisorList_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:sendRegisterFormAdvisorList" />
   </wsdl:message>
@@ -942,14 +1141,14 @@
   <wsdl:message name="ITTT_showPlayerRegisterSuccess_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:showPlayerRegisterSuccess" />
   </wsdl:message>
-  <wsdl:message name="ITTT_sendAllChampionships_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:sendAllChampionships" />
+  <wsdl:message name="ITTT_sendChampionships_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendChampionships" />
   </wsdl:message>
   <wsdl:message name="ITTT_showNewChampSuccess_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:showNewChampSuccess" />
   </wsdl:message>
-  <wsdl:message name="ITTT_sendAllUsers_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:sendAllUsers" />
+  <wsdl:message name="ITTT_sendPlayers_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendPlayers" />
   </wsdl:message>
   <wsdl:message name="ITTT_loginSuccess_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:loginSuccess" />
@@ -993,8 +1192,17 @@
   <wsdl:message name="ITTT_playerTurn_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:playerTurn" />
   </wsdl:message>
-  <wsdl:message name="ITTT_sendAllGames_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:sendAllGames" />
+  <wsdl:message name="ITTT_sendGames_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendGames" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_sendGameAdvisors_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendGameAdvisors" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_sendPlayersGamesNum_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendPlayersGamesNum" />
+  </wsdl:message>
+  <wsdl:message name="ITTT_sendCitiesChampionshipsNum_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:sendCitiesChampionshipsNum" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="ITTT">
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getRegisterFormAdvisorList">
@@ -1036,6 +1244,21 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getAllGames">
       <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getAllGames" message="tns:ITTT_getAllGames_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getGamePlayers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getGamePlayers" message="tns:ITTT_getGamePlayers_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getGameAdvisors">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getGameAdvisors" message="tns:ITTT_getGameAdvisors_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getChampionshipPlayers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getChampionshipPlayers" message="tns:ITTT_getChampionshipPlayers_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getPlayersGamesNum">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getPlayersGamesNum" message="tns:ITTT_getPlayersGamesNum_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getCitiesChampionshipsNum">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getCitiesChampionshipsNum" message="tns:ITTT_getCitiesChampionshipsNum_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendRegisterFormAdvisorList">
       <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendRegisterFormAdvisorList" message="tns:ITTT_sendRegisterFormAdvisorList_OutputCallbackMessage" />
     </wsdl:operation>
@@ -1045,14 +1268,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="showPlayerRegisterSuccess">
       <wsdl:output wsaw:Action="http://tempuri.org/ITTT/showPlayerRegisterSuccess" message="tns:ITTT_showPlayerRegisterSuccess_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendAllChampionships">
-      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendAllChampionships" message="tns:ITTT_sendAllChampionships_OutputCallbackMessage" />
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendChampionships">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendChampionships" message="tns:ITTT_sendChampionships_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="showNewChampSuccess">
       <wsdl:output wsaw:Action="http://tempuri.org/ITTT/showNewChampSuccess" message="tns:ITTT_showNewChampSuccess_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendAllUsers">
-      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendAllUsers" message="tns:ITTT_sendAllUsers_OutputCallbackMessage" />
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendPlayers">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendPlayers" message="tns:ITTT_sendPlayers_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="loginSuccess">
       <wsdl:output wsaw:Action="http://tempuri.org/ITTT/loginSuccess" message="tns:ITTT_loginSuccess_OutputCallbackMessage" />
@@ -1096,8 +1319,17 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="playerTurn">
       <wsdl:output wsaw:Action="http://tempuri.org/ITTT/playerTurn" message="tns:ITTT_playerTurn_OutputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendAllGames">
-      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendAllGames" message="tns:ITTT_sendAllGames_OutputCallbackMessage" />
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendGames">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendGames" message="tns:ITTT_sendGames_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendGameAdvisors">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendGameAdvisors" message="tns:ITTT_sendGameAdvisors_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendPlayersGamesNum">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendPlayersGamesNum" message="tns:ITTT_sendPlayersGamesNum_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="sendCitiesChampionshipsNum">
+      <wsdl:output wsaw:Action="http://tempuri.org/ITTT/sendCitiesChampionshipsNum" message="tns:ITTT_sendCitiesChampionshipsNum_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSDualHttpBinding_ITTT" type="tns:ITTT">
@@ -1194,6 +1426,41 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="getGamePlayers">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getGamePlayers" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getGamePlayers_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getGameAdvisors">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getGameAdvisors" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getGameAdvisors_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getChampionshipPlayers">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getChampionshipPlayers" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getChampionshipPlayers_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getPlayersGamesNum">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getPlayersGamesNum" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getPlayersGamesNum_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="getCitiesChampionshipsNum">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getCitiesChampionshipsNum" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getCitiesChampionshipsNum_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="sendRegisterFormAdvisorList">
       <soap12:operation soapAction="http://tempuri.org/ITTT/sendRegisterFormAdvisorList" style="document" />
       <wsdl:output>
@@ -1215,10 +1482,10 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="sendAllChampionships">
-      <soap12:operation soapAction="http://tempuri.org/ITTT/sendAllChampionships" style="document" />
+    <wsdl:operation name="sendChampionships">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendChampionships" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendAllChampionships_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendChampionships_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1229,10 +1496,10 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="sendAllUsers">
-      <soap12:operation soapAction="http://tempuri.org/ITTT/sendAllUsers" style="document" />
+    <wsdl:operation name="sendPlayers">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendPlayers" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendAllUsers_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendPlayers_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1334,10 +1601,31 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="sendAllGames">
-      <soap12:operation soapAction="http://tempuri.org/ITTT/sendAllGames" style="document" />
+    <wsdl:operation name="sendGames">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendGames" style="document" />
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendAllGames_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendGames_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendGameAdvisors">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendGameAdvisors" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendGameAdvisors_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendPlayersGamesNum">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendPlayersGamesNum" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendPlayersGamesNum_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendCitiesChampionshipsNum">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/sendCitiesChampionshipsNum" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_sendCitiesChampionshipsNum_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

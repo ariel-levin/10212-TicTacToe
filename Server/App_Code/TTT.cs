@@ -10,6 +10,8 @@ using System.Text;
 
 public class TTT : ITTT
 {
+    private const int SERVER = 1;
+
     private static Dictionary<ICallBack, PlayerData> players = new Dictionary<ICallBack, PlayerData>();
     private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
     private static Board[] boards = new Board[5];
@@ -101,10 +103,10 @@ public class TTT : ITTT
         }
     }
 
-    public void getAllUsers(char caller)
+    public void getAllUsers(string caller)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendAllUsers(getAllPlayersFromDB(), caller);
+        channel.sendPlayers(getAllPlayersFromDB(), caller);
     }
 
     public void login(PlayerData user)
@@ -152,10 +154,10 @@ public class TTT : ITTT
         channel.response();
     }
 
-    public void getAllChampionships(char caller)
+    public void getAllChampionships(int playerId, string caller)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendAllChampionships(getAllChampionships(), caller);
+        channel.sendChampionships(getAllChampionships(playerId), caller);
     }
 
     public void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps)
@@ -278,13 +280,13 @@ public class TTT : ITTT
             {
                 string sql = "";
                 if (game.Winner.HasValue)
-                    sql = string.Format("Insert into Games(Player1, Player2, Winner, Moves, StartTime, EndTime) "
-                         + "values({0}, {1}, {2}, '{3}', '{4}', '{5}')", game.Player1, game.Player2, game.Winner,
-                         game.Moves, game.StartTime, game.EndTime);
+                    sql = string.Format("Insert into Games(Player1, Player2, Winner, BoardSize, Moves, StartTime, EndTime) "
+                         + "values({0}, {1}, {2}, {3}, '{4}', '{5}', '{6}')", game.Player1, game.Player2, game.Winner,
+                         game.BoardSize, game.Moves, game.StartTime, game.EndTime);
                 else
                     sql = string.Format("Insert into Games(Player1, Player2, Moves, StartTime, EndTime) "
-                         + "values({0}, {1}, '{2}', '{3}', '{4}')", game.Player1, game.Player2, game.Moves, 
-                         game.StartTime, game.EndTime);
+                         + "values({0}, {1}, {2}, '{3}', '{4}', '{5}')", game.Player1, game.Player2, game.BoardSize,
+                         game.Moves, game.StartTime, game.EndTime);
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 try
@@ -298,10 +300,107 @@ public class TTT : ITTT
         }
     }
 
-    public void getAllGames(bool withPlayersNames)
+    public void getAllGames(bool withPlayersNames, int playerId, string caller)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
-        channel.sendAllGames(getAllGamesFromDB(withPlayersNames));
+        channel.sendGames(getAllGamesFromDB(withPlayersNames, playerId), caller);
+    }
+
+    public void getGamePlayers(GameData game)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            PlayerData[] players = new PlayerData[2];
+            players[0] = getPlayerDataById(game.Player1, db);
+            players[1] = getPlayerDataById(game.Player2, db);
+            channel.sendPlayers(players, "Q");
+        }
+    }
+
+    public void getGameAdvisors(GameData game)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            PlayerData player1 = getPlayerDataById(game.Player1, db);
+            PlayerData player2 = getPlayerDataById(game.Player2, db);
+            var a1 = getPlayerAdvisors(player1.Id, db);
+            var a2 = getPlayerAdvisors(player2.Id, db);
+            PlayerData[] advisors = new PlayerData[a1.Count() + a2.Count()];
+            int i = 0;
+            foreach (var a in a1)
+            {
+                advisors[i] = getPlayerData(a);
+                advisors[i++].AdviseToName = player1.Id + " : " + player1.FirstName;
+            }
+            foreach (var a in a2)
+            {
+                advisors[i] = getPlayerData(a);
+                advisors[i++].AdviseToName = player2.Id + " : " + player2.FirstName;
+            }
+            channel.sendGameAdvisors(advisors);
+        }
+    }
+
+    public void getChampionshipPlayers(ChampionshipData chmp)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            var x = db.PlayerChampionships.Where(pc => pc.ChampionshipId == chmp.Id);
+            PlayerData[] players = new PlayerData[x.Count()];
+            int i = 0;
+            foreach (var pc in x)
+            {
+                players[i++] = getPlayerDataById(pc.PlayerId, db);
+            }
+            channel.sendPlayers(players, "Q");
+        }
+    }
+
+    public void getPlayersGamesNum()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            PlayerGames[] playersGames = new PlayerGames[db.Players.Count()-1];
+            int i = 0;
+            foreach (var p in db.Players)
+            {
+                if (p.Id != SERVER)
+                {
+                    playersGames[i] = new PlayerGames();
+                    playersGames[i].Name = p.Id + " : " + p.FirstName;
+                    var x = db.Games.Where(g => g.Player1 == p.Id || g.Player2 == p.Id);
+                    playersGames[i++].NumberOfGames = x.Count();
+                }
+            }
+            channel.sendPlayersGamesNum(playersGames);
+        }
+    }
+
+    public void getCitiesChampionshipsNum()
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            var x = db.Championships.GroupBy(c => c.City);
+            CityChampionships[] citiesChmps = new CityChampionships[x.Count()];
+            int i = 0;
+            foreach (var cc in x)
+            {
+                citiesChmps[i] = new CityChampionships();
+                citiesChmps[i].City = cc.Key;
+                citiesChmps[i++].NumberOfChampionships = cc.Count();
+            }
+            channel.sendCitiesChampionshipsNum(citiesChmps);
+        }
     }
 
 
@@ -313,10 +412,7 @@ public class TTT : ITTT
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            var x =
-                from p in db.Players
-                where p.IsAdvisor == 1 && !p.AdviseTo.HasValue
-                select p;
+            var x = db.Players.Where(p => p.IsAdvisor == 1 && !p.AdviseTo.HasValue);
             PlayerData[] players = new PlayerData[x.Count()];
             int i = 0;
             foreach (var p in x)
@@ -357,13 +453,23 @@ public class TTT : ITTT
         return game;
     }
 
-    private ChampionshipData[] getAllChampionships()
+    private ChampionshipData[] getAllChampionships(int playerId = -1)
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            ChampionshipData[] chmps = new ChampionshipData[db.Championships.Count()];
+            IQueryable<Championship> x = null;
+
+            if (playerId == -1)
+                x = db.Championships;
+            else
+            {
+                var y = db.PlayerChampionships.Where(pc => pc.PlayerId == playerId);
+                x = db.Championships.Where(c => y.Any(pc => pc.ChampionshipId == c.Id));
+            }
+
+            ChampionshipData[] chmps = new ChampionshipData[x.Count()];
             int i = 0;
-            foreach (var c in db.Championships)
+            foreach (var c in x)
             {
                 chmps[i++] = getChampionshipData(c);
             }
@@ -387,10 +493,7 @@ public class TTT : ITTT
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            var x =
-                from p in db.Players
-                where p.Id != 1
-                select p;
+            var x = db.Players.Where(p => p.Id != SERVER);
             PlayerData[] players = new PlayerData[x.Count()];
             int i = 0;
             foreach (var p in x)
@@ -401,13 +504,20 @@ public class TTT : ITTT
         }
     }
 
-    private GameData[] getAllGamesFromDB(bool withPlayersNames)
+    private GameData[] getAllGamesFromDB(bool withPlayersNames, int playerId = -1)
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            GameData[] games = new GameData[db.Games.Count()];
+            IQueryable<Game> x = null;
+
+            if (playerId == -1)
+                x = db.Games;
+            else
+                x = db.Games.Where(g => g.Player1 == playerId || g.Player2 == playerId);
+
+            GameData[] games = new GameData[x.Count()];
             int i = 0;
-            foreach (var g in db.Games)
+            foreach (var g in x)
             {
                 games[i] = getGameData(g);
 
@@ -469,6 +579,11 @@ public class TTT : ITTT
     {
         Player player = db.Players.Where(p => p.Id == id).First();
         return getPlayerData(player);
+    }
+
+    private IQueryable<Player> getPlayerAdvisors(int id, TTTDataClassesDataContext db)
+    {
+        return db.Players.Where(p => p.AdviseTo == id);
     }
 
 }

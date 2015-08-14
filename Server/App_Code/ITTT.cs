@@ -21,7 +21,7 @@ public interface ITTT
     void registerNewChampionship(ChampionshipData champ);
 
     [OperationContract(IsOneWay = true)]
-    void getAllUsers(char caller);
+    void getAllUsers(string caller);
 
     [OperationContract(IsOneWay = true)]
     void login(PlayerData user);
@@ -33,7 +33,7 @@ public interface ITTT
     void wake();
 
     [OperationContract(IsOneWay = true)]
-    void getAllChampionships(char caller);
+    void getAllChampionships(int playerId, string caller);
 
     [OperationContract(IsOneWay = true)]
     void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps);
@@ -48,7 +48,22 @@ public interface ITTT
     void playerExitGame();
 
     [OperationContract(IsOneWay = true)]
-    void getAllGames(bool withPlayersNames);
+    void getAllGames(bool withPlayersNames, int playerId, string caller);
+
+    [OperationContract(IsOneWay = true)]
+    void getGamePlayers(GameData game);
+
+    [OperationContract(IsOneWay = true)]
+    void getGameAdvisors(GameData game);
+
+    [OperationContract(IsOneWay = true)]
+    void getChampionshipPlayers(ChampionshipData chmp);
+
+    [OperationContract(IsOneWay = true)]
+    void getPlayersGamesNum();
+
+    [OperationContract(IsOneWay = true)]
+    void getCitiesChampionshipsNum();
 
 }
 
@@ -66,13 +81,13 @@ public interface ICallBack
     void showPlayerRegisterSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void sendAllChampionships(ChampionshipData[] chmps, char caller);
+    void sendChampionships(ChampionshipData[] chmps, string caller);
 
     [OperationContract(IsOneWay = true)]
     void showNewChampSuccess();
 
     [OperationContract(IsOneWay = true)]
-    void sendAllUsers(PlayerData[] users, char caller);
+    void sendPlayers(PlayerData[] users, string caller);
 
     [OperationContract(IsOneWay = true)]
     void loginSuccess(PlayerData user);
@@ -117,70 +132,15 @@ public interface ICallBack
     void playerTurn();
 
     [OperationContract(IsOneWay = true)]
-    void sendAllGames(GameData[] games);
+    void sendGames(GameData[] games, string caller);
 
-}
+    [OperationContract(IsOneWay = true)]
+    void sendGameAdvisors(PlayerData[] advisors);
 
-[DataContract]
-public class PlayerData
-{
-    [DataMember]
-    public int Id { get; set; }
-    [DataMember]
-    public string FirstName { get; set; }
-    [DataMember]
-    public string LastName { get; set; }
-    [DataMember]
-    public string City { get; set; }
-    [DataMember]
-    public string Country { get; set; }
-    [DataMember]
-    public string Phone { get; set; }
-    [DataMember]
-    public byte IsAdvisor { get; set; }
-    [DataMember]
-    public System.Nullable<int> AdviseTo { get; set; }
-}
+    [OperationContract(IsOneWay = true)]
+    void sendPlayersGamesNum(PlayerGames[] playersGames);
 
-[DataContract]
-public class ChampionshipData
-{
-    [DataMember]
-    public int Id { get; set; }
-    [DataMember]
-    public string City { get; set; }
-    [DataMember]
-    public System.DateTime StartDate { get; set; }
-    [DataMember]
-    public System.Nullable<System.DateTime> EndDate { get; set; }
-    [DataMember]
-    public string Picture { get; set; }
-}
-
-[DataContract]
-public class GameData
-{
-    [DataMember]
-    public int Id { get; set; }
-    [DataMember]
-    public int Player1 { get; set; }
-    [DataMember]
-    public string Player1_Name { get; set; }
-    [DataMember]
-    public int Player2 { get; set; }
-    [DataMember]
-    public string Player2_Name { get; set; }
-    [DataMember]
-    public System.Nullable<int> Winner { get; set; }
-    [DataMember]
-    public string Winner_Name { get; set; }
-    [DataMember]
-    public int BoardSize { get; set; }
-    [DataMember]
-    public string Moves { get; set; }
-    [DataMember]
-    public System.DateTime StartTime { get; set; }
-    [DataMember]
-    public System.DateTime EndTime { get; set; }
+    [OperationContract(IsOneWay = true)]
+    void sendCitiesChampionshipsNum(CityChampionships[] citiesChmps);
 
 }

@@ -2,7 +2,6 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:3132/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
   <xs:import schemaLocation="http://localhost:3132/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="http://localhost:3132/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:3132/Service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:element name="getRegisterFormAdvisorList">
     <xs:complexType>
@@ -27,14 +26,14 @@
   <xs:element name="getAllUsers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="caller" type="q4:char" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="login">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q5:PlayerData" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q4:PlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -53,15 +52,16 @@
   <xs:element name="getAllChampionships">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="caller" type="q6:char" />
+        <xs:element minOccurs="0" name="playerId" type="xs:int" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="registerPlayerToChamp">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="player" nillable="true" type="q7:PlayerData" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q8:ArrayOfChampionshipData" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="player" nillable="true" type="q5:PlayerData" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q6:ArrayOfChampionshipData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -90,20 +90,53 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="withPlayersNames" type="xs:boolean" />
+        <xs:element minOccurs="0" name="playerId" type="xs:int" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getGamePlayers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="game" nillable="true" type="q7:GameData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getGameAdvisors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="game" nillable="true" type="q8:GameData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getChampionshipPlayers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmp" nillable="true" type="q9:ChampionshipData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPlayersGamesNum">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getCitiesChampionshipsNum">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="sendRegisterFormAdvisorList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q9:ArrayOfPlayerData" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="players" nillable="true" type="q10:ArrayOfPlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="showException">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q10:Exception" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="e" nillable="true" type="q11:Exception" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -112,11 +145,11 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendAllChampionships">
+  <xs:element name="sendChampionships">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q11:ArrayOfChampionshipData" />
-        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="caller" type="q12:char" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmps" nillable="true" type="q12:ArrayOfChampionshipData" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -125,18 +158,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendAllUsers">
+  <xs:element name="sendPlayers">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="users" nillable="true" type="q13:ArrayOfPlayerData" />
-        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="caller" type="q14:char" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="loginSuccess">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q15:PlayerData" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q14:PlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -149,7 +182,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q16:PlayerData" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="user" nillable="true" type="q15:PlayerData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -225,10 +258,32 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendAllGames">
+  <xs:element name="sendGames">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="games" nillable="true" type="q17:ArrayOfGameData" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="games" nillable="true" type="q16:ArrayOfGameData" />
+        <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendGameAdvisors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="advisors" nillable="true" type="q17:ArrayOfPlayerData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendPlayersGamesNum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="playersGames" nillable="true" type="q18:ArrayOfPlayerGames" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendCitiesChampionshipsNum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="citiesChmps" nillable="true" type="q19:ArrayOfCityChampionships" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

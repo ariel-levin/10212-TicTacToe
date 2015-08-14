@@ -30,6 +30,7 @@ public class Board
         player1 = player;
 
         game = new Game();
+        game.BoardSize = dim;
         game.Player1 = server.getPlayerData(player).Id;
         game.StartTime = DateTime.Now;
         game.Moves = "{ \"moves\": [";
@@ -157,18 +158,18 @@ public class Board
         {
             player.gameEnded("You lose..");
             game.Winner = 1;
-            endGame(player);
+            endGame();
         }
         else if (isBoardFull())
         {
             player.gameEnded("It's a tie..");
-            endGame(player);
+            endGame();
         }
         else
             player.playerTurn();
     }
 
-    private void endGame(ICallBack player)
+    private void endGame()
     {
         gameEnded = true;
         game.Moves += " ] }";
@@ -268,14 +269,14 @@ public class Board
             if (!singlePlayer && opponent != null)
                 opponent.gameEnded("You lose..");
             game.Winner = server.getPlayerData(player).Id;
-            endGame(player);
+            endGame();
         }
         else if (isBoardFull())
         {
             player.gameEnded("It's a tie..");
             if (!singlePlayer && opponent != null)
                 opponent.gameEnded("It's a tie..");
-            endGame(player);
+            endGame();
         }
         else
         {
@@ -302,7 +303,7 @@ public class Board
                 if (op != null)
                     op.gameEnded("Opponent left the game..");
             }
-            endGame(player);
+            endGame();
         }
     }
 

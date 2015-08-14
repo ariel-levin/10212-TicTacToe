@@ -25,7 +25,7 @@ namespace Client
 
         private void RegisterToChampForm_Load(object sender, EventArgs e)
         {
-            mainForm.getClient().getAllChampionships('R');
+            mainForm.getClient().getAllChampionships(-1, "R");
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)

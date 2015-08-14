@@ -244,6 +244,12 @@ namespace Client
                 + ": " + champ.StartDate.ToShortDateString();
         }
 
+        public string gameString(GameData game)
+        {
+            return game.Id + " : Board " + game.BoardSize + " : " 
+                + game.StartTime.ToShortDateString();
+        }
+
     }
 
 

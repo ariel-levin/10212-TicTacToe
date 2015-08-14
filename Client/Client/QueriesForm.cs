@@ -17,6 +17,10 @@ namespace Client
         private MainForm mainForm;
         private QueryControl ctrl;
         private object[] objects;
+        private PlayerData[] players;
+        private GameData[] games;
+        private ChampionshipData[] chmps;
+
 
         public QueriesForm(MainForm mainForm)
         {
@@ -87,48 +91,34 @@ namespace Client
             {
                 case 0:
                     enableComponents(false, true);
-                    mainForm.getClient().getAllUsers('Q');
+                    mainForm.getClient().getAllUsers("Q");
                     break;
                 case 1:
-                    cbSubQuery.Enabled = false;
-                    mainForm.getClient().getAllGames(true);
+                    enableComponents(false, true);
+                    mainForm.getClient().getAllGames(true, -1, "Q");
                     break;
                 case 2:
-                    cbSubQuery.Enabled = false;
-                    mainForm.getClient().getAllChampionships('Q');
+                    enableComponents(false, true);
+                    mainForm.getClient().getAllChampionships(-1, "Q");
                     break;
                 case 3:
-                    cbSubQuery.Enabled = true;
-                    cbSubQuery.Items.Add("--temp--");
-                    cbSubQuery.SelectedIndex = 0;
-                    break;
                 case 4:
-                    cbSubQuery.Enabled = true;
-                    cbSubQuery.Items.Add("--temp--");
-                    cbSubQuery.SelectedIndex = 0;
+                    mainForm.getClient().getAllUsers("SQ");
                     break;
                 case 5:
-                    cbSubQuery.Enabled = true;
-                    cbSubQuery.Items.Add("--temp--");
-                    cbSubQuery.SelectedIndex = 0;
-                    break;
                 case 6:
-                    cbSubQuery.Enabled = true;
-                    cbSubQuery.Items.Add("--temp--");
-                    cbSubQuery.SelectedIndex = 0;
+                    mainForm.getClient().getAllGames(false, -1, "SQ");
                     break;
                 case 7:
-                    cbSubQuery.Enabled = true;
-                    cbSubQuery.Items.Add("--temp--");
-                    cbSubQuery.SelectedIndex = 0;
+                    mainForm.getClient().getAllChampionships(-1, "SQ");
                     break;
                 case 8:
-                    cbSubQuery.Enabled = false;
-
+                    enableComponents(false, false);
+                    mainForm.getClient().getPlayersGamesNum();
                     break;
                 case 9:
-                    cbSubQuery.Enabled = false;
-
+                    enableComponents(false, false);
+                    mainForm.getClient().getCitiesChampionshipsNum();
                     break;
             }
         }
@@ -138,19 +128,36 @@ namespace Client
             switch (cbQuery.SelectedIndex)
             {
                 case 3:
-
+                    if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
+                    {
+                        int id = players[cbSubQuery.SelectedIndex].Id;
+                        mainForm.getClient().getAllGames(true, id, "Q");
+                    }
                     break;
                 case 4:
-
+                    if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
+                    {
+                        int id = players[cbSubQuery.SelectedIndex].Id;
+                        mainForm.getClient().getAllChampionships(id, "Q");
+                    }
                     break;
                 case 5:
-
+                    if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
+                    {
+                        mainForm.getClient().getGamePlayers(games[cbSubQuery.SelectedIndex]);
+                    }
                     break;
                 case 6:
-
+                    if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
+                    {
+                        mainForm.getClient().getGameAdvisors(games[cbSubQuery.SelectedIndex]);
+                    }
                     break;
                 case 7:
-
+                    if (chmps != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < chmps.Length)
+                    {
+                        mainForm.getClient().getChampionshipPlayers(chmps[cbSubQuery.SelectedIndex]);
+                    }
                     break;
             }
         }
@@ -163,7 +170,7 @@ namespace Client
             btnDelete.Enabled = change;
         }
 
-        public void setAllPlayers(PlayerData[] players)
+        public void setPlayersQuery(PlayerData[] players)
         {
             this.objects = players;
             string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "IsAdvisor" };
@@ -174,7 +181,18 @@ namespace Client
             tableElementHost.Child = ctrl;
         }
 
-        public void setAllGames(GameData[] games)
+        public void setGameAdvisorsQuery(PlayerData[] advisors)
+        {
+            this.objects = advisors;
+            string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "AdviseToName" };
+            string[] types = { "int", "char", "char", "char", "char", "char", "int" };
+            bool[] readOnly = { true, false, false, false, false, false, true };
+            bool[] allowNull = { false, false, true, true, true, true, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            tableElementHost.Child = ctrl;
+        }
+
+        public void setGamesQuery(GameData[] games)
         {
             this.objects = games;
             string[] titles = { "Id", "Player1_Name", "Player2_Name", "Winner_Name", "BoardSize", "StartTime", "EndTime" };
@@ -185,7 +203,7 @@ namespace Client
             tableElementHost.Child = ctrl;
         }
 
-        public void setAllChampionships(ChampionshipData[] chmps)
+        public void setChampionshipsQuery(ChampionshipData[] chmps)
         {
             this.objects = chmps;
             string[] titles = { "Id", "City", "StartDate", "EndDate", "Picture" };
@@ -194,6 +212,61 @@ namespace Client
             bool[] allowNull = { false, false, false, true, true };
             ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
             tableElementHost.Child = ctrl;
+        }
+
+        public void setPlayersGamesNum(PlayerGames[] playersGames)
+        {
+            this.objects = playersGames;
+            string[] titles = { "Name", "NumberOfGames" };
+            string[] types = { "char", "int" };
+            bool[] readOnly = { true, true };
+            bool[] allowNull = { false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            tableElementHost.Child = ctrl;
+        }
+
+        public void setCitiesChampionshipsNum(CityChampionships[] citiesChmps)
+        {
+            this.objects = citiesChmps;
+            string[] titles = { "City", "NumberOfChampionships" };
+            string[] types = { "char", "int" };
+            bool[] readOnly = { true, true };
+            bool[] allowNull = { false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            tableElementHost.Child = ctrl;
+        }
+
+        public void setPlayersSubQuery(PlayerData[] players)
+        {
+            this.players = players;
+            cbSubQuery.Items.Clear();
+            for (var i = 0; i < players.Length; i++)
+            {
+                cbSubQuery.Items.Add(mainForm.playerString(players[i]));
+            }
+            enableComponents(true, true);
+        }
+
+        public void setGamesSubQuery(GameData[] games)
+        {
+            this.games = games;
+            cbSubQuery.Items.Clear();
+            for (var i = 0; i < games.Length; i++)
+            {
+                cbSubQuery.Items.Add(mainForm.gameString(games[i]));
+            }
+            enableComponents(true, true);
+        }
+
+        public void setChampionshipsSubQuery(ChampionshipData[] chmps)
+        {
+            this.chmps = chmps;
+            cbSubQuery.Items.Clear();
+            for (var i = 0; i < chmps.Length; i++)
+            {
+                cbSubQuery.Items.Add(mainForm.championshipString(chmps[i]));
+            }
+            enableComponents(true, true);
         }
 
     }

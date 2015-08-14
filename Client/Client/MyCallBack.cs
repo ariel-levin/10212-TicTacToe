@@ -41,17 +41,21 @@ namespace Client
                 mainForm.newChampForm.showNewChampSuccess();
         }
 
-        public void sendAllUsers(PlayerData[] users, char caller)
+        public void sendPlayers(PlayerData[] users, string caller)
         {
             switch (caller)
             {
-                case 'L':   // login
+                case "L":   // login
                     if (mainForm.loginForm != null)
                         mainForm.loginForm.setUsersList(users);
                     break;
-                case 'Q':   // query
+                case "Q":   // query
                     if (mainForm.queriesForm != null)
-                        mainForm.queriesForm.setAllPlayers(users);
+                        mainForm.queriesForm.setPlayersQuery(users);
+                    break;
+                case "SQ":   // sub query
+                    if (mainForm.queriesForm != null)
+                        mainForm.queriesForm.setPlayersSubQuery(users);
                     break;
             }
         }
@@ -83,17 +87,21 @@ namespace Client
 
         }
 
-        public void sendAllChampionships(ChampionshipData[] chmps, char caller)
+        public void sendChampionships(ChampionshipData[] chmps, string caller)
         {
             switch (caller)
             {
-                case 'R':   // register
+                case "R":   // register
                     if (mainForm.regToChampForm != null)
                         mainForm.regToChampForm.setChampionshipsList(chmps);
                     break;
-                case 'Q':   // query
+                case "Q":   // query
                     if (mainForm.queriesForm != null)
-                        mainForm.queriesForm.setAllChampionships(chmps);
+                        mainForm.queriesForm.setChampionshipsQuery(chmps);
+                    break;
+                case "SQ":   // sub query
+                    if (mainForm.queriesForm != null)
+                        mainForm.queriesForm.setChampionshipsSubQuery(chmps);
                     break;
             }
         }
@@ -128,7 +136,6 @@ namespace Client
                 mainForm.boardForm.showMessage(msg);
         }
 
-
         public void opponentPressed(int row, int col)
         {
             if (mainForm.boardForm != null)
@@ -153,10 +160,37 @@ namespace Client
                 mainForm.boardForm.playerTurn();
         }
 
-        public void sendAllGames(GameData[] games)
+        public void sendGames(GameData[] games, string caller)
+        {
+            switch (caller)
+            {
+                case "Q":   // query
+                    if (mainForm.queriesForm != null)
+                        mainForm.queriesForm.setGamesQuery(games);
+                    break;
+                case "SQ":   // sub query
+                    if (mainForm.queriesForm != null)
+                        mainForm.queriesForm.setGamesSubQuery(games);
+                    break;
+            }
+        }
+
+        public void sendGameAdvisors(PlayerData[] advisors)
         {
             if (mainForm.queriesForm != null)
-                mainForm.queriesForm.setAllGames(games);
+                mainForm.queriesForm.setGameAdvisorsQuery(advisors);
+        }
+
+        public void sendPlayersGamesNum(PlayerGames[] playersGames)
+        {
+            if (mainForm.queriesForm != null)
+                mainForm.queriesForm.setPlayersGamesNum(playersGames);
+        }
+        
+        public void sendCitiesChampionshipsNum(CityChampionships[] citiesChmps)
+        {
+            if (mainForm.queriesForm != null)
+                mainForm.queriesForm.setCitiesChampionshipsNum(citiesChmps);
         }
 
     }

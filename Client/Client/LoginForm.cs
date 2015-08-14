@@ -25,7 +25,7 @@ namespace Client
 
         private void SelectUserForm_Load(object sender, EventArgs e)
         {
-            mainForm.getClient().getAllUsers('L');
+            mainForm.getClient().getAllUsers("L");
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
