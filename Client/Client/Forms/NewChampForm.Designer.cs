@@ -199,6 +199,7 @@
             this.ShowIcon = false;
             this.Text = "New Championship";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewChampForm_FormClosing);
+            this.Load += new System.EventHandler(this.NewChampForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

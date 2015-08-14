@@ -52,61 +52,61 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Board4Control.xaml.cs">
+    <Compile Include="UserControls\Board4Control.xaml.cs">
       <DependentUpon>Board4Control.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoardForm.cs">
+    <Compile Include="Forms\BoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BoardForm.Designer.cs">
+    <Compile Include="Forms\BoardForm.Designer.cs">
       <DependentUpon>BoardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyCallBack.cs" />
-    <Compile Include="NewChampForm.cs">
+    <Compile Include="Forms\NewChampForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewChampForm.Designer.cs">
+    <Compile Include="Forms\NewChampForm.Designer.cs">
       <DependentUpon>NewChampForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueriesForm.cs">
+    <Compile Include="Forms\QueriesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QueriesForm.Designer.cs">
+    <Compile Include="Forms\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="QueryControl.xaml.cs">
+    <Compile Include="UserControls\QueryControl.xaml.cs">
       <DependentUpon>QueryControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterForm.cs">
+    <Compile Include="Forms\RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegisterForm.Designer.cs">
+    <Compile Include="Forms\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Forms\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegisterToChampForm.cs">
+    <Compile Include="Forms\RegisterToChampForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegisterToChampForm.Designer.cs">
+    <Compile Include="Forms\RegisterToChampForm.Designer.cs">
       <DependentUpon>RegisterToChampForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Service References\TTTService\Reference.cs">
@@ -114,16 +114,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutBox.resx">
+    <Compile Include="UserControls\ValidationRules.cs" />
+    <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BoardForm.resx">
+    <EmbeddedResource Include="Forms\BoardForm.resx">
       <DependentUpon>BoardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewChampForm.resx">
+    <EmbeddedResource Include="Forms\NewChampForm.resx">
       <DependentUpon>NewChampForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -136,16 +137,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="QueriesForm.resx">
+    <EmbeddedResource Include="Forms\QueriesForm.resx">
       <DependentUpon>QueriesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegisterForm.resx">
+    <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegisterToChampForm.resx">
+    <EmbeddedResource Include="Forms\RegisterToChampForm.resx">
       <DependentUpon>RegisterToChampForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -196,11 +197,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Board4Control.xaml">
+    <Page Include="UserControls\Board4Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="QueryControl.xaml">
+    <Page Include="UserControls\QueryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

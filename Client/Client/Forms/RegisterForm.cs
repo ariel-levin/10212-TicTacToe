@@ -1,4 +1,10 @@
-﻿using Client.TTTService;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using Client.TTTService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,11 +28,13 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            mainForm.getClient().getRegisterFormAdvisorList();
         }
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
-            mainForm.getClient().getRegisterFormAdvisorList();
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
         
 

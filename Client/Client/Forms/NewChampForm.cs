@@ -1,4 +1,10 @@
-﻿using Client.TTTService;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using Client.TTTService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Client
 {
@@ -23,6 +30,12 @@ namespace Client
             this.mainForm = mainForm;
             this.picPath = null;
         }
+        private void NewChampForm_Load(object sender, EventArgs e)
+        {
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
+        }
+
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -105,8 +118,6 @@ namespace Client
             mainForm.newChampForm = null;
             Dispose();
         }
-
-
 
     }
 }

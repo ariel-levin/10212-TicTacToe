@@ -1,4 +1,10 @@
-﻿using Client.TTTService;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using Client.TTTService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,33 +32,13 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            cbDelType.SelectedIndex = 0;
         }
 
         private void QueriesForm_Load(object sender, EventArgs e)
         {
-            initQueryCB();
-            initDelTypeCB();
-        }
-
-        private void initQueryCB()
-        {
-            cbQuery.Items.Add("1 - Display all Players");
-            cbQuery.Items.Add("2 - Display all Games");
-            cbQuery.Items.Add("3 - Display all championships");
-            cbQuery.Items.Add("4 - Players games");
-            cbQuery.Items.Add("5 - Players championships");
-            cbQuery.Items.Add("6 - Games players");
-            cbQuery.Items.Add("7 - Games advisors");
-            cbQuery.Items.Add("8 - Championship players");
-            cbQuery.Items.Add("9 - Players number of games");
-            cbQuery.Items.Add("10 - City championships");
-        }
-
-        private void initDelTypeCB()
-        {
-            cbDelType.Items.Add("Single row");
-            cbDelType.Items.Add("Multi row");
-            cbDelType.SelectedIndex = 0;
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
 
 
@@ -76,10 +62,10 @@ namespace Client
         {
             switch (cbDelType.SelectedIndex)
             {
-                case 0:
+                case 0:     // single row
 
                     break;
-                case 1:
+                case 1:     // multi row
 
                     break;
             }
@@ -174,10 +160,10 @@ namespace Client
         {
             this.objects = players;
             string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "IsAdvisor" };
-            string[] types = { "int", "char", "char", "char", "char", "char", "int" };
+            string[] types = { "int", "char", "char", "char", "char", "phone", "int" };
             bool[] readOnly = { true, false, false, false, false, false, false };
-            bool[] allowNull = { false, false, true, true, true, true, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false, true, true, true, true, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 
@@ -185,10 +171,10 @@ namespace Client
         {
             this.objects = advisors;
             string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "AdviseToName" };
-            string[] types = { "int", "char", "char", "char", "char", "char", "int" };
+            string[] types = { "int", "char", "char", "char", "char", "phone", "int" };
             bool[] readOnly = { true, false, false, false, false, false, true };
-            bool[] allowNull = { false, false, true, true, true, true, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false, true, true, true, true, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 
@@ -198,8 +184,8 @@ namespace Client
             string[] titles = { "Id", "Player1_Name", "Player2_Name", "Winner_Name", "BoardSize", "StartTime", "EndTime" };
             string[] types = { "int", "char", "char", "char", "int", "datetime", "datetime" };
             bool[] readOnly = { true, false, false, false, true, false, false };
-            bool[] allowNull = { false, false, false, true, false, false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false, false, true, false, false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 
@@ -209,8 +195,8 @@ namespace Client
             string[] titles = { "Id", "City", "StartDate", "EndDate", "Picture" };
             string[] types = { "int", "char", "datetime", "datetime", "image" };
             bool[] readOnly = { true, false, false, false, false };
-            bool[] allowNull = { false, false, false, true, true };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false, false, true, true };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 
@@ -220,8 +206,8 @@ namespace Client
             string[] titles = { "Name", "NumberOfGames" };
             string[] types = { "char", "int" };
             bool[] readOnly = { true, true };
-            bool[] allowNull = { false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 
@@ -231,8 +217,8 @@ namespace Client
             string[] titles = { "City", "NumberOfChampionships" };
             string[] types = { "char", "int" };
             bool[] readOnly = { true, true };
-            bool[] allowNull = { false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, allowNull);
+            bool[] nullable = { false, false };
+            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
         }
 

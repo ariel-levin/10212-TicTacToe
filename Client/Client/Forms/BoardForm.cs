@@ -1,4 +1,10 @@
-﻿using Client.TTTService;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using Client.TTTService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +15,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-                      
+              
+        
 namespace Client
 {
     public partial class BoardForm : Form
@@ -45,6 +52,13 @@ namespace Client
             ended = false;
             mainForm.getClient().startGameRequest(4, singlePlayer);
         }
+
+        private void BoardForm_Load(object sender, EventArgs e)
+        {
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
+        }
+
 
         private void Board4Form_FormClosing(object sender, FormClosingEventArgs e)
         {

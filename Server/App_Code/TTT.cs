@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -284,7 +290,7 @@ public class TTT : ITTT
                          + "values({0}, {1}, {2}, {3}, '{4}', '{5}', '{6}')", game.Player1, game.Player2, game.Winner,
                          game.BoardSize, game.Moves, game.StartTime, game.EndTime);
                 else
-                    sql = string.Format("Insert into Games(Player1, Player2, Moves, StartTime, EndTime) "
+                    sql = string.Format("Insert into Games(Player1, Player2, BoardSize, Moves, StartTime, EndTime) "
                          + "values({0}, {1}, {2}, '{3}', '{4}', '{5}')", game.Player1, game.Player2, game.BoardSize,
                          game.Moves, game.StartTime, game.EndTime);
 

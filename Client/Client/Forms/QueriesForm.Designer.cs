@@ -56,6 +56,17 @@
             // 
             this.cbQuery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbQuery.FormattingEnabled = true;
+            this.cbQuery.Items.AddRange(new object[] {
+            "1 - Display all Players",
+            "2 - Display all Games",
+            "3 - Display all championships",
+            "4 - Players games",
+            "5 - Players championships",
+            "6 - Games players",
+            "7 - Games advisors",
+            "8 - Championship players",
+            "9 - Players number of games",
+            "10 - City championships"});
             this.cbQuery.Location = new System.Drawing.Point(100, 41);
             this.cbQuery.Name = "cbQuery";
             this.cbQuery.Size = new System.Drawing.Size(205, 21);
@@ -103,6 +114,9 @@
             // 
             this.cbDelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDelType.FormattingEnabled = true;
+            this.cbDelType.Items.AddRange(new object[] {
+            "Single row",
+            "Multi row"});
             this.cbDelType.Location = new System.Drawing.Point(46, 23);
             this.cbDelType.Name = "cbDelType";
             this.cbDelType.Size = new System.Drawing.Size(106, 21);

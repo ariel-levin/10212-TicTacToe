@@ -1,4 +1,10 @@
-﻿using Client.TTTService;
+﻿/*********************************  
+ *  Ariel Levin
+ *  ariel.lvn89@gmail.com
+ *  http://about.me/ariel.levin
+ *********************************/
+
+using Client.TTTService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

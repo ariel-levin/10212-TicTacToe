@@ -23,13 +23,13 @@ namespace Client
         private LinkedList<int> rowsChanged = new LinkedList<int>();
 
 
-        public QueryControl(object[] objects, string[] titles, string[] types, bool[] readOnly, bool[] allowNull)
+        public QueryControl(object[] objects, string[] titles, string[] types, bool[] readOnly, bool[] nullable)
         {
             InitializeComponent();
-            initDataGrid(objects, titles, types, readOnly, allowNull);
+            initDataGrid(objects, titles, types, readOnly, nullable);
         }
 
-        private void initDataGrid(object[] objects, string[] titles, string[] types, bool[] readOnly, bool[] allowNull)
+        private void initDataGrid(object[] objects, string[] titles, string[] types, bool[] readOnly, bool[] nullable)
         {
             for (var i = 0; i < titles.Length; i++)
             {
@@ -37,9 +37,6 @@ namespace Client
 
                 switch (types[i])
                 {
-                    case "combobox":
-                        col = createComboBoxColumn(titles[i]);
-                        break;
                     case "datetime":
                         col = createDateTimeColumn(titles[i], readOnly[i]);
                         break;
@@ -47,7 +44,7 @@ namespace Client
                         col = createImageColumn(titles[i]);
                         break;
                     default:
-                        col = createDefaultColumn(titles[i], types[i], readOnly[i], allowNull[i]);
+                        col = createDefaultColumn(titles[i], types[i], readOnly[i], nullable[i]);
                         break;
                 }
                 queryDataGrid.Columns.Add(col);
@@ -55,7 +52,7 @@ namespace Client
             queryDataGrid.ItemsSource = objects.ToList();
         }
 
-        private DataGridColumn createDefaultColumn(string title, string type, bool readOnly, bool allowNull)
+        private DataGridColumn createDefaultColumn(string title, string type, bool readOnly, bool nullable)
         {
             DataGridTextColumn col = new DataGridTextColumn();
             col.Header = title;
@@ -63,30 +60,20 @@ namespace Client
             Binding bind = new Binding(title);
             bind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
-            //switch (type)
-            //{
-            //    case "int":
-            //        bind.ValidationRules.Add(new CharCellDataInfoValidationRule(allowNull) { ValidationStep = ValidationStep.RawProposedValue });
-            //        break;
-            //    case "char":
-
-            //        break;
-            //}
+            switch (type)
+            {
+                case "int":
+                    bind.ValidationRules.Add(new IntValidationRule(nullable) { ValidationStep = ValidationStep.RawProposedValue });
+                    break;
+                case "char":
+                    bind.ValidationRules.Add(new CharValidationRule(nullable) { ValidationStep = ValidationStep.RawProposedValue });
+                    break;
+                case "phone":
+                    bind.ValidationRules.Add(new PhoneValidationRule(nullable) { ValidationStep = ValidationStep.RawProposedValue });
+                    break;
+            }
 
             col.Binding = bind;
-            return col;
-        }
-
-        private DataGridColumn createComboBoxColumn(string title)
-        {
-            DataGridComboBoxColumn col = new DataGridComboBoxColumn();
-            col.Header = title;
-            Binding bind = new Binding(title);
-            List<string> options = new List<string>();
-            options.Add("Yes");
-            options.Add("No");
-            col.SelectedItemBinding = bind;
-            col.ItemsSource = options;
             return col;
         }
 

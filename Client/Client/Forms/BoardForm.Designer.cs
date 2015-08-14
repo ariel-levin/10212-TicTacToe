@@ -53,7 +53,7 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // Board4Form
+            // BoardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -61,10 +61,11 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.boardElementHost);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Board4Form";
+            this.Name = "BoardForm";
             this.ShowIcon = false;
             this.Text = "Board 4x4";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Board4Form_FormClosing);
+            this.Load += new System.EventHandler(this.BoardForm_Load);
             this.ResumeLayout(false);
 
         }
