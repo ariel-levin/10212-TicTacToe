@@ -33,34 +33,6 @@ namespace Client
         }
     }
 
-    //class StringCellDataInfoValidationRule : ValidationRule
-    //{
-    //    private bool nullable;
-
-    //    public StringCellDataInfoValidationRule(bool nullable = false)
-    //    {
-    //        this.nullable = nullable;
-    //    }
-
-    //    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-    //    {
-    //        Regex reg = new Regex("^[A-Z][a-z]*([ ][A-Z][a-z]*)*$");
-
-    //        String str = value.ToString();
-
-    //        if (str.Length == 0 && !nullable)
-    //        {
-    //            return new ValidationResult(false, "The value can not be empty");
-    //        }
-    //        else if (!reg.IsMatch(str) && str.Length != 0)
-    //        {
-    //            return new ValidationResult(false, "'" + value.ToString() + "' is not a whole chars.");
-    //        }
-    //        else
-    //            return new ValidationResult(true, null);
-    //    }
-    //}
-
     class IntValidationRule : ValidationRule
     {
         private bool nullable, isBit;
@@ -111,28 +83,5 @@ namespace Client
                 return new ValidationResult(true, null);
         }
     }
-
-    //class DateValidationRule : ValidationRule
-    //{
-    //    private bool nullable;
-
-    //    public DateValidationRule(bool nullable = false)
-    //    {
-    //        this.nullable = nullable;
-    //    }
-
-    //    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-    //    {
-    //        Regex reg = new Regex("^[0-3][0-9]/[01][0-9]/[0-2][0-9]{3}");
-    //        String str = value.ToString();
-
-    //        if (str.Length == 0 && !nullable)
-    //            return new ValidationResult(false, "The value can not be empty");
-    //        else if (!reg.IsMatch(str) && str.Length != 0)
-    //            return new ValidationResult(false, "The value must be in the format: dd/MM/yyyy hh:mm:ss");
-    //        else
-    //            return new ValidationResult(true, null);
-    //    }
-    //}
 
 }

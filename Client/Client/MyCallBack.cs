@@ -61,7 +61,7 @@ namespace Client
                     break;
                 case "SQ":   // sub query
                     if (mainForm.queriesForm != null)
-                        mainForm.queriesForm.setPlayersSubQuery(users);
+                        mainForm.queriesForm.setSubQueryObjects(users);
                     break;
             }
         }
@@ -107,7 +107,7 @@ namespace Client
                     break;
                 case "SQ":   // sub query
                     if (mainForm.queriesForm != null)
-                        mainForm.queriesForm.setChampionshipsSubQuery(chmps);
+                        mainForm.queriesForm.setSubQueryObjects(chmps);
                     break;
             }
         }
@@ -176,7 +176,7 @@ namespace Client
                     break;
                 case "SQ":   // sub query
                     if (mainForm.queriesForm != null)
-                        mainForm.queriesForm.setGamesSubQuery(games);
+                        mainForm.queriesForm.setSubQueryObjects(games);
                     break;
             }
         }

@@ -22,10 +22,7 @@ namespace Client
     {
         private MainForm mainForm;
         private QueryControl ctrl;
-        private object[] objects;
-        private PlayerData[] players;
-        private GameData[] games;
-        private ChampionshipData[] chmps;
+        private object[] queryObjects, subQueryObjects;
 
 
         public QueriesForm(MainForm mainForm)
@@ -55,40 +52,49 @@ namespace Client
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            LinkedList<object> list = ctrl.getRowsChanged<object>();
+            DialogResult result = MessageBox.Show("Are you sure you want to update?",
+                "Confirmation", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-            if (list.Any()) // check if any row selected
+            if (result == DialogResult.Yes)
             {
-                if (objects is PlayerData[])
+                LinkedList<object> rows = ctrl.getRowsChanged<object>();
+
+                if (rows.Any())
                 {
-                    IEnumerable<PlayerData> plst = list.Cast<PlayerData>();
-                    mainForm.getClient().updatePlayers(plst.ToArray());
+                    if (queryObjects is PlayerData[])
+                    {
+                        IEnumerable<PlayerData> players = rows.Cast<PlayerData>();
+                        mainForm.getClient().updatePlayers(players.ToArray());
+                    }
+                    else if (queryObjects is ChampionshipData[])
+                    {
+                        IEnumerable<ChampionshipData> chmps = rows.Cast<ChampionshipData>();
+                        mainForm.getClient().updateChampionships(chmps.ToArray());
+                    }
                 }
-                //else if (sender is AdviserObject[])
-                //{
-                //    IEnumerable<AdviserObject> adlst = list.Cast<AdviserObject>();
-                //    clientService.updateAdviserDB(adlst.ToArray(), mainForm.UserName);
-                //}
-                //else if (sender is ChampsObject[])
-                //{
-                //    IEnumerable<ChampsObject> clst = list.Cast<ChampsObject>();
-                //    clientService.updateChampsDB(clst.ToArray(), mainForm.UserName);
-                //}
+                else
+                    MessageBox.Show("No rows are selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("No row selected!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            switch (cbDelType.SelectedIndex)
+            DialogResult result = MessageBox.Show("Are you sure you want to delete?",
+                "Confirmation", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
             {
-                case 0:     // single row
-                    deleteSingleRow();
-                    break;
-                case 1:     // multi row
-                    deleteMultiRows();
-                    break;
+                switch (cbDelType.SelectedIndex)
+                {
+                    case 0:     // single row
+                        deleteSingleRow();
+                        break;
+                    case 1:     // multi row
+                        deleteMultiRows();
+                        break;
+                }
             }
         }
 
@@ -138,40 +144,40 @@ namespace Client
             switch (cbQuery.SelectedIndex)
             {
                 case 3:
-                    if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
+                    if (subQueryObjects != null && subQueryObjects is PlayerData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, false);
-                        int id = players[cbSubQuery.SelectedIndex].Id;
+                        int id = ((PlayerData)subQueryObjects[cbSubQuery.SelectedIndex]).Id;
                         mainForm.getClient().getAllGames(true, id, "Q");
                     }
                     break;
                 case 4:
-                    if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
+                    if (subQueryObjects != null && subQueryObjects is PlayerData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        int id = players[cbSubQuery.SelectedIndex].Id;
+                        int id = ((PlayerData)subQueryObjects[cbSubQuery.SelectedIndex]).Id;
                         mainForm.getClient().getAllChampionships(id, "Q");
                     }
                     break;
                 case 5:
-                    if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
+                    if (subQueryObjects != null && subQueryObjects is GameData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getGamePlayers(games[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getGamePlayers((GameData)subQueryObjects[cbSubQuery.SelectedIndex]);
                     }
                     break;
                 case 6:
-                    if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
+                    if (subQueryObjects != null && subQueryObjects is GameData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getGameAdvisors(games[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getGameAdvisors((GameData)subQueryObjects[cbSubQuery.SelectedIndex]);
                     }
                     break;
                 case 7:
-                    if (chmps != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < chmps.Length)
+                    if (subQueryObjects != null && subQueryObjects is ChampionshipData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getChampionshipPlayers(chmps[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getChampionshipPlayers((ChampionshipData)subQueryObjects[cbSubQuery.SelectedIndex]);
                     }
                     break;
             }
@@ -193,31 +199,27 @@ namespace Client
 
         private void deleteSingleRow()
         {
-            //try
-            //{
-            //    if (objects is AdviserObject[])
-            //    {
-            //        AdviserObject adviser = ((AdviserObject)obj[queryDataGrid.getSelectedRow()]);
-            //        clientService.deleteOneRowFromAdvisers(adviser, mainForm.UserName);
-            //    }
-            //    else if (obj is PlayerObject[])
-            //    {
-            //        PlayerObject player = ((PlayerObject)obj[queryDataGrid.getSelectedRow()]);
-            //        if (player.UserName.Equals("Computer"))
-            //            MessageBox.Show("You can't delete computer!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        else
-            //            clientService.deleteOneRowFromPlayers(player, mainForm.UserName);
-            //    }
-            //    else if (obj is ChampsObject[])
-            //    {
-            //        ChampsObject champ = ((ChampsObject)obj[queryDataGrid.getSelectedRow()]);
-            //        clientService.deleteOneRowFromChamps(champ, mainForm.UserName);
-            //    }
-            //}
-            //catch (IndexOutOfRangeException ex)
-            //{
-            //    MessageBox.Show("No row selected!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+            int row = ctrl.getSelectedRow();
+            if (row == -1)
+            {
+                MessageBox.Show("No row is selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (queryObjects is PlayerData[])
+            {
+                PlayerData player = ((PlayerData)queryObjects[row]);
+                if (player.Id == 1)
+                    MessageBox.Show("Deletion of Server's user is not allowed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    mainForm.getClient().deletePlayer(player);
+            }
+            else if (queryObjects is ChampionshipData[])
+            {
+                ChampionshipData chmp = ((ChampionshipData)queryObjects[row]);
+                mainForm.getClient().deleteChampionship(chmp);
+            }
+            
         }
        
         private void deleteMultiRows()
@@ -234,107 +236,90 @@ namespace Client
 
         public void setPlayersQuery(PlayerData[] players)
         {
-            this.objects = players;
+            this.queryObjects = players;
             string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "Is_Advisor" };
             string[] types = { "int", "char", "char", "char", "char", "phone", "combobox" };
             bool[] readOnly = { true, false, false, false, false, false, false };
             bool[] nullable = { false, false, true, true, true, true, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setGameAdvisorsQuery(PlayerData[] advisors)
         {
-            this.objects = advisors;
+            this.queryObjects = advisors;
             string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "AdviseTo_Name" };
             string[] types = { "int", "char", "char", "char", "char", "phone", "int" };
             bool[] readOnly = { true, false, false, false, false, false, false };
             bool[] nullable = { false, false, true, true, true, true, true };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setGamesQuery(GameData[] games)
         {
-            this.objects = games;
+            this.queryObjects = games;
             string[] titles = { "Id", "Player1_Name", "Player2_Name", "Winner_Name", "BoardSize", "StartTime", "EndTime" };
             string[] types = { "int", "char", "char", "char", "int", "datetime", "datetime" };
             bool[] readOnly = { true, false, false, false, true, false, false };
             bool[] nullable = { false, false, false, true, false, false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setChampionshipsQuery(ChampionshipData[] chmps)
         {
-            this.objects = chmps;
+            this.queryObjects = chmps;
             string[] titles = { "Id", "City", "StartDate", "EndDate", "Picture" };
             string[] types = { "int", "char", "datetime", "datetime", "image" };
             bool[] readOnly = { true, false, false, false, false };
             bool[] nullable = { false, false, false, true, true };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setPlayersGamesNum(PlayerGames[] playersGames)
         {
-            this.objects = playersGames;
+            this.queryObjects = playersGames;
             string[] titles = { "Name", "NumberOfGames" };
             string[] types = { "char", "int" };
             bool[] readOnly = { true, true };
             bool[] nullable = { false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setCitiesChampionshipsNum(CityChampionships[] citiesChmps)
         {
-            this.objects = citiesChmps;
+            this.queryObjects = citiesChmps;
             string[] titles = { "City", "NumberOfChampionships" };
             string[] types = { "char", "int" };
             bool[] readOnly = { true, true };
             bool[] nullable = { false, false };
-            ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
+            ctrl = new QueryControl(queryObjects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
             ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
-        public void setPlayersSubQuery(PlayerData[] players)
+        public void setSubQueryObjects(object[] objects)
         {
-            this.players = players;
+            this.subQueryObjects = objects;
             cbSubQuery.Items.Clear();
-            for (var i = 0; i < players.Length; i++)
+            for (var i = 0; i < objects.Length; i++)
             {
-                cbSubQuery.Items.Add(mainForm.playerString(players[i]));
+                if (objects is PlayerData[])
+                    cbSubQuery.Items.Add(mainForm.playerString((PlayerData)objects[i]));
+                else if (objects is GameData[])
+                    cbSubQuery.Items.Add(mainForm.gameString((GameData)objects[i]));
+                else if (objects is ChampionshipData[])
+                    cbSubQuery.Items.Add(mainForm.championshipString((ChampionshipData)objects[i]));
             }
-            enableComponents(true, true);
-        }
-
-        public void setGamesSubQuery(GameData[] games)
-        {
-            this.games = games;
-            cbSubQuery.Items.Clear();
-            for (var i = 0; i < games.Length; i++)
-            {
-                cbSubQuery.Items.Add(mainForm.gameString(games[i]));
-            }
-            enableComponents(true, true);
-        }
-
-        public void setChampionshipsSubQuery(ChampionshipData[] chmps)
-        {
-            this.chmps = chmps;
-            cbSubQuery.Items.Clear();
-            for (var i = 0; i < chmps.Length; i++)
-            {
-                cbSubQuery.Items.Add(mainForm.championshipString(chmps[i]));
-            }
-            enableComponents(true, true);
+            enableComponents(true, false);
         }
 
         public void updateSuccess()

@@ -755,6 +755,36 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updatePlayers")]
         System.Threading.Tasks.Task updatePlayersAsync(Client.TTTService.PlayerData[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateChampionships")]
+        void updateChampionships(Client.TTTService.ChampionshipData[] chmps);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateChampionships")]
+        System.Threading.Tasks.Task updateChampionshipsAsync(Client.TTTService.ChampionshipData[] chmps);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayer")]
+        void deletePlayer(Client.TTTService.PlayerData player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayer")]
+        System.Threading.Tasks.Task deletePlayerAsync(Client.TTTService.PlayerData player);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayers")]
+        void deletePlayers(string title, string value);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayers")]
+        System.Threading.Tasks.Task deletePlayersAsync(string title, string value);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deleteChampionship")]
+        void deleteChampionship(Client.TTTService.ChampionshipData chmp);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deleteChampionship")]
+        System.Threading.Tasks.Task deleteChampionshipAsync(Client.TTTService.ChampionshipData chmp);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deleteChampionships")]
+        void deleteChampionships(string title, string value);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deleteChampionships")]
+        System.Threading.Tasks.Task deleteChampionshipsAsync(string title, string value);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1017,6 +1047,46 @@ namespace Client.TTTService {
         
         public System.Threading.Tasks.Task updatePlayersAsync(Client.TTTService.PlayerData[] players) {
             return base.Channel.updatePlayersAsync(players);
+        }
+        
+        public void updateChampionships(Client.TTTService.ChampionshipData[] chmps) {
+            base.Channel.updateChampionships(chmps);
+        }
+        
+        public System.Threading.Tasks.Task updateChampionshipsAsync(Client.TTTService.ChampionshipData[] chmps) {
+            return base.Channel.updateChampionshipsAsync(chmps);
+        }
+        
+        public void deletePlayer(Client.TTTService.PlayerData player) {
+            base.Channel.deletePlayer(player);
+        }
+        
+        public System.Threading.Tasks.Task deletePlayerAsync(Client.TTTService.PlayerData player) {
+            return base.Channel.deletePlayerAsync(player);
+        }
+        
+        public void deletePlayers(string title, string value) {
+            base.Channel.deletePlayers(title, value);
+        }
+        
+        public System.Threading.Tasks.Task deletePlayersAsync(string title, string value) {
+            return base.Channel.deletePlayersAsync(title, value);
+        }
+        
+        public void deleteChampionship(Client.TTTService.ChampionshipData chmp) {
+            base.Channel.deleteChampionship(chmp);
+        }
+        
+        public System.Threading.Tasks.Task deleteChampionshipAsync(Client.TTTService.ChampionshipData chmp) {
+            return base.Channel.deleteChampionshipAsync(chmp);
+        }
+        
+        public void deleteChampionships(string title, string value) {
+            base.Channel.deleteChampionships(title, value);
+        }
+        
+        public System.Threading.Tasks.Task deleteChampionshipsAsync(string title, string value) {
+            return base.Channel.deleteChampionshipsAsync(title, value);
         }
     }
 }

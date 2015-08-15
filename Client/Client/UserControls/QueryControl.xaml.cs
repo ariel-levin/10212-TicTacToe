@@ -146,13 +146,12 @@ namespace Client
 
         private void imgSelect_DoubleClickEvent(object sender, MouseButtonEventArgs e)
         {
-            DataGridCell cell = sender as DataGridCell;
+            DataGridCell cell = (DataGridCell)sender;
             if (cell != null)
             {
                 string[] fileType = { ".jpeg", ".png", ".jpg", ".gif" };
                 System.Windows.Forms.OpenFileDialog fileDialog = new System.Windows.Forms.OpenFileDialog();
                 fileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-                fileDialog.InitialDirectory = @"C:\";
                 fileDialog.Title = "Please select an image file";
 
                 System.Windows.Forms.DialogResult result = fileDialog.ShowDialog();
@@ -165,21 +164,25 @@ namespace Client
                         var uri = new System.Uri(picPath);
                         this.cellText = uri.AbsoluteUri;
                         ((ChampionshipData)((ContentPresenter)cell.Content).Content).Picture = uri.AbsoluteUri;
+                        if (!rowsChanged.Contains(rowIndex))
+                            rowsChanged.AddLast(rowIndex);
                     }
                 }
             }
         }
 
-        // Method save the old value of the cell
         private void queryDataGrid_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
         {
             if (e.EditingElement is ContentPresenter)
             {
                 var cp = e.EditingElement as ContentPresenter;
                 DataTemplate temp = cp.ContentTemplate;
-                Image img = temp.FindName("image", cp) as Image;
+                Image img = (Image)temp.FindName("image", cp);
                 if (img != null)
+                {
                     this.cellText = (img.Source == null) ? "" : img.Source.ToString();
+                    this.rowIndex = e.Row.GetIndex();
+                }
                 else
                 {
                     DatePicker dp = temp.FindName("datepicker", cp) as DatePicker;
@@ -188,23 +191,11 @@ namespace Client
                 }
             }
             else if (e.EditingElement is TextBox)
-            {
-                //var tb = e.EditingElement as TextBox;
-                //this.cellText = tb.Text;
                 this.cellText = ((TextBox)e.EditingElement).Text;
-            }
             else if (e.EditingElement is ComboBox)
-            {
-                //var box = e.EditingElement as ComboBox;
-                //this.cellText = box.Text;
                 this.cellText = ((ComboBox)e.EditingElement).Text;
-            }
             else if (e.EditingElement is DatePicker)
-            {
-                //var dp = e.EditingElement as DatePicker;
-                //this.cellText = dp.Text;
                 this.cellText = ((DatePicker)e.EditingElement).Text;
-            }
         }
 
         private void queryDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -217,7 +208,6 @@ namespace Client
             if (e.EditingElement is ContentPresenter)
             {
                 string newValue = "";
-                //var cp = e.EditingElement as ContentPresenter;
                 ContentPresenter cp = (ContentPresenter)e.EditingElement;
                 DataTemplate temp = cp.ContentTemplate;
                 Image img = temp.FindName("image", cp) as Image;
@@ -253,7 +243,6 @@ namespace Client
             {
                 foreach (var item in e.AddedCells)
                 {
-                    //var col = item.Column as DataGridColumn;
                     DataGridColumn col = item.Column;
                     colTitle = col.Header.ToString();
                     rowIndex = queryDataGrid.Items.IndexOf(queryDataGrid.SelectedCells[0].Item);
@@ -261,20 +250,11 @@ namespace Client
                     var cc = col.GetCellContent(item.Item);
 
                     if (cc is TextBlock)
-                    {
-                        //selectedValue = (cc as TextBlock).Text;
                         selectedValue = ((TextBlock)cc).Text;
-                    }
                     else if (cc is ComboBox)
-                    {
-                        //selectedValue = (cc as ComboBox).Text;
                         selectedValue = ((ComboBox)cc).Text;
-                    }
                     else if (cc is DatePicker)
-                    {
-                        //selectedValue = (cc as DatePicker).Text;
                         selectedValue = ((DatePicker)cc).Text;
-                    }
                 }
             }
         }
@@ -285,9 +265,7 @@ namespace Client
             LinkedList<object> objectsRows = new LinkedList<object>();
 
             foreach (var r in rowsChanged)
-            {
                 objectsRows.AddLast((object)queryDataGrid.Items.GetItemAt(r));
-            }
 
             return objectsRows;
         }

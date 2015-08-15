@@ -74,6 +74,21 @@ public interface ITTT
     [OperationContract(IsOneWay = true)]
     void updatePlayers(PlayerData[] players);
 
+    [OperationContract(IsOneWay = true)]
+    void updateChampionships(ChampionshipData[] chmps);
+
+    [OperationContract(IsOneWay = true)]
+    void deletePlayer(PlayerData player);
+
+    [OperationContract(IsOneWay = true)]
+    void deletePlayers(string title, string value);
+
+    [OperationContract(IsOneWay = true)]
+    void deleteChampionship(ChampionshipData chmp);
+
+    [OperationContract(IsOneWay = true)]
+    void deleteChampionships(string title, string value);
+
 }
 
 
