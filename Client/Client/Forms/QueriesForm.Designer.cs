@@ -39,6 +39,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.cbDelay = new System.Windows.Forms.CheckBox();
             this.groupDelete.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,6 +122,7 @@
             this.cbDelType.Name = "cbDelType";
             this.cbDelType.Size = new System.Drawing.Size(106, 21);
             this.cbDelType.TabIndex = 28;
+            this.cbDelType.SelectedIndexChanged += new System.EventHandler(this.cbDelType_SelectedIndexChanged);
             // 
             // groupDelete
             // 
@@ -146,9 +148,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(345, 90);
+            this.btnUpdate.Location = new System.Drawing.Point(416, 96);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(114, 30);
+            this.btnUpdate.Size = new System.Drawing.Size(83, 30);
             this.btnUpdate.TabIndex = 30;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -156,19 +158,30 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(478, 90);
+            this.btnExit.Location = new System.Drawing.Point(508, 96);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(114, 30);
+            this.btnExit.Size = new System.Drawing.Size(83, 30);
             this.btnExit.TabIndex = 31;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // cbDelay
+            // 
+            this.cbDelay.AutoSize = true;
+            this.cbDelay.Location = new System.Drawing.Point(346, 101);
+            this.cbDelay.Name = "cbDelay";
+            this.cbDelay.Size = new System.Drawing.Size(53, 17);
+            this.cbDelay.TabIndex = 32;
+            this.cbDelay.Text = "Delay";
+            this.cbDelay.UseVisualStyleBackColor = true;
             // 
             // QueriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(646, 537);
+            this.Controls.Add(this.cbDelay);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.groupDelete);
@@ -202,5 +215,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.CheckBox cbDelay;
     }
 }

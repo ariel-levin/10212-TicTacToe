@@ -71,6 +71,9 @@ public interface ITTT
     [OperationContract(IsOneWay = true)]
     void getCitiesChampionshipsNum();
 
+    [OperationContract(IsOneWay = true)]
+    void updatePlayers(PlayerData[] players);
+
 }
 
 
@@ -148,5 +151,11 @@ public interface ICallBack
 
     [OperationContract(IsOneWay = true)]
     void sendCitiesChampionshipsNum(CityChampionships[] citiesChmps);
+
+    [OperationContract(IsOneWay = true)]
+    void updateSuccess();
+
+    [OperationContract(IsOneWay = true)]
+    void updateError(string err);
 
 }

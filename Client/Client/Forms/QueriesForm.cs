@@ -55,7 +55,28 @@ namespace Client
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            LinkedList<object> list = ctrl.getRowsChanged<object>();
 
+            if (list.Any()) // check if any row selected
+            {
+                if (objects is PlayerData[])
+                {
+                    IEnumerable<PlayerData> plst = list.Cast<PlayerData>();
+                    mainForm.getClient().updatePlayers(plst.ToArray());
+                }
+                //else if (sender is AdviserObject[])
+                //{
+                //    IEnumerable<AdviserObject> adlst = list.Cast<AdviserObject>();
+                //    clientService.updateAdviserDB(adlst.ToArray(), mainForm.UserName);
+                //}
+                //else if (sender is ChampsObject[])
+                //{
+                //    IEnumerable<ChampsObject> clst = list.Cast<ChampsObject>();
+                //    clientService.updateChampsDB(clst.ToArray(), mainForm.UserName);
+                //}
+            }
+            else
+                MessageBox.Show("No row selected!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -63,16 +84,19 @@ namespace Client
             switch (cbDelType.SelectedIndex)
             {
                 case 0:     // single row
-
+                    deleteSingleRow();
                     break;
                 case 1:     // multi row
-
+                    deleteMultiRows();
                     break;
             }
         }
 
         private void cbQuery_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ctrl = null;
+            tableElementHost.Child = null;
+
             switch (cbQuery.SelectedIndex)
             {
                 case 0:
@@ -80,7 +104,7 @@ namespace Client
                     mainForm.getClient().getAllUsers("Q");
                     break;
                 case 1:
-                    enableComponents(false, true);
+                    enableComponents(false, false);
                     mainForm.getClient().getAllGames(true, -1, "Q");
                     break;
                 case 2:
@@ -116,6 +140,7 @@ namespace Client
                 case 3:
                     if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
                     {
+                        enableComponents(true, false);
                         int id = players[cbSubQuery.SelectedIndex].Id;
                         mainForm.getClient().getAllGames(true, id, "Q");
                     }
@@ -123,6 +148,7 @@ namespace Client
                 case 4:
                     if (players != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < players.Length)
                     {
+                        enableComponents(true, true);
                         int id = players[cbSubQuery.SelectedIndex].Id;
                         mainForm.getClient().getAllChampionships(id, "Q");
                     }
@@ -130,22 +156,31 @@ namespace Client
                 case 5:
                     if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
                     {
+                        enableComponents(true, true);
                         mainForm.getClient().getGamePlayers(games[cbSubQuery.SelectedIndex]);
                     }
                     break;
                 case 6:
                     if (games != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < games.Length)
                     {
+                        enableComponents(true, true);
                         mainForm.getClient().getGameAdvisors(games[cbSubQuery.SelectedIndex]);
                     }
                     break;
                 case 7:
                     if (chmps != null && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < chmps.Length)
                     {
+                        enableComponents(true, true);
                         mainForm.getClient().getChampionshipPlayers(chmps[cbSubQuery.SelectedIndex]);
                     }
                     break;
             }
+        }
+
+        private void cbDelType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ctrl != null)
+                ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         private void enableComponents(bool subQuery, bool change)
@@ -156,26 +191,69 @@ namespace Client
             btnDelete.Enabled = change;
         }
 
+        private void deleteSingleRow()
+        {
+            //try
+            //{
+            //    if (objects is AdviserObject[])
+            //    {
+            //        AdviserObject adviser = ((AdviserObject)obj[queryDataGrid.getSelectedRow()]);
+            //        clientService.deleteOneRowFromAdvisers(adviser, mainForm.UserName);
+            //    }
+            //    else if (obj is PlayerObject[])
+            //    {
+            //        PlayerObject player = ((PlayerObject)obj[queryDataGrid.getSelectedRow()]);
+            //        if (player.UserName.Equals("Computer"))
+            //            MessageBox.Show("You can't delete computer!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        else
+            //            clientService.deleteOneRowFromPlayers(player, mainForm.UserName);
+            //    }
+            //    else if (obj is ChampsObject[])
+            //    {
+            //        ChampsObject champ = ((ChampsObject)obj[queryDataGrid.getSelectedRow()]);
+            //        clientService.deleteOneRowFromChamps(champ, mainForm.UserName);
+            //    }
+            //}
+            //catch (IndexOutOfRangeException ex)
+            //{
+            //    MessageBox.Show("No row selected!", "Abort Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+        }
+       
+        private void deleteMultiRows()
+        {
+
+        }
+
+        public void refreshDataGrid()
+        {
+            int tmp = cbQuery.SelectedIndex;
+            cbQuery.SelectedIndex = -1;
+            cbQuery.SelectedIndex = tmp;
+        }
+
         public void setPlayersQuery(PlayerData[] players)
         {
             this.objects = players;
-            string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "IsAdvisor" };
-            string[] types = { "int", "char", "char", "char", "char", "phone", "int" };
+            string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "Is_Advisor" };
+            string[] types = { "int", "char", "char", "char", "char", "phone", "combobox" };
             bool[] readOnly = { true, false, false, false, false, false, false };
             bool[] nullable = { false, false, true, true, true, true, false };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setGameAdvisorsQuery(PlayerData[] advisors)
         {
             this.objects = advisors;
-            string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "AdviseToName" };
+            string[] titles = { "Id", "FirstName", "LastName", "City", "Country", "Phone", "AdviseTo_Name" };
             string[] types = { "int", "char", "char", "char", "char", "phone", "int" };
-            bool[] readOnly = { true, false, false, false, false, false, true };
-            bool[] nullable = { false, false, true, true, true, true, false };
+            bool[] readOnly = { true, false, false, false, false, false, false };
+            bool[] nullable = { false, false, true, true, true, true, true };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setGamesQuery(GameData[] games)
@@ -187,6 +265,7 @@ namespace Client
             bool[] nullable = { false, false, false, true, false, false, false };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setChampionshipsQuery(ChampionshipData[] chmps)
@@ -198,6 +277,7 @@ namespace Client
             bool[] nullable = { false, false, false, true, true };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setPlayersGamesNum(PlayerGames[] playersGames)
@@ -209,6 +289,7 @@ namespace Client
             bool[] nullable = { false, false };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setCitiesChampionshipsNum(CityChampionships[] citiesChmps)
@@ -220,6 +301,7 @@ namespace Client
             bool[] nullable = { false, false };
             ctrl = new QueryControl(objects, titles, types, readOnly, nullable);
             tableElementHost.Child = ctrl;
+            ctrl.setSelectionType(cbDelType.SelectedIndex == 1);
         }
 
         public void setPlayersSubQuery(PlayerData[] players)
@@ -253,6 +335,18 @@ namespace Client
                 cbSubQuery.Items.Add(mainForm.championshipString(chmps[i]));
             }
             enableComponents(true, true);
+        }
+
+        public void updateSuccess()
+        {
+            MessageBox.Show("Database updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            refreshDataGrid();
+        }
+
+        public void updateError(string err)
+        {
+            MessageBox.Show(err, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            refreshDataGrid();
         }
 
     }

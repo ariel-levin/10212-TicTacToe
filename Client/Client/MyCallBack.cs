@@ -199,5 +199,17 @@ namespace Client
                 mainForm.queriesForm.setCitiesChampionshipsNum(citiesChmps);
         }
 
+        public void updateSuccess()
+        {
+            if (mainForm.queriesForm != null)
+                mainForm.queriesForm.updateSuccess();
+        }
+
+        public void updateError(string err)
+        {
+            if (mainForm.queriesForm != null)
+                mainForm.queriesForm.updateError(err);
+        }
+
     }
 }

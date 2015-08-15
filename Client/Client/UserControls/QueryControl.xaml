@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="queryDataGrid" SelectionMode="Single" SelectedCellsChanged="queryDataGrid_SelectedCellsChanged" AutoGenerateColumns="False" ColumnWidth="*" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserAddRows="False" />
+        <DataGrid x:Name="queryDataGrid" SelectionMode="Single" SelectedCellsChanged="queryDataGrid_SelectedCellsChanged" PreparingCellForEdit="queryDataGrid_PreparingCellForEdit" CellEditEnding="queryDataGrid_CellEditEnding" AutoGenerateColumns="False" ColumnWidth="*" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserAddRows="False" />
     </Grid>
 </UserControl>

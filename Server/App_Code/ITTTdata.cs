@@ -29,9 +29,11 @@ public class PlayerData
     [DataMember]
     public byte IsAdvisor { get; set; }
     [DataMember]
+    public string Is_Advisor { get; set; }
+    [DataMember]
     public System.Nullable<int> AdviseTo { get; set; }
     [DataMember]
-    public string AdviseToName { get; set; }
+    public string AdviseTo_Name { get; set; }
 }
 
 [DataContract]

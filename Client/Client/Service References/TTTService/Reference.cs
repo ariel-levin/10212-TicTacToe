@@ -26,7 +26,7 @@ namespace Client.TTTService {
         private System.Nullable<int> AdviseToField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AdviseToNameField;
+        private string AdviseTo_NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CityField;
@@ -42,6 +42,9 @@ namespace Client.TTTService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private byte IsAdvisorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Is_AdvisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
@@ -73,14 +76,14 @@ namespace Client.TTTService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AdviseToName {
+        public string AdviseTo_Name {
             get {
-                return this.AdviseToNameField;
+                return this.AdviseTo_NameField;
             }
             set {
-                if ((object.ReferenceEquals(this.AdviseToNameField, value) != true)) {
-                    this.AdviseToNameField = value;
-                    this.RaisePropertyChanged("AdviseToName");
+                if ((object.ReferenceEquals(this.AdviseTo_NameField, value) != true)) {
+                    this.AdviseTo_NameField = value;
+                    this.RaisePropertyChanged("AdviseTo_Name");
                 }
             }
         }
@@ -146,6 +149,19 @@ namespace Client.TTTService {
                 if ((this.IsAdvisorField.Equals(value) != true)) {
                     this.IsAdvisorField = value;
                     this.RaisePropertyChanged("IsAdvisor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Is_Advisor {
+            get {
+                return this.Is_AdvisorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Is_AdvisorField, value) != true)) {
+                    this.Is_AdvisorField = value;
+                    this.RaisePropertyChanged("Is_Advisor");
                 }
             }
         }
@@ -733,6 +749,12 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getCitiesChampionshipsNum")]
         System.Threading.Tasks.Task getCitiesChampionshipsNumAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updatePlayers")]
+        void updatePlayers(Client.TTTService.PlayerData[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updatePlayers")]
+        System.Threading.Tasks.Task updatePlayersAsync(Client.TTTService.PlayerData[] players);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -809,6 +831,12 @@ namespace Client.TTTService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/sendCitiesChampionshipsNum")]
         void sendCitiesChampionshipsNum(Client.TTTService.CityChampionships[] citiesChmps);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateSuccess")]
+        void updateSuccess();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateError")]
+        void updateError(string err);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -981,6 +1009,14 @@ namespace Client.TTTService {
         
         public System.Threading.Tasks.Task getCitiesChampionshipsNumAsync() {
             return base.Channel.getCitiesChampionshipsNumAsync();
+        }
+        
+        public void updatePlayers(Client.TTTService.PlayerData[] players) {
+            base.Channel.updatePlayers(players);
+        }
+        
+        public System.Threading.Tasks.Task updatePlayersAsync(Client.TTTService.PlayerData[] players) {
+            return base.Channel.updatePlayersAsync(players);
         }
     }
 }

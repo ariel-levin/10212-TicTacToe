@@ -339,13 +339,13 @@ public class TTT : ITTT
             int i = 0;
             foreach (var a in a1)
             {
-                advisors[i] = getPlayerData(a);
-                advisors[i++].AdviseToName = player1.Id + " : " + player1.FirstName;
+                advisors[i] = getPlayerData(a, db);
+                advisors[i++].AdviseTo_Name = player1.Id + " : " + player1.FirstName;
             }
             foreach (var a in a2)
             {
-                advisors[i] = getPlayerData(a);
-                advisors[i++].AdviseToName = player2.Id + " : " + player2.FirstName;
+                advisors[i] = getPlayerData(a, db);
+                advisors[i++].AdviseTo_Name = player2.Id + " : " + player2.FirstName;
             }
             channel.sendGameAdvisors(advisors);
         }
@@ -409,6 +409,104 @@ public class TTT : ITTT
         }
     }
 
+    public void updatePlayers(PlayerData[] players)
+    {
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        bool allAdviseToChangesSuccess = true;
+        bool userLoggedIn = false;
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("", con);
+                try
+                {
+                    con.Open();
+
+                    foreach (var p in players)
+                    {
+                        userLoggedIn = isUserAlreadyLogged(p);
+
+                        if (!userLoggedIn)
+                        {
+                            string sql = "";
+                            p.IsAdvisor = (p.Is_Advisor.Equals("Yes")) ? (byte)1 : (byte)0;
+
+                            if (p.IsAdvisor == 1) 
+                            {
+                                bool adviseToChanged = isAdviseToChanged(p, db);
+                                bool updateAdviseTo = adviseToChanged;
+
+                                if (adviseToChanged)
+                                {
+                                    if (p.AdviseTo_Name.Equals(""))
+                                    {
+                                        sql = string.Format("Update Players SET FirstName='{0}', "
+                                            + "LastName='{1}', City='{2}', Country='{3}', Phone='{4}', IsAdvisor={5}, AdviseTo=NULL "
+                                            + "where Id={6}", p.FirstName, p.LastName, p.City, p.Country, p.Phone, p.IsAdvisor, p.Id);
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            int id = int.Parse(p.AdviseTo_Name);
+                                            p.AdviseTo = id;
+                                        }
+                                        catch (Exception)
+                                        {
+                                            allAdviseToChangesSuccess = false;
+                                            updateAdviseTo = false;
+                                        }
+
+                                        if (updateAdviseTo)
+                                        {
+                                            sql = string.Format("Update Players SET FirstName='{0}', "
+                                                + "LastName='{1}', City='{2}', Country='{3}', Phone='{4}', IsAdvisor={5}, AdviseTo={6} "
+                                                + "where Id={7}", p.FirstName, p.LastName, p.City, p.Country, p.Phone, p.IsAdvisor, p.AdviseTo, p.Id);
+                                        }
+                                    }
+                                }
+                            
+                                if (!adviseToChanged || sql.Equals(""))
+                                {
+                                    sql = string.Format("Update Players SET FirstName='{0}', "
+                                        + "LastName='{1}', City='{2}', Country='{3}', Phone='{4}', IsAdvisor={5} "
+                                        + "where Id={6}", p.FirstName, p.LastName, p.City, p.Country, p.Phone, p.IsAdvisor, p.Id);
+                                }
+                            }
+                            else
+                            {
+                                sql = string.Format("Update Players SET FirstName='{0}', "
+                                    + "LastName='{1}', City='{2}', Country='{3}', Phone='{4}', IsAdvisor={5}, AdviseTo=NULL "
+                                    + "where Id={6}", p.FirstName, p.LastName, p.City, p.Country, p.Phone, p.IsAdvisor, p.Id);
+                            }
+
+                            cmd.CommandText = sql;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    con.Close();
+                    channel.showPlayerRegisterSuccess();
+                }
+                catch (Exception)
+                {
+                    channel.updateError("Some error occured while updating the database");
+                }
+            }
+        }
+        if (!allAdviseToChangesSuccess)
+            channel.updateError("Database updated, but one or more 'AdviseTo' references that didn't match a Player Id");
+
+        if (userLoggedIn)
+            channel.updateError("Can't update a logged in user");
+
+        if (!userLoggedIn && allAdviseToChangesSuccess)
+            channel.updateSuccess();
+    }
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
@@ -423,13 +521,13 @@ public class TTT : ITTT
             int i = 0;
             foreach (var p in x)
             {
-                players[i++] = getPlayerData(p);
+                players[i++] = getPlayerData(p, db);
             }
             return players;
         }
     }
 
-    private PlayerData getPlayerData(Player p)
+    private PlayerData getPlayerData(Player p, TTTDataClassesDataContext db)
     {
         PlayerData player = new PlayerData();
         player.Id = p.Id;
@@ -439,8 +537,13 @@ public class TTT : ITTT
         player.Country = p.Country;
         player.Phone = p.Phone;
         player.IsAdvisor = p.IsAdvisor;
+        player.Is_Advisor = (p.IsAdvisor == 1) ? "Yes" : "No";
         if (p.AdviseTo.HasValue)
+        {
             player.AdviseTo = p.AdviseTo.Value;
+            Player adviseTo = db.Players.Where(pl => pl.Id == player.AdviseTo).First();
+            player.AdviseTo_Name = adviseTo.Id + " : " + adviseTo.FirstName;
+        }
         return player;
     }
 
@@ -504,7 +607,7 @@ public class TTT : ITTT
             int i = 0;
             foreach (var p in x)
             {
-                players[i++] = getPlayerData(p);
+                players[i++] = getPlayerData(p, db);
             }
             return players;
         }
@@ -581,15 +684,36 @@ public class TTT : ITTT
         return -1;
     }
 
-    private PlayerData getPlayerDataById(int id, TTTDataClassesDataContext db)
+    private PlayerData getPlayerDataById(System.Nullable<int> id, TTTDataClassesDataContext db)
     {
-        Player player = db.Players.Where(p => p.Id == id).First();
-        return getPlayerData(player);
+        if (!id.HasValue || id < 1)
+            return null;
+        var x = db.Players.Where(p => p.Id == id.Value);
+        if (x.Count() < 1)
+            return null;
+        else
+            return getPlayerData(x.First(), db);
     }
 
     private IQueryable<Player> getPlayerAdvisors(int id, TTTDataClassesDataContext db)
     {
         return db.Players.Where(p => p.AdviseTo == id);
+    }
+
+    private bool isAdviseToChanged(PlayerData player, TTTDataClassesDataContext db)
+    {
+        PlayerData adviseTo = getPlayerDataById(player.AdviseTo, db);
+        if (adviseTo == null)
+        {
+            if (player.AdviseTo_Name != null && !player.AdviseTo_Name.Equals(""))
+                return true;
+        }
+        else
+        {
+            if (!player.AdviseTo_Name.Equals(adviseTo.Id + " : " + adviseTo.FirstName))
+                return true;
+        }
+        return false;
     }
 
 }
