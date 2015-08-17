@@ -270,6 +270,12 @@ namespace Client
             return objectsRows;
         }
 
+        public void getSelectedCell(out int row, out string title, out string value)
+        {
+            title = colTitle;
+            value = selectedValue;
+            row = rowIndex;
+        }
 
         public void setSelectionType(bool multi)
         {

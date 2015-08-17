@@ -224,7 +224,27 @@ namespace Client
        
         private void deleteMultiRows()
         {
+            string title, value;
+            int row;
+            ctrl.getSelectedCell(out row, out title, out value);
 
+            if (title != null && queryObjects is ChampionshipData[])
+            {
+                if (title.Equals("StartDate"))
+                    value = ((ChampionshipData)queryObjects[row]).StartDate.ToString();
+                else if (title.Equals("EndDate"))
+                    value = ((ChampionshipData)queryObjects[row]).EndDate.ToString();
+                else if (title.Equals("Picture"))
+                    value = ((ChampionshipData)queryObjects[row]).Picture;
+            }
+
+            if (title != null && value != null)
+            {
+                if (queryObjects is PlayerData[])
+                    mainForm.getClient().deletePlayers((PlayerData)queryObjects[row], title, value);
+                else if (queryObjects is ChampionshipData[])
+                    mainForm.getClient().deleteChampionships(title, value);
+            }
         }
 
         public void refreshDataGrid()
@@ -322,9 +342,13 @@ namespace Client
             enableComponents(true, false);
         }
 
-        public void updateSuccess()
+        public void updateSuccess(string msg = null)
         {
-            MessageBox.Show("Database updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string str = "Database updated successfully";
+            if (msg != null)
+                str += "\n" + msg;
+
+            MessageBox.Show(str, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             refreshDataGrid();
         }
 

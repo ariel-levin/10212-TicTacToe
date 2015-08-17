@@ -199,10 +199,10 @@ namespace Client
                 mainForm.queriesForm.setCitiesChampionshipsNum(citiesChmps);
         }
 
-        public void updateSuccess()
+        public void updateSuccess(string msg = null)
         {
             if (mainForm.queriesForm != null)
-                mainForm.queriesForm.updateSuccess();
+                mainForm.queriesForm.updateSuccess(msg);
         }
 
         public void updateError(string err)

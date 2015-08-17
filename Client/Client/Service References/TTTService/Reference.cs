@@ -769,10 +769,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task deletePlayerAsync(Client.TTTService.PlayerData player);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayers")]
-        void deletePlayers(string title, string value);
+        void deletePlayers(Client.TTTService.PlayerData player, string title, string value);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deletePlayers")]
-        System.Threading.Tasks.Task deletePlayersAsync(string title, string value);
+        System.Threading.Tasks.Task deletePlayersAsync(Client.TTTService.PlayerData player, string title, string value);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/deleteChampionship")]
         void deleteChampionship(Client.TTTService.ChampionshipData chmp);
@@ -863,7 +863,7 @@ namespace Client.TTTService {
         void sendCitiesChampionshipsNum(Client.TTTService.CityChampionships[] citiesChmps);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateSuccess")]
-        void updateSuccess();
+        void updateSuccess(string msg);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updateError")]
         void updateError(string err);
@@ -1065,12 +1065,12 @@ namespace Client.TTTService {
             return base.Channel.deletePlayerAsync(player);
         }
         
-        public void deletePlayers(string title, string value) {
-            base.Channel.deletePlayers(title, value);
+        public void deletePlayers(Client.TTTService.PlayerData player, string title, string value) {
+            base.Channel.deletePlayers(player, title, value);
         }
         
-        public System.Threading.Tasks.Task deletePlayersAsync(string title, string value) {
-            return base.Channel.deletePlayersAsync(title, value);
+        public System.Threading.Tasks.Task deletePlayersAsync(Client.TTTService.PlayerData player, string title, string value) {
+            return base.Channel.deletePlayersAsync(player, title, value);
         }
         
         public void deleteChampionship(Client.TTTService.ChampionshipData chmp) {

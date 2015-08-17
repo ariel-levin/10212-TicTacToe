@@ -18,7 +18,7 @@ public class TTT : ITTT
 {
     private const int SERVER = 1;
 
-    private static Dictionary<ICallBack, PlayerData> chmps = new Dictionary<ICallBack, PlayerData>();
+    private static Dictionary<ICallBack, PlayerData> players = new Dictionary<ICallBack, PlayerData>();
     private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
     private static Board[] boards = new Board[5];
 
@@ -119,19 +119,19 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (chmps.ContainsKey(channel))
+        if (players.ContainsKey(channel))
         {
             channel.loginError("You are already connected, please logout first", user);
         }
         else
         {
-            if (isUserLogged(user))
+            if (isUserLogged(user.Id))
             {
                 channel.loginError("The following user is already connected, please select another", user);
             }
             else
             {
-                chmps.Add(channel, user);
+                players.Add(channel, user);
                 channel.loginSuccess(user);
             }
         }
@@ -141,9 +141,9 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (chmps.ContainsKey(channel) )
+        if (players.ContainsKey(channel) )
         {
-            chmps.Remove(channel);
+            players.Remove(channel);
             if (waitingForResponse)
                 channel.logoutSuccess();
         }
@@ -211,7 +211,7 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (!chmps.ContainsKey(channel))
+        if (!players.ContainsKey(channel))
         {
             channel.gameError("Something went wrong...\nYou are not logged in on the server\n"
                 + "Please try to logout and login again");
@@ -272,8 +272,8 @@ public class TTT : ITTT
 
     public PlayerData getPlayerData(ICallBack channel)
     {
-        if (chmps.ContainsKey(channel))
-            return chmps[channel];
+        if (players.ContainsKey(channel))
+            return players[channel];
         else
             return null;
     }
@@ -427,7 +427,7 @@ public class TTT : ITTT
 
                     foreach (var p in players)
                     {
-                        userLoggedIn = isUserLogged(p);
+                        userLoggedIn = isUserLogged(p.Id);
 
                         if (!userLoggedIn)
                         {
@@ -560,23 +560,26 @@ public class TTT : ITTT
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        if (isUserLogged(player))
+        if (isUserLogged(player.Id))
         {
             channel.updateError("Can't delete an online user");
             return;
         }
 
-        deletePlayerAppearances(player);
-
         using (var db = new TTTDataClassesDataContext())
         {
             using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
             {
-                string sql = string.Format("delete from Players where Id={0}", player.Id);
-                SqlCommand cmd = new SqlCommand(sql, con);
-
                 try
                 {
+                    bool success = deletePlayerDependencies(player.Id, db, con);
+
+                    if (!success)
+                        throw new Exception();
+
+                    string sql = string.Format("delete from Players where Id={0}", player.Id);
+                    SqlCommand cmd = new SqlCommand(sql, con);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -591,26 +594,75 @@ public class TTT : ITTT
         }
     }
 
-    public void deletePlayers(string title, string value)
+    public void deletePlayers(PlayerData player, string title, string value)
     {
-        throw new NotImplementedException();
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        List<int> playerIds = getPlayerMatches(player, title, value);
+
+        if (playerIds == null || playerIds.Count() < 1)
+        {
+            channel.updateError("There's no players with value '" + value + "' in field '" + title + "'");
+            return;
+        }
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("", con);
+
+                try
+                {
+                    con.Open();
+                    int loggedInCount = 0;
+                    foreach (var id in playerIds)
+                    {
+                        if (isUserLogged(id))
+                        {
+                            channel.updateError("Can't delete an online user [id=" + id + "]");
+                            loggedInCount++;
+                        }
+                        else
+                        {
+                            bool success = deletePlayerDependencies(id, db, con);
+                            if (success)
+                            {
+                                cmd.CommandText = string.Format("delete from Players where Id={0}", id);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    con.Close();
+                    channel.updateSuccess(playerIds.Count() - loggedInCount + " players deleted");
+                }
+                catch (Exception)
+                {
+                    channel.updateError("Some error occured while deleting from database");
+                }
+            }
+        }
     }
 
     public void deleteChampionship(ChampionshipData chmp)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
 
-        deleteChampionshipAppearances(chmp);
-
         using (var db = new TTTDataClassesDataContext())
         {
             using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
             {
-                string sql = string.Format("delete from Championships where Id={0}", chmp.Id);;
-                SqlCommand cmd = new SqlCommand(sql, con);
-
                 try
                 {
+                    bool success = deleteChampionshipDependencies(chmp.Id, db, con);
+
+                    if (!success)
+                        throw new Exception();
+
+                    string sql = string.Format("delete from Championships where Id={0}", chmp.Id); ;
+                    SqlCommand cmd = new SqlCommand(sql, con);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -627,7 +679,45 @@ public class TTT : ITTT
 
     public void deleteChampionships(string title, string value)
     {
-        throw new NotImplementedException();
+        ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        List<int> chmpsIds = getChampionshipMatches(title, value);
+
+        if (chmpsIds == null || chmpsIds.Count() < 1)
+        {
+            channel.updateError("There's no championships with value '" + value + "' in field '" + title + "'");
+            return;
+        }
+
+        using (var db = new TTTDataClassesDataContext())
+        {
+            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("", con);
+
+                try
+                {
+                    con.Open();
+
+                    foreach (var id in chmpsIds)
+                    {
+                        bool success = deleteChampionshipDependencies(id, db, con);
+                        if (success)
+                        {
+                            cmd.CommandText = string.Format("delete from Championships where Id={0}", id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    con.Close();
+                    channel.updateSuccess(chmpsIds.Count() + " championships deleted");
+                }
+                catch (Exception)
+                {
+                    channel.updateError("Some error occured while deleting from database");
+                }
+            }
+        }
     }
 
 
@@ -689,7 +779,7 @@ public class TTT : ITTT
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            IQueryable<Championship> x = null;
+            IEnumerable<Championship> x = null;
 
             if (playerId == -1)
                 x = db.Championships;
@@ -740,7 +830,7 @@ public class TTT : ITTT
     {
         using (var db = new TTTDataClassesDataContext())
         {
-            IQueryable<Game> x = null;
+            IEnumerable<Game> x = null;
 
             if (playerId == -1)
                 x = db.Games;
@@ -771,9 +861,9 @@ public class TTT : ITTT
         }
     }
 
-    private bool isUserLogged(PlayerData user) 
+    private bool isUserLogged(int id) 
     {
-        return chmps.Values.Any(p => p.Id == user.Id);
+        return players.Values.Any(p => p.Id == id);
     }
 
     private bool isPlayerRegisteredToChamp(PlayerData player, ChampionshipData champ, TTTDataClassesDataContext db)
@@ -818,7 +908,7 @@ public class TTT : ITTT
             return getPlayerData(x.First(), db);
     }
 
-    private IQueryable<Player> getPlayerAdvisors(int id, TTTDataClassesDataContext db)
+    private IEnumerable<Player> getPlayerAdvisors(int id, TTTDataClassesDataContext db)
     {
         return db.Players.Where(p => p.AdviseTo == id);
     }
@@ -839,98 +929,184 @@ public class TTT : ITTT
         return false;
     }
 
-    private void deletePlayerAppearances(PlayerData player)
+    private bool deletePlayerDependencies(int playerId, TTTDataClassesDataContext db, SqlConnection con)
     {
-        removePlayerAdvisors(player);
-        deletePlayerGames(player);
-        deletePlayerChampionships(player);
+        if (removePlayerAdvisors(playerId, db, con)
+                && deletePlayerGames(playerId, db, con)
+                    && deletePlayerChampionships(playerId, db, con))
+            return true;
+        else
+            return false;
     }
 
-    private void removePlayerAdvisors(PlayerData player)
+    private bool removePlayerAdvisors(int playerId, TTTDataClassesDataContext db, SqlConnection con)
     {
-        using (var db = new TTTDataClassesDataContext())
+        String sql = string.Format("Update Players SET AdviseTo=NULL where AdviseTo={0}", playerId);
+        SqlCommand cmd = new SqlCommand(sql, con);
+        try
         {
-            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
-            {
-                String sql = string.Format("Update Players SET AdviseTo=NULL where AdviseTo={0}", player.Id);
-                SqlCommand cmd = new SqlCommand(sql, con);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                catch (Exception)
-                {
-
-                }
-            }
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 
-    private void deletePlayerGames(PlayerData player)
+    private bool deletePlayerGames(int playerId, TTTDataClassesDataContext db, SqlConnection con)
     {
-        using (var db = new TTTDataClassesDataContext())
+        string sql = string.Format("delete from Games where Player1={0} or Player2={0} or Winner={0}", playerId);
+        SqlCommand cmd = new SqlCommand(sql, con);
+        try
         {
-            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
-            {
-                string sql = string.Format("delete from Games where Player1={0} or Player2={0} or Winner={0}", player.Id);
-                SqlCommand cmd = new SqlCommand(sql, con);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                catch (Exception)
-                {
-
-                }
-            }
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 
-    private void deletePlayerChampionships(PlayerData player)
+    private bool deletePlayerChampionships(int playerId, TTTDataClassesDataContext db, SqlConnection con)
     {
-        using (var db = new TTTDataClassesDataContext())
+        string sql = string.Format("delete from PlayerChampionships where PlayerId={0}", playerId);
+        SqlCommand cmd = new SqlCommand(sql, con);
+        try
         {
-            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
-            {
-                string sql = string.Format("delete from Championships where PlayerId={0}", player.Id);
-                SqlCommand cmd = new SqlCommand(sql, con);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                catch (Exception)
-                {
-
-                }
-            }
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 
-    private void deleteChampionshipAppearances(ChampionshipData chmp)
+    private bool deleteChampionshipDependencies(int chmpId, TTTDataClassesDataContext db, SqlConnection con)
     {
-        using (var db = new TTTDataClassesDataContext())
+        string sql = string.Format("delete from PlayerChampionships where ChampionshipId={0}", chmpId);
+        SqlCommand cmd = new SqlCommand(sql, con);
+        try
         {
-            using (SqlConnection con = new SqlConnection(db.Connection.ConnectionString))
-            {
-                string sql = string.Format("delete from PlayerChampionships where ChampionshipId={0}", chmp.Id);
-                SqlCommand cmd = new SqlCommand(sql, con);
-                try
-                {
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-                catch (Exception)
-                {
+            cmd.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 
+    private List<int> getPlayerMatches(PlayerData player, string title, string value)
+    {
+        try
+        {        
+            IEnumerable<Player> players = null;
+
+            using (var db = new TTTDataClassesDataContext())
+            {
+                switch (title)
+                {
+                    case "Id":
+                        players = db.Players.Where(p => p.Id == int.Parse(value));
+                        break;
+                    case "FirstName":
+                        players = db.Players.Where(p => 
+                            p.FirstName.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "LastName":
+                        players = db.Players.Where(p => 
+                            p.LastName.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "City":
+                        players = db.Players.Where(p => 
+                            p.City.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "Country":
+                        players = db.Players.Where(p => 
+                            p.Country.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "Phone":
+                        players = db.Players.Where(p => 
+                            p.Phone.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "Is_Advisor":
+                        int IsAdvisor = -1;
+                        if (value.Equals("Yes"))
+                            IsAdvisor = 1;
+                        else if (value.Equals("No"))
+                            IsAdvisor = 0;
+                        if (IsAdvisor != -1)
+                            players = db.Players.Where(p => p.IsAdvisor == IsAdvisor);
+                        break;
+                    case "AdviseTo_Name":
+                        players = db.Players.Where(p => p.AdviseTo == player.AdviseTo);
+                        break;
                 }
+
+                if (players != null && players.Count() > 0)
+                {
+                    List<int> lst = new List<int>();
+                    foreach (var p in players)
+                        lst.Add(p.Id);
+                    return lst;
+                }
+                else
+                    return null;
             }
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    private List<int> getChampionshipMatches(string title, string value)
+    {
+        try
+        {
+            IEnumerable<Championship> chmps = null;
+
+            using (var db = new TTTDataClassesDataContext())
+            {
+                switch (title)
+                {
+                    case "Id":
+                        chmps = db.Championships.Where(c =>
+                            c.Id == int.Parse(value.Replace(" ", string.Empty)));
+                        break;
+                    case "City":
+                        chmps = db.Championships.Where(c =>
+                            c.City.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                    case "StartDate":
+                        chmps = db.Championships.Where(c => c.StartDate.Equals(value));
+                        break;
+                    case "EndDate":
+                        chmps = db.Championships.Where(c => c.EndDate.Equals(value));
+                        break;
+                    case "Picture":
+                        chmps = db.Championships.Where(c =>
+                            c.Picture.Replace(" ", string.Empty).Equals(value.Replace(" ", string.Empty)));
+                        break;
+                }
+
+                if (chmps != null && chmps.Count() > 0)
+                {
+                    List<int> lst = new List<int>();
+                    foreach (var p in chmps)
+                        lst.Add(p.Id);
+                    return lst;
+                }
+                else
+                    return null;
+            }
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
 

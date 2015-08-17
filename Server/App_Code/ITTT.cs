@@ -81,7 +81,7 @@ public interface ITTT
     void deletePlayer(PlayerData player);
 
     [OperationContract(IsOneWay = true)]
-    void deletePlayers(string title, string value);
+    void deletePlayers(PlayerData player, string title, string value);
 
     [OperationContract(IsOneWay = true)]
     void deleteChampionship(ChampionshipData chmp);
@@ -168,7 +168,7 @@ public interface ICallBack
     void sendCitiesChampionshipsNum(CityChampionships[] citiesChmps);
 
     [OperationContract(IsOneWay = true)]
-    void updateSuccess();
+    void updateSuccess(string msg = null);
 
     [OperationContract(IsOneWay = true)]
     void updateError(string err);
