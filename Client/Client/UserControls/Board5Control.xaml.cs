@@ -27,9 +27,9 @@ using System.Windows.Interop;
 namespace Client
 {
 
-    public partial class Board4Control : UserControl
+    public partial class Board5Control : UserControl
     {
-        private const int DIM = 4;
+        private const int DIM = 5;
 
         private BoardForm form;
         private Button[,] btnMatrix;
@@ -37,7 +37,7 @@ namespace Client
         private bool wait;
 
 
-        public Board4Control(BoardForm form)
+        public Board5Control(BoardForm form)
         {
             InitializeComponent();
             this.form = form;
@@ -48,10 +48,11 @@ namespace Client
         private void initMatrix()
         {
             btnMatrix = new Button[DIM, DIM];
-            btnMatrix[0, 0] = A1; btnMatrix[0, 1] = A2; btnMatrix[0, 2] = A3; btnMatrix[0, 3] = A4;
-            btnMatrix[1, 0] = B1; btnMatrix[1, 1] = B2; btnMatrix[1, 2] = B3; btnMatrix[1, 3] = B4;
-            btnMatrix[2, 0] = C1; btnMatrix[2, 1] = C2; btnMatrix[2, 2] = C3; btnMatrix[2, 3] = C4;
-            btnMatrix[3, 0] = D1; btnMatrix[3, 1] = D2; btnMatrix[3, 2] = D3; btnMatrix[3, 3] = D4;
+            btnMatrix[0, 0] = A1; btnMatrix[0, 1] = A2; btnMatrix[0, 2] = A3; btnMatrix[0, 3] = A4; btnMatrix[0, 4] = A5;
+            btnMatrix[1, 0] = B1; btnMatrix[1, 1] = B2; btnMatrix[1, 2] = B3; btnMatrix[1, 3] = B4; btnMatrix[1, 4] = B5;
+            btnMatrix[2, 0] = C1; btnMatrix[2, 1] = C2; btnMatrix[2, 2] = C3; btnMatrix[2, 3] = C4; btnMatrix[2, 4] = C5;
+            btnMatrix[3, 0] = D1; btnMatrix[3, 1] = D2; btnMatrix[3, 2] = D3; btnMatrix[3, 3] = D4; btnMatrix[3, 4] = D5;
+            btnMatrix[4, 0] = E1; btnMatrix[4, 1] = E2; btnMatrix[4, 2] = E3; btnMatrix[4, 3] = E4; btnMatrix[4, 4] = E5;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -95,7 +96,7 @@ namespace Client
 
             sb.Begin(this);
         }
-        
+
         public void disableBoard()
         {
             for (var i = 0; i < btnMatrix.GetLength(0); i++)

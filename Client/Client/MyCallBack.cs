@@ -178,6 +178,10 @@ namespace Client
                     if (mainForm.queriesForm != null)
                         mainForm.queriesForm.setSubQueryObjects(games);
                     break;
+                case "H":
+                    if (mainForm.historyForm != null)
+                        mainForm.historyForm.setGames(games);
+                    break;
             }
         }
 

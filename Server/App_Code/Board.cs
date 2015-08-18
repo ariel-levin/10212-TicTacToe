@@ -39,7 +39,8 @@ public class Board
         game.BoardSize = dim;
         game.Player1 = server.getPlayerData(player).Id;
         game.StartTime = DateTime.Now;
-        game.Moves = "{ \"moves\": [";
+        //game.Moves = "{ \"moves\": [";        // json
+        game.Moves = "";                        // simple array
 
         if (singlePlayer)
             game.Player2 = 1;
@@ -154,9 +155,7 @@ public class Board
         } while (isPressed(row, col));
 
         board[row, col] = 'O';
-        if (moveCount > 0)
-            game.Moves += ",";
-        game.Moves += " [" + row + "," + col + "]";
+        addGameMove(row, col);
         moveCount++;
         player.opponentPressed(row, col);
 
@@ -175,10 +174,23 @@ public class Board
             player.playerTurn();
     }
 
+    private void addGameMove(int row, int col)
+    {
+        // json
+        //if (moveCount > 0)
+        //    game.Moves += ",";
+        //game.Moves += " { \"r\": " + row + ", \"c\": " + col + " }";
+
+        // simple array
+        if (moveCount > 0)
+            game.Moves += ":";
+        game.Moves += row + "," + col;
+    }
+
     private void endGame()
     {
         gameEnded = true;
-        game.Moves += " ] }";
+        //game.Moves += " ] }";     // json
         game.EndTime = DateTime.Now;
         server.insertGameToDB(game);
     }
@@ -251,9 +263,7 @@ public class Board
         }
 
         board[row, col] = token;
-        if (moveCount > 0)
-            game.Moves += ",";
-        game.Moves += " [" + row + "," + col + "]";
+        addGameMove(row, col);
         moveCount++;
 
         ICallBack opponent = getOpponent(player);   // if singleplayer it will be null

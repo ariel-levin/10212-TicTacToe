@@ -30,6 +30,8 @@
         {
             this.btnOnline4 = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRegisterUser = new System.Windows.Forms.Button();
@@ -39,9 +41,12 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnRegToChamp = new System.Windows.Forms.Button();
             this.btnOffline4 = new System.Windows.Forms.Button();
-            this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnQueries = new System.Windows.Forms.Button();
+            this.btnHistory = new System.Windows.Forms.Button();
+            this.userMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loginMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +65,7 @@
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenuItem,
+            this.userMenuItem,
             this.helpMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -67,6 +73,20 @@
             this.menuStrip.Size = new System.Drawing.Size(556, 24);
             this.menuStrip.TabIndex = 3;
             this.menuStrip.Text = "menuStrip";
+            // 
+            // fileMenuItem
+            // 
+            this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitMenuItem});
+            this.fileMenuItem.Name = "fileMenuItem";
+            this.fileMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileMenuItem.Text = "File";
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitMenuItem.Text = "Exit";
             // 
             // helpMenuItem
             // 
@@ -153,20 +173,6 @@
             this.btnOffline4.UseVisualStyleBackColor = true;
             this.btnOffline4.Click += new System.EventHandler(this.btnOffline4_Click);
             // 
-            // fileMenuItem
-            // 
-            this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitMenuItem});
-            this.fileMenuItem.Name = "fileMenuItem";
-            this.fileMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileMenuItem.Text = "File";
-            // 
-            // exitMenuItem
-            // 
-            this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitMenuItem.Text = "Exit";
-            // 
             // btnQueries
             // 
             this.btnQueries.Location = new System.Drawing.Point(41, 224);
@@ -177,11 +183,50 @@
             this.btnQueries.UseVisualStyleBackColor = true;
             this.btnQueries.Click += new System.EventHandler(this.btnQueries_Click);
             // 
+            // btnHistory
+            // 
+            this.btnHistory.Location = new System.Drawing.Point(41, 286);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(102, 23);
+            this.btnHistory.TabIndex = 12;
+            this.btnHistory.Text = "Game History";
+            this.btnHistory.UseVisualStyleBackColor = true;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            // 
+            // userMenuItem
+            // 
+            this.userMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loginMenuItem,
+            this.registerMenuItem,
+            this.logoutMenuItem});
+            this.userMenuItem.Name = "userMenuItem";
+            this.userMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.userMenuItem.Text = "User";
+            // 
+            // loginMenuItem
+            // 
+            this.loginMenuItem.Name = "loginMenuItem";
+            this.loginMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loginMenuItem.Text = "Login";
+            // 
+            // registerMenuItem
+            // 
+            this.registerMenuItem.Name = "registerMenuItem";
+            this.registerMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registerMenuItem.Text = "Register";
+            // 
+            // logoutMenuItem
+            // 
+            this.logoutMenuItem.Name = "logoutMenuItem";
+            this.logoutMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutMenuItem.Text = "Logout";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
+            this.Controls.Add(this.btnHistory);
             this.Controls.Add(this.btnQueries);
             this.Controls.Add(this.btnOffline4);
             this.Controls.Add(this.btnRegToChamp);
@@ -221,6 +266,11 @@
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
         private System.Windows.Forms.Button btnQueries;
+        private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.ToolStripMenuItem userMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loginMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logoutMenuItem;
     }
 }
 

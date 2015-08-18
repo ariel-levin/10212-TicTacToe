@@ -5,6 +5,8 @@
  *********************************/
 
 using Client.TTTService;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,10 +27,17 @@ namespace Client
 
         private MainForm mainForm;
         private bool ended;
-
+        private bool singlePlayer;
+        private bool historyMode;
+        private Board3Control ctrl3;
         private Board4Control ctrl4;
+        private Board5Control ctrl5;
+        private GameData gameHistory;
+        private int[,] moves;
+        private int currentMove;
 
 
+        // normal game constructor
         public BoardForm(int dim, MainForm mainForm, bool singlePlayer)
         {
             InitializeComponent();
@@ -36,21 +45,76 @@ namespace Client
             switch (dim)
             {
                 case 3:
-
+                    ctrl3 = new Board3Control(this);
+                    boardElementHost.Child = ctrl3;
                     break;
                 case 4:
                     ctrl4 = new Board4Control(this);
                     boardElementHost.Child = ctrl4;
                     break;
                 case 5:
+                    ctrl5 = new Board5Control(this);
+                    boardElementHost.Child = ctrl5;
+                    break;
+            }
+            
+            this.dim = dim;
+            this.mainForm = mainForm;
+            this.singlePlayer = singlePlayer;
+            this.Text = "Board " + dim + "x" + dim;
+            this.historyMode = false;
+            ended = false;
+            showMessage("Waiting for server..");
+            mainForm.getClient().startGameRequest(dim, singlePlayer);
+        }
 
+        // game history display constructor
+        public BoardForm(GameData game, MainForm mainForm)
+        {
+            InitializeComponent();
+            
+            switch (game.BoardSize)
+            {
+                case 3:
+                    ctrl3 = new Board3Control(this);
+                    boardElementHost.Child = ctrl3;
+                    ctrl3.disableBoard();
+                    break;
+                case 4:
+                    ctrl4 = new Board4Control(this);
+                    boardElementHost.Child = ctrl4;
+                    ctrl4.disableBoard();
+                    break;
+                case 5:
+                    ctrl5 = new Board5Control(this);
+                    boardElementHost.Child = ctrl5;
+                    ctrl5.disableBoard();
                     break;
             }
 
-            this.dim = dim;
+            this.dim = game.BoardSize;
             this.mainForm = mainForm;
-            ended = false;
-            mainForm.getClient().startGameRequest(4, singlePlayer);
+            this.Text = "Board " + dim + "x" + dim;
+            ended = true;
+            this.gameHistory = game;
+            this.historyMode = true;
+            btnNext.Visible = true;
+
+            string str = string.Format("{0}  vs.  {1}",
+                            "[" + gameHistory.Player1_Name.Replace(" ", string.Empty) + "]",
+                            "[" + gameHistory.Player2_Name.Replace(" ", string.Empty) + "]" );
+
+            showMessage(str);
+
+            //this.moves = getGameMovesFromJson(gameHistory.Moves);     // json
+            this.moves = getGameMovesFromString(gameHistory.Moves);     // simple string
+            if (moves != null && moves.Length > 0)
+            {
+                btnNext.Enabled = true;
+                currentMove = 0;
+            }
+            else
+                MessageBox.Show("No moves available for this game", "Moves", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BoardForm_Load(object sender, EventArgs e)
@@ -62,17 +126,107 @@ namespace Client
 
         private void Board4Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mainForm.getClient().playerExitGame();
-            mainForm.boardForm = null;
+            if (!historyMode)
+            {
+                mainForm.getClient().playerExitGame();
+                mainForm.boardForm = null;
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            mainForm.getClient().playerExitGame();
-            mainForm.boardForm = null;
+            if (!historyMode)
+            {
+                mainForm.getClient().playerExitGame();
+                mainForm.boardForm = null;
+            }
             Dispose();
         }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            int row = moves[currentMove, 0];
+            int col = moves[currentMove, 1];
+            char currentToken = (currentMove % 2 == 0) ? 'X' : 'O';
+            switch (gameHistory.BoardSize)
+            {
+                case 3:
+                    ctrl3.showAnimation(row, col, currentToken);
+                    break;
+                case 4:
+                    ctrl4.showAnimation(row, col, currentToken);
+                    break;
+                case 5:
+                    ctrl5.showAnimation(row, col, currentToken);
+                    break;
+            }
+            currentMove++;
+            if (currentMove >= moves.GetLength(0))
+            {
+                btnNext.Enabled = false;
+                MessageBox.Show("End of game", "Moves", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private int[,] getGameMovesFromString(string str)
+        {
+            if (str.Length == 0)
+                return null;
+
+            try
+            {
+                string[] movesArr = str.Split(':');
+                int[,] arr = new int[movesArr.Length, 2];
+                
+                for (var i = 0; i < movesArr.Length; i++)
+                {
+                    string[] move = movesArr[i].Split(',');
+                    arr[i, 0] = int.Parse(move[0]);
+                    arr[i, 1] = int.Parse(move[1]);
+                }
+
+                return arr;
+            }
+            catch (Exception)
+            {
+                showError("Some error occurred while getting game moves from DB");
+                return null;
+            }            
+        }
+
+        private int[,] getGameMovesFromJson(string str)
+        {
+            if (str.Length == 0)
+                return null;
+
+            try
+            {
+                JObject gameJson = JObject.Parse(gameHistory.Moves);
+                JArray movesJson = JArray.Parse(gameJson.Property("moves").Value.ToString());
+
+                int[,] arr = new int[movesJson.Count(), 2];
+                int i = 0;
+
+                foreach (JObject move in movesJson.Children<JObject>())
+                {
+                    arr[i, 0] = int.Parse(move.Property("r").Value.ToString());
+                    arr[i++, 1] = int.Parse(move.Property("c").Value.ToString());
+                }
+
+                return arr;
+            }
+            catch (Exception)
+            {
+                showError("Some error occurred while getting game moves from DB");
+                return null;
+            }    
+        }
+
+
+        public void setStatus(string status)
+        {
+            lblStatus.Text = status;
+        }
 
         public TTTClient getClient()
         {
@@ -84,13 +238,13 @@ namespace Client
             switch (dim)
             {
                 case 3:
-
+                    ctrl3.opponentPressed(row, col);
                     break;
                 case 4:
                     ctrl4.opponentPressed(row, col);
                     break;
                 case 5:
-
+                    ctrl5.opponentPressed(row, col);
                     break;
             }
         }
@@ -99,11 +253,11 @@ namespace Client
         {
             if (yourTurn)
             {
-                showMessage("Game on!\nYour turn");
+                showMessage("Game on! Your turn");
                 playerTurn();
             }
             else
-                showMessage("Game on!\nOpponent's turn");
+                showMessage("Game on! Opponent's turn");
         }
 
         public void showError(string error)
@@ -113,22 +267,26 @@ namespace Client
 
         public void showMessage(string msg)
         {
-            MessageBox.Show(msg, "Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(msg, "Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            setStatus(msg);
         }
 
         public void addedSuccessfully(bool firstPlayer)
         {
-            showMessage("You joined a new board successfully!");
+            //showMessage("You joined a new board successfully!");
+            if (!singlePlayer && firstPlayer)
+                showMessage("Waiting for a second player to join");
+
             switch (dim)
             {
                 case 3:
-
+                    ctrl3.setTokens((firstPlayer) ? 'X' : 'O');
                     break;
                 case 4:
                     ctrl4.setTokens((firstPlayer) ? 'X' : 'O');
                     break;
                 case 5:
-
+                    ctrl5.setTokens((firstPlayer) ? 'X' : 'O');
                     break;
             }
         }
@@ -138,15 +296,16 @@ namespace Client
             switch (dim)
             {
                 case 3:
-
+                    ctrl3.yourTurn();
                     break;
                 case 4:
                     ctrl4.yourTurn();
                     break;
                 case 5:
-
+                    ctrl5.yourTurn();
                     break;
             }
+            showMessage("Your turn");
         }
 
         public void endGame(string msg)
@@ -158,14 +317,16 @@ namespace Client
                 switch (dim)
                 {
                     case 3:
-
+                        ctrl3.stopGame();
+                        ctrl3.disableBoard();
                         break;
                     case 4:
                         ctrl4.stopGame();
                         ctrl4.disableBoard();
                         break;
                     case 5:
-
+                        ctrl5.stopGame();
+                        ctrl5.disableBoard();
                         break;
                 }
 

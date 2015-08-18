@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -57,6 +61,15 @@
     </Compile>
     <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HistoryForm.Designer.cs">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Board3Control.xaml.cs">
+      <DependentUpon>Board3Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Board4Control.xaml.cs">
       <DependentUpon>Board4Control.xaml</DependentUpon>
@@ -87,6 +100,9 @@
     </Compile>
     <Compile Include="Forms\QueriesForm.Designer.cs">
       <DependentUpon>QueriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Board5Control.xaml.cs">
+      <DependentUpon>Board5Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\QueryControl.xaml.cs">
       <DependentUpon>QueryControl.xaml</DependentUpon>
@@ -127,6 +143,9 @@
     <EmbeddedResource Include="Forms\NewChampForm.resx">
       <DependentUpon>NewChampForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HistoryForm.resx">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -149,6 +168,7 @@
     <EmbeddedResource Include="Forms\RegisterToChampForm.resx">
       <DependentUpon>RegisterToChampForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -197,7 +217,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\Board3Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Board4Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Board5Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

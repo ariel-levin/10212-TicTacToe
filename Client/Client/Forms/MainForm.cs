@@ -5,6 +5,7 @@
  *********************************/
 
 using Client.TTTService;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,7 @@ namespace Client
         public RegisterToChampForm regToChampForm { get; set; }
         public BoardForm boardForm { get; set; }
         public QueriesForm queriesForm { get; set; }
+        public HistoryForm historyForm { get; set; }
 
         private TTTClient client;
         private PlayerData currentPlayer;
@@ -178,6 +180,22 @@ namespace Client
                 {
                     queriesForm = new QueriesForm(this);
                     queriesForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+            if (historyForm != null)
+                showError("History Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    historyForm = new HistoryForm(this);
+                    historyForm.Show();
                 }
                 else
                     showError("Error: Please login first");

@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Client.Board3Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="A1" Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="A2" Grid.Row="0" Grid.Column="1" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="A3" Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="B1" Grid.Row="1" Grid.Column="0" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="B2" Grid.Row="1" Grid.Column="1" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="B3" Grid.Row="1" Grid.Column="2" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="C1" Grid.Row="2" Grid.Column="0" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="C2" Grid.Row="2" Grid.Column="1" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+        <Button x:Name="C3" Grid.Row="2" Grid.Column="2" Margin="1,1,1,1" Click="Button_Click" HorizontalAlignment="Stretch" />
+
+    </Grid>
+</UserControl>
