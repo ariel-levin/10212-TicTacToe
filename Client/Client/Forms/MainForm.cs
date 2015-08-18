@@ -39,7 +39,7 @@ namespace Client
         public MainForm()
         {
             InitializeComponent();
-            
+            enableMenuItems(false);
             InstanceContext context = new InstanceContext(new MyCallBack(this));
             client = new TTTClient(context);
 
@@ -49,56 +49,74 @@ namespace Client
             }
             catch (Exception)
             {
-                MessageBox.Show("Error: Service offline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                showError("Error: Service offline");
                 Dispose();
                 Application.Exit();
-            }            
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnOnline4_Click(object sender, EventArgs e)
-        {
-            if (currentPlayer != null)
-            {
-                boardForm = new BoardForm(4, this, false);
-                boardForm.Show();
             }
-            else
-                showError("Error: Please login first");
         }
 
-        private void btnOffline4_Click(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (currentPlayer != null)
+            closeApp();
+        }
+
+
+
+        #region Menu Item Clicks
+
+        private void loginMenuItem_Click(object sender, EventArgs e)
+        {
+            if (loginForm != null)
+                showError("Login Form is already open");
+            else
             {
-                boardForm = new BoardForm(4, this, true);
-                boardForm.Show();
+                if (currentPlayer == null)
+                {
+                    loginForm = new LoginForm(this);
+                    loginForm.Show();
+                }
+                else
+                    showError("Error: Please logout first");
             }
-            else
-                showError("Error: Please login first");
         }
 
-        private void aboutMenuItem_Click(object sender, EventArgs e)
-        {
-            (new AboutBox()).Show();
-        }
-
-        private void btnRegisterUser_Click(object sender, EventArgs e)
+        private void registerMenuItem_Click(object sender, EventArgs e)
         {
             if (registerForm != null)
                 showError("Register Form is already open");
             else
             {
-                registerForm = new RegisterForm(this);
-                registerForm.Show();
+                if (currentPlayer == null)
+                {
+                    registerForm = new RegisterForm(this);
+                    registerForm.Show();
+                }
+                else
+                    showError("Error: Please logout first");
             }
         }
 
-        private void btnNewChamp_Click(object sender, EventArgs e)
+        private void logoutMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentPlayer != null)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to logout?",
+                    "Confirmation", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                if (result == DialogResult.Yes)
+                {
+
+                    logoutMenuItem.Enabled = false;
+                    loginMenuItem.Enabled = false;
+                    client.logout(true);
+                }
+            }
+            else
+                showError("Error: Please login first");
+        }
+
+        private void newChampMenuItem_Click(object sender, EventArgs e)
         {
             if (newChampForm != null)
                 showError("New Championship Form is already open");
@@ -114,47 +132,7 @@ namespace Client
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-            if (loginForm != null)
-                showError("Login Form is already open");
-            else
-            {
-                loginForm = new LoginForm(this);
-                loginForm.Show();
-            }
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (currentPlayer != null)
-            {
-                client.logout(false);
-                Thread.Sleep(1000);
-            }
-            client.Close();
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure you want to logout?",
-                "Confirmation", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
-                btnLogout.Enabled = false;
-                btnLogin.Enabled = false;
-                client.logout(true);
-            }
-        }
-
-        private void btnRegToChamp_Click(object sender, EventArgs e)
+        private void registerChampMenuItem_Click(object sender, EventArgs e)
         {
             if (regToChampForm != null)
                 showError("Register to Championship Form is already open");
@@ -170,23 +148,103 @@ namespace Client
             }
         }
 
-        private void btnQueries_Click(object sender, EventArgs e)
+        private void online3MenuItem_Click(object sender, EventArgs e)
         {
-            if (queriesForm != null)
-                showError("Queries Form is already open");
+            if (boardForm != null)
+                showError("Game Form is already open");
             else
             {
                 if (currentPlayer != null)
                 {
-                    queriesForm = new QueriesForm(this);
-                    queriesForm.Show();
+                    boardForm = new BoardForm(3, this, false);
+                    boardForm.Show();
                 }
                 else
                     showError("Error: Please login first");
             }
         }
 
-        private void btnHistory_Click(object sender, EventArgs e)
+        private void online4MenuItem_Click(object sender, EventArgs e)
+        {
+            if (boardForm != null)
+                showError("Game Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    boardForm = new BoardForm(4, this, false);
+                    boardForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void online5MenuItem_Click(object sender, EventArgs e)
+        {
+            if (boardForm != null)
+                showError("Game Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    boardForm = new BoardForm(5, this, false);
+                    boardForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void offline3MenuItem_Click(object sender, EventArgs e)
+        {
+            if (boardForm != null)
+                showError("Game Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    boardForm = new BoardForm(3, this, true);
+                    boardForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void offline4MenuItem_Click(object sender, EventArgs e)
+        {
+            if (boardForm != null)
+                showError("Game Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    boardForm = new BoardForm(4, this, true);
+                    boardForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void offline5MenuItem_Click(object sender, EventArgs e)
+        {
+            if (boardForm != null)
+                showError("Game Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    boardForm = new BoardForm(5, this, true);
+                    boardForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void historyMenuItem_Click(object sender, EventArgs e)
         {
             if (historyForm != null)
                 showError("History Form is already open");
@@ -202,15 +260,72 @@ namespace Client
             }
         }
 
+        private void queriesMenuItem_Click(object sender, EventArgs e)
+        {
+            if (queriesForm != null)
+                showError("Queries Form is already open");
+            else
+            {
+                if (currentPlayer != null)
+                {
+                    queriesForm = new QueriesForm(this);
+                    queriesForm.Show();
+                }
+                else
+                    showError("Error: Please login first");
+            }
+        }
+
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            (new AboutBox()).Show();
+        }
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            closeApp();
+        }
+
+        #endregion
+
+
         private void showError(string error)
         {
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void enableMenuItems(bool loggedIn)
+        {
+            loginMenuItem.Enabled = !loggedIn;
+            registerMenuItem.Enabled = !loggedIn;
+            logoutMenuItem.Enabled = loggedIn;
+            championshipMenuItem.Enabled = loggedIn;
+            gameMenuItem.Enabled = loggedIn;
+            queriesMenuItem.Enabled = loggedIn;
+        }
+
+        private void closeApp()
+        {
+            try
+            {
+                if (currentPlayer != null)
+                {
+                    client.logout(false);
+                    Thread.Sleep(1000);
+                }
+                client.Close();
+            }
+            catch (Exception) { }
+
+            Application.Exit();
         }
 
 
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
 
+
+        #region Public Methods
 
         public TTTClient getClient()
         {
@@ -231,8 +346,7 @@ namespace Client
         {
             currentPlayer = player;
             lblCurrentPlayer.Text = playerString(player);
-            btnLogin.Enabled = false;
-            btnLogout.Enabled = true;
+            enableMenuItems(true);
         }
 
         public void playerLogout()
@@ -242,24 +356,26 @@ namespace Client
 
             currentPlayer = null;
             lblCurrentPlayer.Text = "logged out";
-            btnLogout.Enabled = false;
-            btnLogin.Enabled = true;
+            enableMenuItems(false);
         }
 
         public void playerLogoutError(string error)
         {
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            btnLogout.Enabled = true;
-            btnLogin.Enabled = false;
+            enableMenuItems(true);
         }
 
+        #endregion
+
 
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
 
+
+        #region Strings
 
         public string playerString(PlayerData player) {
-            return player.Id + " : " + player.FirstName;
+            return player.Id + " : " + Regex.Replace(player.FirstName, @"\s+", " ");
         }
 
         public string championshipString(ChampionshipData champ)
@@ -273,6 +389,8 @@ namespace Client
             return game.Id + " : Board " + game.BoardSize + " : " 
                 + game.StartTime.ToShortDateString();
         }
+
+        #endregion
 
     }
 

@@ -28,37 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnOnline4 = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRegisterUser = new System.Windows.Forms.Button();
-            this.btnNewChamp = new System.Windows.Forms.Button();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.lblCurrentPlayer = new System.Windows.Forms.Label();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.btnRegToChamp = new System.Windows.Forms.Button();
-            this.btnOffline4 = new System.Windows.Forms.Button();
-            this.btnQueries = new System.Windows.Forms.Button();
-            this.btnHistory = new System.Windows.Forms.Button();
             this.userMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.championshipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newChampMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerChampMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.online3MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.online4MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.online5MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offlineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offline3MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offline4MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.offline5MenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queriesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblCurrentPlayer = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnOnline4
-            // 
-            this.btnOnline4.Location = new System.Drawing.Point(41, 120);
-            this.btnOnline4.Name = "btnOnline4";
-            this.btnOnline4.Size = new System.Drawing.Size(102, 23);
-            this.btnOnline4.TabIndex = 0;
-            this.btnOnline4.Text = "Online 4x4";
-            this.btnOnline4.UseVisualStyleBackColor = true;
-            this.btnOnline4.Click += new System.EventHandler(this.btnOnline4_Click);
             // 
             // menuStrip
             // 
@@ -66,6 +61,9 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenuItem,
             this.userMenuItem,
+            this.championshipMenuItem,
+            this.gameMenuItem,
+            this.queriesMenuItem,
             this.helpMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -87,111 +85,7 @@
             this.exitMenuItem.Name = "exitMenuItem";
             this.exitMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitMenuItem.Text = "Exit";
-            // 
-            // helpMenuItem
-            // 
-            this.helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutMenuItem});
-            this.helpMenuItem.Name = "helpMenuItem";
-            this.helpMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpMenuItem.Text = "Help";
-            // 
-            // aboutMenuItem
-            // 
-            this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutMenuItem.Text = "About";
-            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-            // 
-            // btnRegisterUser
-            // 
-            this.btnRegisterUser.Location = new System.Drawing.Point(275, 120);
-            this.btnRegisterUser.Name = "btnRegisterUser";
-            this.btnRegisterUser.Size = new System.Drawing.Size(90, 23);
-            this.btnRegisterUser.TabIndex = 4;
-            this.btnRegisterUser.Text = "Register User";
-            this.btnRegisterUser.UseVisualStyleBackColor = true;
-            this.btnRegisterUser.Click += new System.EventHandler(this.btnRegisterUser_Click);
-            // 
-            // btnNewChamp
-            // 
-            this.btnNewChamp.Location = new System.Drawing.Point(275, 181);
-            this.btnNewChamp.Name = "btnNewChamp";
-            this.btnNewChamp.Size = new System.Drawing.Size(90, 49);
-            this.btnNewChamp.TabIndex = 5;
-            this.btnNewChamp.Text = "New Championship";
-            this.btnNewChamp.UseVisualStyleBackColor = true;
-            this.btnNewChamp.Click += new System.EventHandler(this.btnNewChamp_Click);
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(426, 206);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 6;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // lblCurrentPlayer
-            // 
-            this.lblCurrentPlayer.Location = new System.Drawing.Point(399, 35);
-            this.lblCurrentPlayer.Name = "lblCurrentPlayer";
-            this.lblCurrentPlayer.Size = new System.Drawing.Size(145, 16);
-            this.lblCurrentPlayer.TabIndex = 7;
-            this.lblCurrentPlayer.Text = "logged out";
-            this.lblCurrentPlayer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Enabled = false;
-            this.btnLogout.Location = new System.Drawing.Point(426, 247);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(75, 23);
-            this.btnLogout.TabIndex = 8;
-            this.btnLogout.Text = "Logout";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-            // 
-            // btnRegToChamp
-            // 
-            this.btnRegToChamp.Location = new System.Drawing.Point(275, 247);
-            this.btnRegToChamp.Name = "btnRegToChamp";
-            this.btnRegToChamp.Size = new System.Drawing.Size(90, 46);
-            this.btnRegToChamp.TabIndex = 9;
-            this.btnRegToChamp.Text = "Register to Championship";
-            this.btnRegToChamp.UseVisualStyleBackColor = true;
-            this.btnRegToChamp.Click += new System.EventHandler(this.btnRegToChamp_Click);
-            // 
-            // btnOffline4
-            // 
-            this.btnOffline4.Location = new System.Drawing.Point(41, 169);
-            this.btnOffline4.Name = "btnOffline4";
-            this.btnOffline4.Size = new System.Drawing.Size(102, 23);
-            this.btnOffline4.TabIndex = 10;
-            this.btnOffline4.Text = "Offline 4x4";
-            this.btnOffline4.UseVisualStyleBackColor = true;
-            this.btnOffline4.Click += new System.EventHandler(this.btnOffline4_Click);
-            // 
-            // btnQueries
-            // 
-            this.btnQueries.Location = new System.Drawing.Point(41, 224);
-            this.btnQueries.Name = "btnQueries";
-            this.btnQueries.Size = new System.Drawing.Size(102, 23);
-            this.btnQueries.TabIndex = 11;
-            this.btnQueries.Text = "Queries";
-            this.btnQueries.UseVisualStyleBackColor = true;
-            this.btnQueries.Click += new System.EventHandler(this.btnQueries_Click);
-            // 
-            // btnHistory
-            // 
-            this.btnHistory.Location = new System.Drawing.Point(41, 286);
-            this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(102, 23);
-            this.btnHistory.TabIndex = 12;
-            this.btnHistory.Text = "Game History";
-            this.btnHistory.UseVisualStyleBackColor = true;
-            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
             // userMenuItem
             // 
@@ -206,43 +100,169 @@
             // loginMenuItem
             // 
             this.loginMenuItem.Name = "loginMenuItem";
-            this.loginMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loginMenuItem.Size = new System.Drawing.Size(116, 22);
             this.loginMenuItem.Text = "Login";
+            this.loginMenuItem.Click += new System.EventHandler(this.loginMenuItem_Click);
             // 
             // registerMenuItem
             // 
             this.registerMenuItem.Name = "registerMenuItem";
-            this.registerMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registerMenuItem.Size = new System.Drawing.Size(116, 22);
             this.registerMenuItem.Text = "Register";
+            this.registerMenuItem.Click += new System.EventHandler(this.registerMenuItem_Click);
             // 
             // logoutMenuItem
             // 
             this.logoutMenuItem.Name = "logoutMenuItem";
-            this.logoutMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoutMenuItem.Size = new System.Drawing.Size(116, 22);
             this.logoutMenuItem.Text = "Logout";
+            this.logoutMenuItem.Click += new System.EventHandler(this.logoutMenuItem_Click);
+            // 
+            // championshipMenuItem
+            // 
+            this.championshipMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newChampMenuItem,
+            this.registerChampMenuItem});
+            this.championshipMenuItem.Name = "championshipMenuItem";
+            this.championshipMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.championshipMenuItem.Text = "Championship";
+            // 
+            // newChampMenuItem
+            // 
+            this.newChampMenuItem.Name = "newChampMenuItem";
+            this.newChampMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.newChampMenuItem.Text = "New Championship";
+            this.newChampMenuItem.Click += new System.EventHandler(this.newChampMenuItem_Click);
+            // 
+            // registerChampMenuItem
+            // 
+            this.registerChampMenuItem.Name = "registerChampMenuItem";
+            this.registerChampMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.registerChampMenuItem.Text = "Register to Championship";
+            this.registerChampMenuItem.Click += new System.EventHandler(this.registerChampMenuItem_Click);
+            // 
+            // gameMenuItem
+            // 
+            this.gameMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.onlineMenuItem,
+            this.offlineMenuItem,
+            this.historyMenuItem});
+            this.gameMenuItem.Name = "gameMenuItem";
+            this.gameMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameMenuItem.Text = "Game";
+            // 
+            // onlineMenuItem
+            // 
+            this.onlineMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.online3MenuItem,
+            this.online4MenuItem,
+            this.online5MenuItem});
+            this.onlineMenuItem.Name = "onlineMenuItem";
+            this.onlineMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.onlineMenuItem.Text = "Online";
+            // 
+            // online3MenuItem
+            // 
+            this.online3MenuItem.Name = "online3MenuItem";
+            this.online3MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.online3MenuItem.Text = "3x3";
+            this.online3MenuItem.Click += new System.EventHandler(this.online3MenuItem_Click);
+            // 
+            // online4MenuItem
+            // 
+            this.online4MenuItem.Name = "online4MenuItem";
+            this.online4MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.online4MenuItem.Text = "4x4";
+            this.online4MenuItem.Click += new System.EventHandler(this.online4MenuItem_Click);
+            // 
+            // online5MenuItem
+            // 
+            this.online5MenuItem.Name = "online5MenuItem";
+            this.online5MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.online5MenuItem.Text = "5x5";
+            this.online5MenuItem.Click += new System.EventHandler(this.online5MenuItem_Click);
+            // 
+            // offlineMenuItem
+            // 
+            this.offlineMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.offline3MenuItem,
+            this.offline4MenuItem,
+            this.offline5MenuItem});
+            this.offlineMenuItem.Name = "offlineMenuItem";
+            this.offlineMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.offlineMenuItem.Text = "Offline";
+            // 
+            // offline3MenuItem
+            // 
+            this.offline3MenuItem.Name = "offline3MenuItem";
+            this.offline3MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.offline3MenuItem.Text = "3x3";
+            this.offline3MenuItem.Click += new System.EventHandler(this.offline3MenuItem_Click);
+            // 
+            // offline4MenuItem
+            // 
+            this.offline4MenuItem.Name = "offline4MenuItem";
+            this.offline4MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.offline4MenuItem.Text = "4x4";
+            this.offline4MenuItem.Click += new System.EventHandler(this.offline4MenuItem_Click);
+            // 
+            // offline5MenuItem
+            // 
+            this.offline5MenuItem.Name = "offline5MenuItem";
+            this.offline5MenuItem.Size = new System.Drawing.Size(91, 22);
+            this.offline5MenuItem.Text = "5x5";
+            this.offline5MenuItem.Click += new System.EventHandler(this.offline5MenuItem_Click);
+            // 
+            // historyMenuItem
+            // 
+            this.historyMenuItem.Name = "historyMenuItem";
+            this.historyMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.historyMenuItem.Text = "History";
+            this.historyMenuItem.Click += new System.EventHandler(this.historyMenuItem_Click);
+            // 
+            // queriesMenuItem
+            // 
+            this.queriesMenuItem.Name = "queriesMenuItem";
+            this.queriesMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.queriesMenuItem.Text = "Queries";
+            this.queriesMenuItem.Click += new System.EventHandler(this.queriesMenuItem_Click);
+            // 
+            // helpMenuItem
+            // 
+            this.helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutMenuItem});
+            this.helpMenuItem.Name = "helpMenuItem";
+            this.helpMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpMenuItem.Text = "Help";
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutMenuItem.Text = "About";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
+            // lblCurrentPlayer
+            // 
+            this.lblCurrentPlayer.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentPlayer.Location = new System.Drawing.Point(363, 33);
+            this.lblCurrentPlayer.Name = "lblCurrentPlayer";
+            this.lblCurrentPlayer.Size = new System.Drawing.Size(181, 26);
+            this.lblCurrentPlayer.TabIndex = 7;
+            this.lblCurrentPlayer.Text = "logged out";
+            this.lblCurrentPlayer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 367);
-            this.Controls.Add(this.btnHistory);
-            this.Controls.Add(this.btnQueries);
-            this.Controls.Add(this.btnOffline4);
-            this.Controls.Add(this.btnRegToChamp);
-            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.lblCurrentPlayer);
-            this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.btnNewChamp);
-            this.Controls.Add(this.btnRegisterUser);
-            this.Controls.Add(this.btnOnline4);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "Tic Tac Toe";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -252,25 +272,30 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnOnline4;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
-        private System.Windows.Forms.Button btnRegisterUser;
-        private System.Windows.Forms.Button btnNewChamp;
-        private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label lblCurrentPlayer;
-        private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Button btnRegToChamp;
-        private System.Windows.Forms.Button btnOffline4;
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
-        private System.Windows.Forms.Button btnQueries;
-        private System.Windows.Forms.Button btnHistory;
         private System.Windows.Forms.ToolStripMenuItem userMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loginMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem championshipMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newChampMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registerChampMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gameMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlineMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem online3MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem online4MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem online5MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offlineMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offline3MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offline4MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem offline5MenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queriesMenuItem;
     }
 }
 
