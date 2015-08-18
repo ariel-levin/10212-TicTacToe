@@ -27,7 +27,7 @@ public interface ITTT
     void registerNewChampionship(ChampionshipData champ);
 
     [OperationContract(IsOneWay = true)]
-    void getAllUsers(string caller);
+    void getAllUsers(string caller, bool delay);
 
     [OperationContract(IsOneWay = true)]
     void login(PlayerData user);
@@ -39,7 +39,7 @@ public interface ITTT
     void wake();
 
     [OperationContract(IsOneWay = true)]
-    void getAllChampionships(int playerId, string caller);
+    void getAllChampionships(int playerId, string caller, bool delay);
 
     [OperationContract(IsOneWay = true)]
     void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps);
@@ -54,22 +54,22 @@ public interface ITTT
     void playerExitGame();
 
     [OperationContract(IsOneWay = true)]
-    void getAllGames(bool withPlayersNames, int playerId, string caller);
+    void getAllGames(bool withPlayersNames, int playerId, string caller, bool delay);
 
     [OperationContract(IsOneWay = true)]
-    void getGamePlayers(GameData game);
+    void getGamePlayers(GameData game, bool delay);
 
     [OperationContract(IsOneWay = true)]
-    void getGameAdvisors(GameData game);
+    void getGameAdvisors(GameData game, bool delay);
 
     [OperationContract(IsOneWay = true)]
-    void getChampionshipPlayers(ChampionshipData chmp);
+    void getChampionshipPlayers(ChampionshipData chmp, bool delay);
 
     [OperationContract(IsOneWay = true)]
-    void getPlayersGamesNum();
+    void getPlayersGamesNum(bool delay);
 
     [OperationContract(IsOneWay = true)]
-    void getCitiesChampionshipsNum();
+    void getCitiesChampionshipsNum(bool delay);
 
     [OperationContract(IsOneWay = true)]
     void updatePlayers(PlayerData[] players);

@@ -22,7 +22,7 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            mainForm.getClient().getAllGames(true, -1, "H");
+            mainForm.getClient().getAllGames(true, -1, "H", false);
         }
 
         private void HistoryForm_Load(object sender, EventArgs e)

@@ -107,40 +107,43 @@ namespace Client
             {
                 case 0:
                     enableComponents(false, true);
-                    mainForm.getClient().getAllUsers("Q");
+                    mainForm.getClient().getAllUsers("Q", cbDelay.Checked);
                     break;
                 case 1:
                     enableComponents(false, false);
-                    mainForm.getClient().getAllGames(true, -1, "Q");
+                    mainForm.getClient().getAllGames(true, -1, "Q", cbDelay.Checked);
                     break;
                 case 2:
                     enableComponents(false, true);
-                    mainForm.getClient().getAllChampionships(-1, "Q");
+                    mainForm.getClient().getAllChampionships(-1, "Q", cbDelay.Checked);
                     break;
                 case 3:
                 case 4:
-                    mainForm.getClient().getAllUsers("SQ");
+                    mainForm.getClient().getAllUsers("SQ", false);
                     break;
                 case 5:
                 case 6:
-                    mainForm.getClient().getAllGames(false, -1, "SQ");
+                    mainForm.getClient().getAllGames(false, -1, "SQ", false);
                     break;
                 case 7:
-                    mainForm.getClient().getAllChampionships(-1, "SQ");
+                    mainForm.getClient().getAllChampionships(-1, "SQ", false);
                     break;
                 case 8:
                     enableComponents(false, false);
-                    mainForm.getClient().getPlayersGamesNum();
+                    mainForm.getClient().getPlayersGamesNum(cbDelay.Checked);
                     break;
                 case 9:
                     enableComponents(false, false);
-                    mainForm.getClient().getCitiesChampionshipsNum();
+                    mainForm.getClient().getCitiesChampionshipsNum(cbDelay.Checked);
                     break;
             }
         }
 
         private void cbSubQuery_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ctrl = null;
+            tableElementHost.Child = null;
+
             switch (cbQuery.SelectedIndex)
             {
                 case 3:
@@ -148,7 +151,7 @@ namespace Client
                     {
                         enableComponents(true, false);
                         int id = ((PlayerData)subQueryObjects[cbSubQuery.SelectedIndex]).Id;
-                        mainForm.getClient().getAllGames(true, id, "Q");
+                        mainForm.getClient().getAllGames(true, id, "Q", cbDelay.Checked);
                     }
                     break;
                 case 4:
@@ -156,28 +159,28 @@ namespace Client
                     {
                         enableComponents(true, true);
                         int id = ((PlayerData)subQueryObjects[cbSubQuery.SelectedIndex]).Id;
-                        mainForm.getClient().getAllChampionships(id, "Q");
+                        mainForm.getClient().getAllChampionships(id, "Q", cbDelay.Checked);
                     }
                     break;
                 case 5:
                     if (subQueryObjects != null && subQueryObjects is GameData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getGamePlayers((GameData)subQueryObjects[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getGamePlayers((GameData)subQueryObjects[cbSubQuery.SelectedIndex], cbDelay.Checked);
                     }
                     break;
                 case 6:
                     if (subQueryObjects != null && subQueryObjects is GameData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getGameAdvisors((GameData)subQueryObjects[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getGameAdvisors((GameData)subQueryObjects[cbSubQuery.SelectedIndex], cbDelay.Checked);
                     }
                     break;
                 case 7:
                     if (subQueryObjects != null && subQueryObjects is ChampionshipData[] && cbSubQuery.SelectedIndex >= 0 && cbSubQuery.SelectedIndex < subQueryObjects.Length)
                     {
                         enableComponents(true, true);
-                        mainForm.getClient().getChampionshipPlayers((ChampionshipData)subQueryObjects[cbSubQuery.SelectedIndex]);
+                        mainForm.getClient().getChampionshipPlayers((ChampionshipData)subQueryObjects[cbSubQuery.SelectedIndex], cbDelay.Checked);
                     }
                     break;
             }

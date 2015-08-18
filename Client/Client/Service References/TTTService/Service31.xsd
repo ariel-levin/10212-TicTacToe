@@ -27,6 +27,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -54,6 +55,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="playerId" type="xs:int" />
         <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -92,6 +94,7 @@
         <xs:element minOccurs="0" name="withPlayersNames" type="xs:boolean" />
         <xs:element minOccurs="0" name="playerId" type="xs:int" />
         <xs:element minOccurs="0" name="caller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -99,6 +102,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="game" nillable="true" type="q7:GameData" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -106,6 +110,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="game" nillable="true" type="q8:GameData" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -113,17 +118,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="chmp" nillable="true" type="q9:ChampionshipData" />
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="getPlayersGamesNum">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="getCitiesChampionshipsNum">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="delay" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="updatePlayers">

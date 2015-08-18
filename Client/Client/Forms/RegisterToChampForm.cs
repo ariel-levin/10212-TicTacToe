@@ -28,7 +28,7 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            mainForm.getClient().getAllChampionships(-1, "R");
+            mainForm.getClient().getAllChampionships(-1, "R", false);
         }
 
         private void RegisterToChampForm_Load(object sender, EventArgs e)

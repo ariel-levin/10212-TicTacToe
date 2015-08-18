@@ -12,11 +12,14 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 public class TTT : ITTT
 {
     private const int SERVER = 1;
+    private const int SLEEP_TIME = 3000;
 
     private static Dictionary<ICallBack, PlayerData> players = new Dictionary<ICallBack, PlayerData>();
     private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
@@ -109,9 +112,13 @@ public class TTT : ITTT
         }
     }
 
-    public void getAllUsers(string caller)
+    public async void getAllUsers(string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+            await Task<int>.Factory.StartNew(sleep);
+
         channel.sendPlayers(getAllPlayersFromDB(), caller);
     }
 
@@ -160,9 +167,13 @@ public class TTT : ITTT
         channel.response();
     }
 
-    public void getAllChampionships(int playerId, string caller)
+    public async void getAllChampionships(int playerId, string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+            await Task<int>.Factory.StartNew(sleep);
+
         channel.sendChampionships(getAllChampionships(playerId), caller);
     }
 
@@ -306,15 +317,22 @@ public class TTT : ITTT
         }
     }
 
-    public void getAllGames(bool withPlayersNames, int playerId, string caller)
+    public async void getAllGames(bool withPlayersNames, int playerId, string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+            await Task<int>.Factory.StartNew(sleep);
+
         channel.sendGames(getAllGamesFromDB(withPlayersNames, playerId), caller);
     }
 
-    public void getGamePlayers(GameData game)
+    public async void getGamePlayers(GameData game, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+            await Task<int>.Factory.StartNew(sleep);
 
         using (var db = new TTTDataClassesDataContext())
         {
@@ -325,9 +343,20 @@ public class TTT : ITTT
         }
     }
 
-    public void getGameAdvisors(GameData game)
+    public void getGameAdvisors(GameData game, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+        {
+            ManualResetEvent delayEvent = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(new WaitCallback((_) =>
+            {
+                sleep();
+                delayEvent.Set();
+            }));
+            delayEvent.WaitOne();
+        }
 
         using (var db = new TTTDataClassesDataContext())
         {
@@ -351,9 +380,20 @@ public class TTT : ITTT
         }
     }
 
-    public void getChampionshipPlayers(ChampionshipData chmp)
+    public void getChampionshipPlayers(ChampionshipData chmp, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+        {
+            ManualResetEvent delayEvent = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(new WaitCallback((_) =>
+            {
+                sleep();
+                delayEvent.Set();
+            }));
+            delayEvent.WaitOne();
+        }
 
         using (var db = new TTTDataClassesDataContext())
         {
@@ -368,9 +408,20 @@ public class TTT : ITTT
         }
     }
 
-    public void getPlayersGamesNum()
+    public void getPlayersGamesNum(bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+        {
+            ManualResetEvent delayEvent = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(new WaitCallback((_) =>
+            {
+                sleep();
+                delayEvent.Set();
+            }));
+            delayEvent.WaitOne();
+        }
 
         using (var db = new TTTDataClassesDataContext())
         {
@@ -390,9 +441,20 @@ public class TTT : ITTT
         }
     }
 
-    public void getCitiesChampionshipsNum()
+    public void getCitiesChampionshipsNum(bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
+
+        if (delay)
+        {
+            ManualResetEvent delayEvent = new ManualResetEvent(false);
+            ThreadPool.QueueUserWorkItem(new WaitCallback((_) =>
+            {
+                sleep();
+                delayEvent.Set();
+            }));
+            delayEvent.WaitOne();
+        }
 
         using (var db = new TTTDataClassesDataContext())
         {
@@ -724,6 +786,8 @@ public class TTT : ITTT
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
 
+
+    #region Private Methods
 
     private PlayerData[] getAllFreeAdvisors()
     {
@@ -1109,5 +1173,13 @@ public class TTT : ITTT
             return null;
         }
     }
+
+    private int sleep()
+    {
+        Thread.Sleep(SLEEP_TIME);
+        return 1;
+    }
+
+    #endregion
 
 }

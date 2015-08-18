@@ -28,7 +28,7 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            mainForm.getClient().getAllUsers("L");
+            mainForm.getClient().getAllUsers("L", false);
         }
 
         private void SelectUserForm_Load(object sender, EventArgs e)

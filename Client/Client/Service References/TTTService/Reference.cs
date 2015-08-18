@@ -661,10 +661,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task registerNewChampionshipAsync(Client.TTTService.ChampionshipData champ);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllUsers")]
-        void getAllUsers(string caller);
+        void getAllUsers(string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllUsers")]
-        System.Threading.Tasks.Task getAllUsersAsync(string caller);
+        System.Threading.Tasks.Task getAllUsersAsync(string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/login")]
         void login(Client.TTTService.PlayerData user);
@@ -685,10 +685,10 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task wakeAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllChampionships")]
-        void getAllChampionships(int playerId, string caller);
+        void getAllChampionships(int playerId, string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllChampionships")]
-        System.Threading.Tasks.Task getAllChampionshipsAsync(int playerId, string caller);
+        System.Threading.Tasks.Task getAllChampionshipsAsync(int playerId, string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerPlayerToChamp")]
         void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps);
@@ -715,40 +715,40 @@ namespace Client.TTTService {
         System.Threading.Tasks.Task playerExitGameAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllGames")]
-        void getAllGames(bool withPlayersNames, int playerId, string caller);
+        void getAllGames(bool withPlayersNames, int playerId, string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAllGames")]
-        System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames, int playerId, string caller);
+        System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames, int playerId, string caller, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getGamePlayers")]
-        void getGamePlayers(Client.TTTService.GameData game);
+        void getGamePlayers(Client.TTTService.GameData game, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getGamePlayers")]
-        System.Threading.Tasks.Task getGamePlayersAsync(Client.TTTService.GameData game);
+        System.Threading.Tasks.Task getGamePlayersAsync(Client.TTTService.GameData game, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getGameAdvisors")]
-        void getGameAdvisors(Client.TTTService.GameData game);
+        void getGameAdvisors(Client.TTTService.GameData game, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getGameAdvisors")]
-        System.Threading.Tasks.Task getGameAdvisorsAsync(Client.TTTService.GameData game);
+        System.Threading.Tasks.Task getGameAdvisorsAsync(Client.TTTService.GameData game, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getChampionshipPlayers")]
-        void getChampionshipPlayers(Client.TTTService.ChampionshipData chmp);
+        void getChampionshipPlayers(Client.TTTService.ChampionshipData chmp, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getChampionshipPlayers")]
-        System.Threading.Tasks.Task getChampionshipPlayersAsync(Client.TTTService.ChampionshipData chmp);
+        System.Threading.Tasks.Task getChampionshipPlayersAsync(Client.TTTService.ChampionshipData chmp, bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getPlayersGamesNum")]
-        void getPlayersGamesNum();
+        void getPlayersGamesNum(bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getPlayersGamesNum")]
-        System.Threading.Tasks.Task getPlayersGamesNumAsync();
+        System.Threading.Tasks.Task getPlayersGamesNumAsync(bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getCitiesChampionshipsNum")]
-        void getCitiesChampionshipsNum();
+        void getCitiesChampionshipsNum(bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getCitiesChampionshipsNum")]
-        System.Threading.Tasks.Task getCitiesChampionshipsNumAsync();
+        System.Threading.Tasks.Task getCitiesChampionshipsNumAsync(bool delay);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/updatePlayers")]
         void updatePlayers(Client.TTTService.PlayerData[] players);
@@ -921,12 +921,12 @@ namespace Client.TTTService {
             return base.Channel.registerNewChampionshipAsync(champ);
         }
         
-        public void getAllUsers(string caller) {
-            base.Channel.getAllUsers(caller);
+        public void getAllUsers(string caller, bool delay) {
+            base.Channel.getAllUsers(caller, delay);
         }
         
-        public System.Threading.Tasks.Task getAllUsersAsync(string caller) {
-            return base.Channel.getAllUsersAsync(caller);
+        public System.Threading.Tasks.Task getAllUsersAsync(string caller, bool delay) {
+            return base.Channel.getAllUsersAsync(caller, delay);
         }
         
         public void login(Client.TTTService.PlayerData user) {
@@ -953,12 +953,12 @@ namespace Client.TTTService {
             return base.Channel.wakeAsync();
         }
         
-        public void getAllChampionships(int playerId, string caller) {
-            base.Channel.getAllChampionships(playerId, caller);
+        public void getAllChampionships(int playerId, string caller, bool delay) {
+            base.Channel.getAllChampionships(playerId, caller, delay);
         }
         
-        public System.Threading.Tasks.Task getAllChampionshipsAsync(int playerId, string caller) {
-            return base.Channel.getAllChampionshipsAsync(playerId, caller);
+        public System.Threading.Tasks.Task getAllChampionshipsAsync(int playerId, string caller, bool delay) {
+            return base.Channel.getAllChampionshipsAsync(playerId, caller, delay);
         }
         
         public void registerPlayerToChamp(Client.TTTService.PlayerData player, Client.TTTService.ChampionshipData[] chmps) {
@@ -993,52 +993,52 @@ namespace Client.TTTService {
             return base.Channel.playerExitGameAsync();
         }
         
-        public void getAllGames(bool withPlayersNames, int playerId, string caller) {
-            base.Channel.getAllGames(withPlayersNames, playerId, caller);
+        public void getAllGames(bool withPlayersNames, int playerId, string caller, bool delay) {
+            base.Channel.getAllGames(withPlayersNames, playerId, caller, delay);
         }
         
-        public System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames, int playerId, string caller) {
-            return base.Channel.getAllGamesAsync(withPlayersNames, playerId, caller);
+        public System.Threading.Tasks.Task getAllGamesAsync(bool withPlayersNames, int playerId, string caller, bool delay) {
+            return base.Channel.getAllGamesAsync(withPlayersNames, playerId, caller, delay);
         }
         
-        public void getGamePlayers(Client.TTTService.GameData game) {
-            base.Channel.getGamePlayers(game);
+        public void getGamePlayers(Client.TTTService.GameData game, bool delay) {
+            base.Channel.getGamePlayers(game, delay);
         }
         
-        public System.Threading.Tasks.Task getGamePlayersAsync(Client.TTTService.GameData game) {
-            return base.Channel.getGamePlayersAsync(game);
+        public System.Threading.Tasks.Task getGamePlayersAsync(Client.TTTService.GameData game, bool delay) {
+            return base.Channel.getGamePlayersAsync(game, delay);
         }
         
-        public void getGameAdvisors(Client.TTTService.GameData game) {
-            base.Channel.getGameAdvisors(game);
+        public void getGameAdvisors(Client.TTTService.GameData game, bool delay) {
+            base.Channel.getGameAdvisors(game, delay);
         }
         
-        public System.Threading.Tasks.Task getGameAdvisorsAsync(Client.TTTService.GameData game) {
-            return base.Channel.getGameAdvisorsAsync(game);
+        public System.Threading.Tasks.Task getGameAdvisorsAsync(Client.TTTService.GameData game, bool delay) {
+            return base.Channel.getGameAdvisorsAsync(game, delay);
         }
         
-        public void getChampionshipPlayers(Client.TTTService.ChampionshipData chmp) {
-            base.Channel.getChampionshipPlayers(chmp);
+        public void getChampionshipPlayers(Client.TTTService.ChampionshipData chmp, bool delay) {
+            base.Channel.getChampionshipPlayers(chmp, delay);
         }
         
-        public System.Threading.Tasks.Task getChampionshipPlayersAsync(Client.TTTService.ChampionshipData chmp) {
-            return base.Channel.getChampionshipPlayersAsync(chmp);
+        public System.Threading.Tasks.Task getChampionshipPlayersAsync(Client.TTTService.ChampionshipData chmp, bool delay) {
+            return base.Channel.getChampionshipPlayersAsync(chmp, delay);
         }
         
-        public void getPlayersGamesNum() {
-            base.Channel.getPlayersGamesNum();
+        public void getPlayersGamesNum(bool delay) {
+            base.Channel.getPlayersGamesNum(delay);
         }
         
-        public System.Threading.Tasks.Task getPlayersGamesNumAsync() {
-            return base.Channel.getPlayersGamesNumAsync();
+        public System.Threading.Tasks.Task getPlayersGamesNumAsync(bool delay) {
+            return base.Channel.getPlayersGamesNumAsync(delay);
         }
         
-        public void getCitiesChampionshipsNum() {
-            base.Channel.getCitiesChampionshipsNum();
+        public void getCitiesChampionshipsNum(bool delay) {
+            base.Channel.getCitiesChampionshipsNum(delay);
         }
         
-        public System.Threading.Tasks.Task getCitiesChampionshipsNumAsync() {
-            return base.Channel.getCitiesChampionshipsNumAsync();
+        public System.Threading.Tasks.Task getCitiesChampionshipsNumAsync(bool delay) {
+            return base.Channel.getCitiesChampionshipsNumAsync(delay);
         }
         
         public void updatePlayers(Client.TTTService.PlayerData[] players) {
