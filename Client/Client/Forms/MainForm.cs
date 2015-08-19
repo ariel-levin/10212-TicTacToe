@@ -24,6 +24,12 @@ namespace Client
 {
     public partial class MainForm : Form
     {
+        #region Regex
+        public static readonly Regex regexString    = new Regex(@"^[A-Z][a-z]+([ ][A-Z][a-z]+)*$");
+        public static readonly Regex regexPhone     = new Regex(@"^[\d]+([-][\d]+)*$");
+        #endregion
+
+        #region Forms
         public RegisterForm registerForm { get; set; }
         public NewChampForm newChampForm { get; set; }
         public LoginForm loginForm { get; set; }
@@ -31,6 +37,7 @@ namespace Client
         public BoardForm boardForm { get; set; }
         public QueriesForm queriesForm { get; set; }
         public HistoryForm historyForm { get; set; }
+        #endregion
 
         private TTTClient client;
         private PlayerData currentPlayer;

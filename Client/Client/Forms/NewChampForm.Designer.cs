@@ -78,6 +78,7 @@
             this.tbCity.Name = "tbCity";
             this.tbCity.Size = new System.Drawing.Size(228, 20);
             this.tbCity.TabIndex = 3;
+            this.tbCity.Validating += new System.ComponentModel.CancelEventHandler(this.tbCity_Validating);
             // 
             // dtpStartDate
             // 

@@ -128,7 +128,11 @@ namespace Client
         {
             if (!historyMode)
             {
-                mainForm.getClient().playerExitGame();
+                try
+                {
+                    mainForm.getClient().playerExitGame();
+                }
+                catch (Exception) { }
                 mainForm.boardForm = null;
             }
         }
@@ -137,7 +141,11 @@ namespace Client
         {
             if (!historyMode)
             {
-                mainForm.getClient().playerExitGame();
+                try
+                {
+                    mainForm.getClient().playerExitGame();
+                }
+                catch (Exception) { }
                 mainForm.boardForm = null;
             }
             Dispose();

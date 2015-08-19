@@ -124,6 +124,7 @@
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(154, 20);
             this.tbFirstName.TabIndex = 8;
+            this.tbFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.textMust_Validating);
             // 
             // tbLastName
             // 
@@ -131,6 +132,7 @@
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(154, 20);
             this.tbLastName.TabIndex = 9;
+            this.tbLastName.Validating += new System.ComponentModel.CancelEventHandler(this.text_Validating);
             // 
             // tbCity
             // 
@@ -138,6 +140,7 @@
             this.tbCity.Name = "tbCity";
             this.tbCity.Size = new System.Drawing.Size(187, 20);
             this.tbCity.TabIndex = 10;
+            this.tbCity.Validating += new System.ComponentModel.CancelEventHandler(this.text_Validating);
             // 
             // tbCountry
             // 
@@ -145,6 +148,7 @@
             this.tbCountry.Name = "tbCountry";
             this.tbCountry.Size = new System.Drawing.Size(167, 20);
             this.tbCountry.TabIndex = 11;
+            this.tbCountry.Validating += new System.ComponentModel.CancelEventHandler(this.text_Validating);
             // 
             // tbPhone
             // 
@@ -152,6 +156,7 @@
             this.tbPhone.Name = "tbPhone";
             this.tbPhone.Size = new System.Drawing.Size(172, 20);
             this.tbPhone.TabIndex = 12;
+            this.tbPhone.Validating += new System.ComponentModel.CancelEventHandler(this.tbPhone_Validating);
             // 
             // cbAdvisor
             // 

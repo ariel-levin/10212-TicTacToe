@@ -231,7 +231,7 @@ public class TTT : ITTT
 
         if (!singlePlayer)
         {
-            Board b = tryFindOpponent(dim);
+            Board b = tryFindOpponent(dim, channel);
             if (b != null)
             {
                 b.addPlayer(channel, dim);
@@ -940,11 +940,11 @@ public class TTT : ITTT
         return x.Count() > 0;
     }
 
-    private Board tryFindOpponent(int dim)
+    private Board tryFindOpponent(int dim, ICallBack player)
     {
         foreach (var b in boards)
         {
-            if (b != null && b.isWaitingForPlayer2() && dim == b.getDimension())
+            if (b != null && !b.isGameEnded() && dim == b.getDimension() && b.isWaitingForPlayer2())
                 return b;
         }
         return null;

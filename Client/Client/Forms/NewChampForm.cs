@@ -22,6 +22,8 @@ namespace Client
     {
         private MainForm mainForm;
         private string picPath;
+        private ErrorProvider ep;
+        private bool valid;
 
 
         public NewChampForm(MainForm mainForm)
@@ -29,6 +31,7 @@ namespace Client
             InitializeComponent();
             this.mainForm = mainForm;
             this.picPath = null;
+            this.ep = new ErrorProvider();
         }
         private void NewChampForm_Load(object sender, EventArgs e)
         {
@@ -39,10 +42,17 @@ namespace Client
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            btnSubmit.Enabled = false;
-            btnCancel.Enabled = false;
-            ChampionshipData champ = getChampionshipFromFields();
-            mainForm.getClient().registerNewChampionship(champ);
+            valid = true;
+            this.ValidateChildren();
+            if (valid)
+            {
+                btnSubmit.Enabled = false;
+                btnCancel.Enabled = false;
+                ChampionshipData champ = getChampionshipFromFields();
+                mainForm.getClient().registerNewChampionship(champ);
+            }
+            else
+                MessageBox.Show("Some fields are missing or invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -73,7 +83,6 @@ namespace Client
         private void btnPicture_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-            openFileDialog1.InitialDirectory = @"C:\";
             openFileDialog1.Title = "Please select an image file";
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -117,6 +126,28 @@ namespace Client
             MessageBox.Show("Championship was added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             mainForm.newChampForm = null;
             Dispose();
+        }
+
+        private void tbCity_Validating(object sender, CancelEventArgs e)
+        {
+            bool ok = false;
+            if (tbCity.Text.Length < 3)
+                ep.SetError(tbCity, "Field is too short");
+            else if (tbCity.Text.Length > 20)
+                ep.SetError(tbCity, "Field is too long");
+            else if (tbCity.Text.Any(char.IsDigit))
+                ep.SetError(tbCity, "Field must not contain numbers");
+            else if (!MainForm.regexString.IsMatch(tbCity.Text))
+                ep.SetError(tbCity, "Must contain only characters, at least one word, and each word starts with a capital letter");
+            else
+                ok = true;
+
+            if (ok)
+                ep.Clear();
+            else
+                tbCity.Focus();
+
+            valid &= ok;
         }
 
     }

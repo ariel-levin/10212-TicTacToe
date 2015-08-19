@@ -32,8 +32,9 @@ public class Board
         initBoard();
         moveCount = 0;
         gameEnded = false;
-        rand = new Random();
         player1 = player;
+        if (singlePlayer)
+            rand = new Random();
 
         game = new Game();
         game.BoardSize = dim;
@@ -191,8 +192,11 @@ public class Board
     {
         gameEnded = true;
         //game.Moves += " ] }";     // json
-        game.EndTime = DateTime.Now;
-        server.insertGameToDB(game);
+        if (player2 != null || singlePlayer)
+        {
+            game.EndTime = DateTime.Now;
+            server.insertGameToDB(game);
+        }
     }
 
     public bool isWaitingForPlayer2()

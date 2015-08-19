@@ -22,6 +22,8 @@ namespace Client
     {
         private MainForm mainForm;
         private PlayerData[] players;
+        private ErrorProvider ep;
+        private bool valid;
 
 
         public RegisterForm(MainForm mainForm)
@@ -29,6 +31,7 @@ namespace Client
             InitializeComponent();
             this.mainForm = mainForm;
             mainForm.getClient().getRegisterFormAdvisorList();
+            ep = new ErrorProvider();
         }
 
         private void RegisterForm_Load(object sender, EventArgs e)
@@ -40,10 +43,17 @@ namespace Client
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            btnSubmit.Enabled = false;
-            btnCancel.Enabled = false;
-            int[] advisors = getSelectedAdvisors();
-            mainForm.getClient().registerNewPlayer(getPlayerFromFields(), advisors);
+            valid = true;
+            this.ValidateChildren();
+            if (valid)
+            {
+                btnSubmit.Enabled = false;
+                btnCancel.Enabled = false;
+                int[] advisors = getSelectedAdvisors();
+                mainForm.getClient().registerNewPlayer(getPlayerFromFields(), advisors);
+            }
+            else
+                MessageBox.Show("Some fields are missing or invalid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -103,6 +113,74 @@ namespace Client
             MessageBox.Show("Player was added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             mainForm.registerForm = null;
             Dispose();
+        }
+
+        private void textMust_Validating(object sender, CancelEventArgs e)
+        {
+            bool ok = false;
+            if (((TextBox)sender).Text.Length < 3)
+                ep.SetError((TextBox)sender, "Field is too short");
+            else if (((TextBox)sender).Text.Length > 20)
+                ep.SetError((TextBox)sender, "Field is too long");
+            else if (((TextBox)sender).Text.Any(char.IsDigit))
+                ep.SetError((TextBox)sender, "Field must not contain numbers");
+            else if (!MainForm.regexString.IsMatch(((TextBox)sender).Text))
+                ep.SetError((TextBox)sender, "Must contain only characters, at least one word, and each word starts with a capital letter");
+            else
+                ok = true;
+
+            if (ok)
+                ep.Clear();
+            else
+                ((TextBox)sender).Focus();
+
+            valid &= ok;
+        }
+
+        private void text_Validating(object sender, CancelEventArgs e)
+        {
+            bool ok = false;
+            if (((TextBox)sender).Text.Length == 0)
+                ok = true;
+            else if (((TextBox)sender).Text.Length < 3)
+                ep.SetError((TextBox)sender, "Field is too short");
+            else if (((TextBox)sender).Text.Length > 20)
+                ep.SetError((TextBox)sender, "Field is too long");
+            else if (((TextBox)sender).Text.Any(char.IsDigit))
+                ep.SetError((TextBox)sender, "Field must not contain numbers");
+            else if (!MainForm.regexString.IsMatch(((TextBox)sender).Text))
+                ep.SetError((TextBox)sender, "Must contain only characters, at least one word, and each word starts with a capital letter");
+            else
+                ok = true;
+
+            if (ok)
+                ep.Clear();
+            else
+                ((TextBox)sender).Focus();
+
+            valid &= ok;
+        }
+
+        private void tbPhone_Validating(object sender, CancelEventArgs e)
+        {
+            bool ok = false;
+            if (((TextBox)sender).Text.Length == 0)
+                ok = true;
+            else if (!MainForm.regexPhone.IsMatch(tbPhone.Text))
+                ep.SetError(tbPhone, "Phone number can only contain numbers and '-'");
+            else if (tbPhone.Text.Length < 9)
+                ep.SetError(tbPhone, "Phone is too short");
+            else if (tbPhone.Text.Length > 20)
+                ep.SetError(tbPhone, "Phone is too long");
+            else
+                ok = true;
+
+            if (ok)
+                ep.Clear();
+            else
+                tbPhone.Focus();
+
+            valid &= ok;
         }
 
     }
