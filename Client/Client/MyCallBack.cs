@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+
+    /* implementation of ITTT callback interface - this is how the server communicates with the client */
     public class MyCallBack : ITTTCallback
     {
         private MainForm mainForm;
@@ -23,6 +25,7 @@ namespace Client
         {
             this.mainForm = mainForm;
         }
+
 
         public void showException(Exception e)
         {

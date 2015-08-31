@@ -5,8 +5,6 @@
  *********************************/
 
 using Client.TTTService;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,18 +21,21 @@ namespace Client
 {
     public partial class BoardForm : Form
     {
-        private int dim;
 
         private MainForm mainForm;
+        private int dim;
         private bool ended;
         private bool singlePlayer;
         private bool historyMode;
-        private Board3Control ctrl3;
-        private Board4Control ctrl4;
-        private Board5Control ctrl5;
         private GameData gameHistory;
         private int[,] moves;
         private int currentMove;
+
+        #region Boards
+        private Board3Control ctrl3;
+        private Board4Control ctrl4;
+        private Board5Control ctrl5;
+        #endregion
 
 
         // normal game constructor
@@ -106,7 +107,6 @@ namespace Client
 
             showMessage(str);
 
-            //this.moves = getGameMovesFromJson(gameHistory.Moves);     // json
             this.moves = getGameMovesFromString(gameHistory.Moves);     // simple string
             if (moves != null && moves.Length > 0)
             {
@@ -117,12 +117,12 @@ namespace Client
                 MessageBox.Show("No moves available for this game", "Moves", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
         private void BoardForm_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
-
 
         private void Board4Form_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -202,34 +202,8 @@ namespace Client
             }            
         }
 
-        private int[,] getGameMovesFromJson(string str)
-        {
-            if (str.Length == 0)
-                return null;
 
-            try
-            {
-                JObject gameJson = JObject.Parse(gameHistory.Moves);
-                JArray movesJson = JArray.Parse(gameJson.Property("moves").Value.ToString());
-
-                int[,] arr = new int[movesJson.Count(), 2];
-                int i = 0;
-
-                foreach (JObject move in movesJson.Children<JObject>())
-                {
-                    arr[i, 0] = int.Parse(move.Property("r").Value.ToString());
-                    arr[i++, 1] = int.Parse(move.Property("c").Value.ToString());
-                }
-
-                return arr;
-            }
-            catch (Exception)
-            {
-                showError("Some error occurred while getting game moves from DB");
-                return null;
-            }    
-        }
-
+        #region Public Methods
 
         public void setStatus(string status)
         {
@@ -275,13 +249,11 @@ namespace Client
 
         public void showMessage(string msg)
         {
-            //MessageBox.Show(msg, "Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
             setStatus(msg);
         }
 
         public void addedSuccessfully(bool firstPlayer)
         {
-            //showMessage("You joined a new board successfully!");
             if (!singlePlayer && firstPlayer)
                 showMessage("Waiting for a second player to join");
 
@@ -341,6 +313,8 @@ namespace Client
                 showMessage(msg);
             }
         }
+        
+        #endregion
 
     }
 }

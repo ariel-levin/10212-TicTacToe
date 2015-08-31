@@ -5,7 +5,6 @@
  *********************************/
 
 using Client.TTTService;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,14 +21,19 @@ using System.Windows.Forms;
 
 namespace Client
 {
+
+    /* The main form of Tic Tac Toe client */
     public partial class MainForm : Form
     {
-        #region Regex
+        #region Regex : constant regexes to validate form fields
+
         public static readonly Regex regexString    = new Regex(@"^[A-Z][a-z]+([ ][A-Z][a-z]+)*$");
         public static readonly Regex regexPhone     = new Regex(@"^[\d]+([-][\d]+)*$");
+
         #endregion
 
         #region Forms
+
         public RegisterForm registerForm { get; set; }
         public NewChampForm newChampForm { get; set; }
         public LoginForm loginForm { get; set; }
@@ -37,10 +41,12 @@ namespace Client
         public BoardForm boardForm { get; set; }
         public QueriesForm queriesForm { get; set; }
         public HistoryForm historyForm { get; set; }
+
         #endregion
 
         private TTTClient client;
         private PlayerData currentPlayer;
+
 
 
         public MainForm()
@@ -67,6 +73,37 @@ namespace Client
             closeApp();
         }
 
+
+        private void showError(string error)
+        {
+            MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void enableMenuItems(bool loggedIn)
+        {
+            loginMenuItem.Enabled = !loggedIn;
+            registerMenuItem.Enabled = !loggedIn;
+            logoutMenuItem.Enabled = loggedIn;
+            championshipMenuItem.Enabled = loggedIn;
+            gameMenuItem.Enabled = loggedIn;
+            queriesMenuItem.Enabled = loggedIn;
+        }
+
+        private void closeApp()
+        {
+            try
+            {
+                if (currentPlayer != null)
+                {
+                    client.logout(false);
+                    Thread.Sleep(1000);
+                }
+                client.Close();
+            }
+            catch (Exception) { }
+
+            Application.Exit();
+        }
 
 
         #region Menu Item Clicks
@@ -294,38 +331,6 @@ namespace Client
         }
 
         #endregion
-
-
-        private void showError(string error)
-        {
-            MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void enableMenuItems(bool loggedIn)
-        {
-            loginMenuItem.Enabled = !loggedIn;
-            registerMenuItem.Enabled = !loggedIn;
-            logoutMenuItem.Enabled = loggedIn;
-            championshipMenuItem.Enabled = loggedIn;
-            gameMenuItem.Enabled = loggedIn;
-            queriesMenuItem.Enabled = loggedIn;
-        }
-
-        private void closeApp()
-        {
-            try
-            {
-                if (currentPlayer != null)
-                {
-                    client.logout(false);
-                    Thread.Sleep(1000);
-                }
-                client.Close();
-            }
-            catch (Exception) { }
-
-            Application.Exit();
-        }
 
 
         /////////////////////////////////////////////////////////////////

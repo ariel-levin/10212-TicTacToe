@@ -32,12 +32,12 @@ namespace Client
             cbDelType.SelectedIndex = 0;
         }
 
+
         private void QueriesForm_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
-
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -52,6 +52,12 @@ namespace Client
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (ctrl == null)
+            {
+                MessageBox.Show("Please wait for the query result first", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             DialogResult result = MessageBox.Show("Are you sure you want to update?",
                 "Confirmation", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -80,6 +86,12 @@ namespace Client
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (ctrl == null)
+            {
+                MessageBox.Show("Please wait for the query result first", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             DialogResult result = MessageBox.Show("Are you sure you want to delete?",
                 "Confirmation", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -250,6 +262,13 @@ namespace Client
             }
         }
 
+
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+
+
+        #region Public Methods
+
         public void refreshDataGrid()
         {
             int tmp = cbQuery.SelectedIndex;
@@ -361,5 +380,8 @@ namespace Client
             refreshDataGrid();
         }
 
+        #endregion
+
     }
+
 }

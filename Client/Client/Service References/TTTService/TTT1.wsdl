@@ -103,7 +103,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getRegisterFormAdvisorList_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_ITTT_getAdvisorList_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1262,8 +1262,8 @@
       <xsd:import schemaLocation="http://localhost:3132/Service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ITTT_getRegisterFormAdvisorList_InputMessage">
-    <wsdl:part name="parameters" element="tns:getRegisterFormAdvisorList" />
+  <wsdl:message name="ITTT_getAdvisorList_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAdvisorList" />
   </wsdl:message>
   <wsdl:message name="ITTT_registerNewPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:registerNewPlayer" />
@@ -1413,8 +1413,8 @@
     <wsdl:part name="parameters" element="tns:updateError" />
   </wsdl:message>
   <wsdl:portType msc:usingSession="true" name="ITTT">
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getRegisterFormAdvisorList">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList" message="tns:ITTT_getRegisterFormAdvisorList_InputMessage" />
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="getAdvisorList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITTT/getAdvisorList" message="tns:ITTT_getAdvisorList_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="registerNewPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/ITTT/registerNewPlayer" message="tns:ITTT_registerNewPlayer_InputMessage" />
@@ -1567,10 +1567,10 @@
   <wsdl:binding name="WSDualHttpBinding_ITTT" type="tns:ITTT">
     <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="getRegisterFormAdvisorList">
-      <soap12:operation soapAction="http://tempuri.org/ITTT/getRegisterFormAdvisorList" style="document" />
+    <wsdl:operation name="getAdvisorList">
+      <soap12:operation soapAction="http://tempuri.org/ITTT/getAdvisorList" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getRegisterFormAdvisorList_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_ITTT_getAdvisorList_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>

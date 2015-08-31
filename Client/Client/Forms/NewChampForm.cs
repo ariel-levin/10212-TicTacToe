@@ -33,12 +33,13 @@ namespace Client
             this.picPath = null;
             this.ep = new ErrorProvider();
         }
+        
+        
         private void NewChampForm_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
-
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -121,6 +122,8 @@ namespace Client
         /////////////////////////////////////////////////////
 
 
+        #region Public Methods
+
         public void showNewChampSuccess()
         {
             MessageBox.Show("Championship was added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -150,5 +153,8 @@ namespace Client
             valid &= ok;
         }
 
+        #endregion
+
     }
+
 }

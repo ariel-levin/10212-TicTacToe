@@ -642,11 +642,11 @@ namespace Client.TTTService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TTTService.ITTT", CallbackContract=typeof(Client.TTTService.ITTTCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface ITTT {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList")]
-        void getRegisterFormAdvisorList();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAdvisorList")]
+        void getAdvisorList();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getRegisterFormAdvisorList")]
-        System.Threading.Tasks.Task getRegisterFormAdvisorListAsync();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/getAdvisorList")]
+        System.Threading.Tasks.Task getAdvisorListAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITTT/registerNewPlayer")]
         void registerNewPlayer(Client.TTTService.PlayerData player, int[] advisors);
@@ -897,12 +897,12 @@ namespace Client.TTTService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void getRegisterFormAdvisorList() {
-            base.Channel.getRegisterFormAdvisorList();
+        public void getAdvisorList() {
+            base.Channel.getAdvisorList();
         }
         
-        public System.Threading.Tasks.Task getRegisterFormAdvisorListAsync() {
-            return base.Channel.getRegisterFormAdvisorListAsync();
+        public System.Threading.Tasks.Task getAdvisorListAsync() {
+            return base.Channel.getAdvisorListAsync();
         }
         
         public void registerNewPlayer(Client.TTTService.PlayerData player, int[] advisors) {

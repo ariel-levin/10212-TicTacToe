@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace Client
 {
-    
+    /* query user control for WPF element host on QueriesForm */
     public partial class QueryControl : UserControl
     {
         private LinkedList<int> rowsChanged = new LinkedList<int>();
@@ -30,6 +30,7 @@ namespace Client
             InitializeComponent();
             initDataGrid(objects, titles, types, readOnly, nullable);
         }
+
 
         private void initDataGrid(object[] objects, string[] titles, string[] types, bool[] readOnly, bool[] nullable)
         {
@@ -260,6 +261,8 @@ namespace Client
         }
 
 
+        #region Public Methods
+
         public LinkedList<object> getRowsChanged<T>()
         {
             LinkedList<object> objectsRows = new LinkedList<object>();
@@ -287,5 +290,8 @@ namespace Client
             return queryDataGrid.SelectedIndex;
         }
 
+        #endregion
+
     }
+
 }

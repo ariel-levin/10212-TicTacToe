@@ -28,8 +28,10 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            listPlayers.Items.Add("Loading...");
             mainForm.getClient().getAllUsers("L", false);
         }
+
 
         private void SelectUserForm_Load(object sender, EventArgs e)
         {
@@ -66,8 +68,11 @@ namespace Client
         /////////////////////////////////////////////////////
 
 
+        #region Public Methods
+
         public void setUsersList(PlayerData[] players)
         {
+            listPlayers.Items.Clear();
             this.players = players;
             for (var i = 0; i < players.Length; i++)
             {
@@ -92,6 +97,8 @@ namespace Client
             btnSubmit.Enabled = true;
             btnCancel.Enabled = true;
         }
+
+        #endregion
 
     }
 

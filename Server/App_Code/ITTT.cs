@@ -18,7 +18,7 @@ public interface ITTT
 {
 
     [OperationContract(IsOneWay = true)]
-    void getRegisterFormAdvisorList();
+    void getAdvisorList();
 
     [OperationContract(IsOneWay = true)]
     void registerNewPlayer(PlayerData player, int[] advisors);

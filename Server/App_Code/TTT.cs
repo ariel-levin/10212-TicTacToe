@@ -18,20 +18,29 @@ using System.Threading.Tasks;
 
 public class TTT : ITTT
 {
-    private const int SERVER = 1;
-    private const int SLEEP_TIME = 3000;
+    private const int SERVER = 1;           // the server's player id
+    private const int SLEEP_TIME = 3000;    // sleep time for queries delay
+    private const int NUM_OF_BOARDS = 5;    // number of boards available simultaneously
 
+    // players mapped by callback channel
     private static Dictionary<ICallBack, PlayerData> players = new Dictionary<ICallBack, PlayerData>();
+    
+    // boards mapped by callback channel
     private static Dictionary<ICallBack, Board> players_boards = new Dictionary<ICallBack, Board>();
-    private static Board[] boards = new Board[5];
+
+    // boards that the server offers
+    private static Board[] boards = new Board[NUM_OF_BOARDS];
 
 
-    public void getRegisterFormAdvisorList()
+
+    /* request advisors list from database */
+    public void getAdvisorList()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
         channel.sendRegisterFormAdvisorList(getAllFreeAdvisors());
     }
 
+    /* register new player to database */
     public void registerNewPlayer(PlayerData player, int[] advisors)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -74,6 +83,7 @@ public class TTT : ITTT
         }
     }
 
+    /* register new championship to database */
     public void registerNewChampionship(ChampionshipData champ)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -112,6 +122,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request all users from database */
     public async void getAllUsers(string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -122,6 +133,7 @@ public class TTT : ITTT
         channel.sendPlayers(getAllPlayersFromDB(), caller);
     }
 
+    /* login a player */
     public void login(PlayerData user)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -144,6 +156,7 @@ public class TTT : ITTT
         }
     }
 
+    /* logout a player */
     public void logout(bool waitingForResponse)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -161,12 +174,14 @@ public class TTT : ITTT
         }
     }
 
+    /* flase method to wake the server at the beginning of the program */
     public void wake()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
         channel.response();
     }
 
+    /* request all championships from database for a client query */
     public async void getAllChampionships(int playerId, string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -177,6 +192,7 @@ public class TTT : ITTT
         channel.sendChampionships(getAllChampionships(playerId), caller);
     }
 
+    /* register a player to championship(s) */
     public void registerPlayerToChamp(PlayerData player, ChampionshipData[] chmps)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -218,6 +234,7 @@ public class TTT : ITTT
         }
     }
 
+    /* player request to start a singleplayer / multiplayer game */
     public void startGameRequest(int dim, bool singlePlayer)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -257,6 +274,7 @@ public class TTT : ITTT
         }
     }
 
+    /* inform the server of a player move */
     public void playerPressed(int row, int col)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -270,6 +288,7 @@ public class TTT : ITTT
         players_boards[channel].playerPressed(channel, row, col);
     }
 
+    /* inform the server that a player left the game */
     public void playerExitGame()
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -281,6 +300,7 @@ public class TTT : ITTT
         }
     }
 
+    /* get player data of the requesting player */
     public PlayerData getPlayerData(ICallBack channel)
     {
         if (players.ContainsKey(channel))
@@ -289,6 +309,7 @@ public class TTT : ITTT
             return null;
     }
 
+    /* request to insert a game to database */
     public void insertGameToDB(Game game)
     {
         using (var db = new TTTDataClassesDataContext())
@@ -317,6 +338,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request all games from database for a client query */
     public async void getAllGames(bool withPlayersNames, int playerId, string caller, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -327,6 +349,7 @@ public class TTT : ITTT
         channel.sendGames(getAllGamesFromDB(withPlayersNames, playerId), caller);
     }
 
+    /* request all players of a specific game from database for a client query */
     public async void getGamePlayers(GameData game, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -343,6 +366,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request all advisors of a specific game from database for a client query */
     public void getGameAdvisors(GameData game, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -380,6 +404,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request all players of a specific championship from database for a client query */
     public void getChampionshipPlayers(ChampionshipData chmp, bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -408,6 +433,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request the number of games for each player in database for a client query */
     public void getPlayersGamesNum(bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -441,6 +467,7 @@ public class TTT : ITTT
         }
     }
 
+    /* request the number of championships for each city in database for a client query */
     public void getCitiesChampionshipsNum(bool delay)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -471,6 +498,7 @@ public class TTT : ITTT
         }
     }
 
+    /* update the players database with the changes received in the array */
     public void updatePlayers(PlayerData[] players)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -573,6 +601,7 @@ public class TTT : ITTT
             channel.updateSuccess();
     }
 
+    /* update the championships database with the changes received in the array */
     public void updateChampionships(ChampionshipData[] chmps)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -618,6 +647,7 @@ public class TTT : ITTT
         }
     }
 
+    /* delete the specific player from database */
     public void deletePlayer(PlayerData player)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -656,6 +686,7 @@ public class TTT : ITTT
         }
     }
 
+    /* delete the players from database that matches the specific value in the specific column */
     public void deletePlayers(PlayerData player, string title, string value)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -707,6 +738,7 @@ public class TTT : ITTT
         }
     }
 
+    /* delete the specific championship from database */
     public void deleteChampionship(ChampionshipData chmp)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();
@@ -739,6 +771,7 @@ public class TTT : ITTT
         }
     }
 
+    /* delete the championships from database that matches the specific value in the specific column */
     public void deleteChampionships(string title, string value)
     {
         ICallBack channel = OperationContext.Current.GetCallbackChannel<ICallBack>();

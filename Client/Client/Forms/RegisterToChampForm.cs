@@ -31,12 +31,12 @@ namespace Client
             mainForm.getClient().getAllChampionships(-1, "R", false);
         }
 
+
         private void RegisterToChampForm_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
-
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -81,6 +81,8 @@ namespace Client
         /////////////////////////////////////////////////////
 
 
+        #region Public Methods
+
         public void setChampionshipsList(ChampionshipData[] chmps)
         {
             this.championships = chmps;
@@ -104,5 +106,8 @@ namespace Client
             btnCancel.Enabled = true;
         }
 
+        #endregion
+
     }
+
 }

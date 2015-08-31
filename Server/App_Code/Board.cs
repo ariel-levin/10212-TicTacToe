@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 
+/* class to manage a specific board game */
 public class Board
 {
     private ICallBack player1, player2;
@@ -40,7 +41,6 @@ public class Board
         game.BoardSize = dim;
         game.Player1 = server.getPlayerData(player).Id;
         game.StartTime = DateTime.Now;
-        //game.Moves = "{ \"moves\": [";        // json
         game.Moves = "";                        // simple array
 
         if (singlePlayer)
@@ -177,12 +177,6 @@ public class Board
 
     private void addGameMove(int row, int col)
     {
-        // json
-        //if (moveCount > 0)
-        //    game.Moves += ",";
-        //game.Moves += " { \"r\": " + row + ", \"c\": " + col + " }";
-
-        // simple array
         if (moveCount > 0)
             game.Moves += ":";
         game.Moves += row + "," + col;
@@ -191,13 +185,15 @@ public class Board
     private void endGame()
     {
         gameEnded = true;
-        //game.Moves += " ] }";     // json
         if (player2 != null || singlePlayer)
         {
             game.EndTime = DateTime.Now;
             server.insertGameToDB(game);
         }
     }
+
+
+    #region Public Methods
 
     public bool isWaitingForPlayer2()
     {
@@ -326,5 +322,7 @@ public class Board
             endGame();
         }
     }
+
+    #endregion
 
 }

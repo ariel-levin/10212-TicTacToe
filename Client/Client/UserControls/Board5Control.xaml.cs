@@ -26,7 +26,7 @@ using System.Windows.Interop;
 
 namespace Client
 {
-
+    /* 5x5 board user control for WPF element host on BoardForm */
     public partial class Board5Control : UserControl
     {
         private const int DIM = 5;
@@ -74,6 +74,9 @@ namespace Client
             form.getClient().playerPressed(row, col);
             form.setStatus("Opponent's turn");
         }
+
+
+        #region Public Methods
 
         public void showAnimation(int row, int col, char token)
         {
@@ -126,7 +129,8 @@ namespace Client
             this.opponentToken = (playerToken == 'X') ? 'O' : 'X';
         }
 
+        #endregion
+
     }
 
 }
-

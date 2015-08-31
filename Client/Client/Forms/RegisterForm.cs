@@ -30,9 +30,10 @@ namespace Client
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            mainForm.getClient().getRegisterFormAdvisorList();
+            mainForm.getClient().getAdvisorList();
             ep = new ErrorProvider();
         }
+
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
@@ -40,7 +41,6 @@ namespace Client
             this.Location = new Point(mainForm.Location.X + (mainForm.Width - this.Width) / 2, mainForm.Location.Y + (mainForm.Height - this.Height) / 2);
         }
         
-
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             valid = true;
@@ -98,6 +98,8 @@ namespace Client
         /////////////////////////////////////////////////////
         /////////////////////////////////////////////////////
 
+
+        #region Public Methods
 
         public void setAdvisorList(PlayerData[] players)
         {
@@ -183,5 +185,8 @@ namespace Client
             valid &= ok;
         }
 
+        #endregion
+
     }
+
 }
